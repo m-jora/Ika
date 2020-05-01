@@ -11,14 +11,14 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-  print(f'{client.user.name} connected')
+  print(f'{client.user} connected')
+  print(f'{client.user.name} is connected to the following servers:')
 
-'''@client.event
-async def on_member_join(member):
-  await member.create_dm()
-  await member.dm_channel.send(
-    f'Howdy {member.name}, welcome to Yote INC.'
-  )'''
+
+
+  for guild in client.guilds:
+    print(f'{guild.name} (id: {guild.id})')
+
 
 @client.event
 async def on_message(message):
@@ -28,15 +28,5 @@ async def on_message(message):
   if message.content=='hello':
     await message.channel.send('Howdy')
 
-  if message.content==('yeet'):
-    await message.channel.send('yee haw')
-
-  if message.content == 'how are you':
-    await message.channel.send('my life was a mistake')
-
-  if message.content == 'joe mama':
-    await message.channel.send('joE_mineR.png')
-
-  
 
 client.run(TOKEN)
