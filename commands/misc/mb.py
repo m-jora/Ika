@@ -1,18 +1,13 @@
+# mb.py
+'''contains misc commands'''
+
 import random
-import csv
 
-anime = open('anime.csv', 'r')
 
-async def rad(ctx):
+async def pizza(ctx):
   lit = ['Hi Kendall', 'Pizza', 'Howdy Partner', 'Hello Travis', '<@275065846836101120>', 'Hi Evan',]
   response = random.choice(lit)
   await ctx.send(response)
-
-async def ping(ctx):
-  await  ctx.send('`pong`')
-
-async def pong(ctx):
-  await ctx.send('`ping`')
 
 async def banjo(ctx):
   await ctx.send('''
@@ -48,9 +43,6 @@ async def banjo(ctx):
       \'.|   \'.    |    .\'
         \'--._|____|_.-\'''')
 
-async def evan(ctx):
-  await ctx.send('<@219202507354669057>')
-
 async def hello(ctx):
   greetings = ['Hi', 'Hello', 'Howdy', 'Salutations', 'Hey', 'uwu', 'Shalom',]
   greeting = random.choice(greetings)
@@ -60,3 +52,45 @@ async def hello(ctx):
   await ctx.send(greeting + ' <@' + str(ctx.author.id) + '>' + greets2)
 
 #async def dog(ctx):
+
+async def _8ball(ctx, question):
+  responses = [
+    'As I see it, yes',
+    'Ask again later',
+    'Better not tell you now',
+    'Cannot predict now',
+    'Concentrate and ask again',
+    'Don\'t count on it',
+    'It is certain',
+    'It is decidedly so',
+    'Most likely',
+    'My reply is no',
+    'My sources say no',
+    'Outlook not so good',
+    'Outlook good',
+    'Reply hazy, try again',
+    'Signs point to yes',
+    'Very doubtful',
+    'Without a doubt',
+    'Yes',
+    'Yes - definitely',
+    'You may rely on it',
+    'Please shake again',
+    'Who said I had the answers',
+    'Ask someone else',
+  ]
+
+  if question == '':
+    await ctx.send('Ask me a question by typing ~8ball <question>')
+
+  else:
+    await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')
+
+async def flip(ctx):
+  sides = [
+    'heads',
+    'tails',
+  ]
+
+  await ctx.send(f'It\'s {random.choice(sides)}')
+
