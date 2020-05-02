@@ -13,4 +13,3 @@ async def on_message(message):
   if 'hi mr. bot' in message.content.lower():
     await message.channel.send('How are you?')
 
-  
