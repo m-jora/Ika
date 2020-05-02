@@ -54,6 +54,8 @@ async def words(ctx):
 async def words(ctx):
   await db.hello(ctx)
 
-
-
+'''@bot.command(name = 'dog')
+async def words(ctx):
+  await db.dog(ctx)
+'''
 bot.run(TOKEN)

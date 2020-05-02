@@ -59,3 +59,4 @@ async def hello(ctx):
 
   await ctx.send(greeting + ' <@' + str(ctx.author.id) + '>' + greets2)
 
+#async def dog(ctx):
