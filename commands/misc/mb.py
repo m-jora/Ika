@@ -2,6 +2,8 @@
 '''contains misc commands'''
 
 import random
+import discord
+import json, urllib
 
 
 async def pizza(ctx):
@@ -93,4 +95,43 @@ async def flip(ctx):
   ]
 
   await ctx.send(f'It\'s {random.choice(sides)}')
+
+async def dog(ctx):
+  embed = discord.Embed(
+    title = None,
+    description = None,
+    colour = 0xFF00FF
+  )
+
+  url = 'https://dog.ceo/api/breeds/image/random'
+  response = urllib.request.urlopen(url)
+  data = json.loads(response.read())
+  img = data.get('message')
+
+
+  #embed.set_footer(text = 'dog footer')
+  embed.set_image(url = img)
+  #embed.set_thumbnail(url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
+  #embed.set_author(name = 'dog author', icon_url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
+  #embed.add_field(name = 'dog field', value = 'dog value', inline = False)
+
+  await ctx.send(embed = embed)
+
+
+async def cat(ctx):
+  embed = discord.Embed(
+    colour = 0x0F00A2
+  )
+
+  url = 'http://aws.random.cat/meow'
+  response = urllib.request.urlopen(url)
+  data = json.loads(response.read())
+  img = data.get('file')
+
+  embed.set_image(url = img)
+
+  await ctx.send(embed = embed)
+
+  
+
 

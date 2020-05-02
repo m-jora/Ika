@@ -6,6 +6,7 @@ import os
 import sys
 import random
 import discord
+import urllib.request
 
 from discord.ext import commands
 
@@ -34,6 +35,12 @@ async def on_ready():
     print(f'  {guild.name} (id: {guild.id})')
   
   await bot.change_presence(status = discord.Status.dnd, activity = discord.Game('Becoming More Powerful'))
+
+@bot.event
+async def on_message(msg):
+  if msg.author.bot:
+    return
+  await bot.process_commands(msg)
 
 #add cogs to clean up driver
 @bot.command(help = 'it does something idk')
@@ -84,13 +91,13 @@ async def ban(ctx, member : discord.member, *, reason = None):
 async def unban(ctx, *, member):
   await mod.unban(ctx, member)
 
+@bot.command(help = 'sends images of dogs')
+async def dog(ctx):
+  await mb.dog(ctx)
 
-'''@bot.command()
-async def load(ctx, extension)
-bot.load_extension()
-'''
-
-
+@bot.command(help = 'sends images of cats')
+async def cat(ctx):
+  await mb.cat(ctx)
 
 bot.run(TOKEN)
 
