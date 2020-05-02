@@ -1,16 +1,20 @@
-# bot 1
-
-Beginings of python discord bot
+# Description
+Beginings of my Discord bot
 
 # todo
-Add reactions 
+Add reactions to messages
+>frogpog
 
 Add say command
+>repeat things i say yee haw
 
 Add Inspire command
+>pull images from api/sites given to it?
 
-Pull images
+Post Images
 
 Pull users avater
+>send user info
+>addbot status
 
 Add math?
