@@ -59,3 +59,6 @@ async def words(ctx):
   await db.dog(ctx)
 '''
 bot.run(TOKEN)
+
+
+#random myanimelist anime link
