@@ -5,13 +5,18 @@ Beginings of my Discord bot
 Add reactions to messages
 >frogpog
 
-Add say command
->repeat things i say yee haw
-
-Add Inspire command
+Add commands
 >pull images from api/sites given to it?
+>!dog command
+>minigame commands
+>say command
+>are you subbed to ninja? virgin check
+>lottery command
+>racism from milk to hitler
+>bee movie script for the word jazz
 
 Post Images
+
 
 Pull users avater
 >send user info
