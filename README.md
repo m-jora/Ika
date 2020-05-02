@@ -13,7 +13,6 @@ Add commands
 >are you subbed to ninja? virgin check
 >lottery command
 >racism from milk to hitler
->bee movie script for the word jazz
 
 Post Images
 

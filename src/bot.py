@@ -2,7 +2,6 @@
 
 import os
 import sys
-#import discord
 import random
 
 from discord.ext import commands
@@ -12,14 +11,15 @@ sys.path.insert(1, 'commands/misc/')
 sys.path.insert(1, 'commands/mod/')
 sys.path.insert(1, 'commands/roles/')
 
-import messages
+
+import db
 
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 #client = discord.Client()
-bot = commands.Bot(command_prefix='db.')
+bot = commands.Bot(command_prefix='~')
 
 @bot.event
 async def on_ready():
@@ -32,17 +32,28 @@ async def on_ready():
 
 @bot.command(name='pizza')
 async def words(ctx):
-  lit = ['Hi Kendall', 'Pizza', 'Howdy Partner',]
-  response = random.choice(lit)
-  await ctx.send(response)
+  await db.rad(ctx)
+
+@bot.command(name='ping')
+async def words(ctx):
+  await db.ping(ctx)
+
+@bot.command(name='pong')
+async def words(ctx):
+  await db.pong(ctx)
+
+@bot.command(name = 'banjo')
+async def words(ctx):
+  await db.banjo(ctx)
+
+@bot.command(name = 'evan', help = 'Pings Evan')
+async def words(ctx):
+  await db.evan(ctx)
+
+@bot.command(name = 'hi')
+async def words(ctx):
+  await db.hello(ctx)
 
 
-'''@bot.event
-async def on_message(message):
-  if message.author == bot.user:
-    return
-
-  await messages.on_message(message)
-'''
 
 bot.run(TOKEN)
