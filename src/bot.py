@@ -1,4 +1,5 @@
 #bot.py
+
 import os
 import discord
 
@@ -25,8 +26,19 @@ async def on_message(message):
   if message.author == client.user:
     return
 
-  if message.content=='hello':
+  if 'happy birthday' in message.content.lower():
+    await message.channel.send('Happy Birthday! 🎈🎈')
+
+  if 'dang it jesse' in message.content.lower():
+    await message.channel.send('DANG IT JESSE!')
+
+  if 'hello' in message.content:
     await message.channel.send('Howdy')
+
+  if 'hi mr. bot' in message.content.lower():
+    await message.channel.send('How are you?')
+
+  
 
 
 client.run(TOKEN)
