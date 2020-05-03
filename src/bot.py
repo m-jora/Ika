@@ -100,8 +100,8 @@ async def cat(ctx):
   await mb.cat(ctx)
 
 @bot.command()
-async def say(ctx, *, message):
-  await ctx.send(message)
+async def say(ctx, *, message = ''):
+  await mb.say(ctx, message)
 
 @bot.command()
 async def help(ctx, message = ''):
@@ -110,6 +110,21 @@ async def help(ctx, message = ''):
 @bot.command()
 async def mathfun(ctx, message = ''):
   await mb.mathfun(ctx, message)
+
+@bot.command()
+async def yeet(ctx):
+  if ctx.author.id != 275065846836101120:
+    await ctx.send('You can\'t use this command')
+    return
+  else:
+    await mb.meme(ctx)
+
+
+'''@bot.command()
+async def inspire(ctx):
+  await mb.inspire(ctx)
+'''
+
 
 bot.run(TOKEN)
 

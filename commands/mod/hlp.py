@@ -1,3 +1,5 @@
+# hlp.py
+
 import discord
 
 async def help(ctx, message):
@@ -5,7 +7,7 @@ async def help(ctx, message):
     embed = discord.Embed(
       title = '**COMMANDS**',
       description = 'Mr. bot needs help',
-      colour = 0x36393F
+      colour = 0xFFC500
     )
 
     embed.set_footer(text = '*great day gamers*')
@@ -21,7 +23,7 @@ async def help(ctx, message):
     embed = discord.Embed(
       title = '**GENERAL COMMANDS**',
       description = 'Mr. bot general',
-      colour = 0x36393F
+      colour = 0xFFC500
     )
 
     embed.set_footer(text = '*good day gamers*')
@@ -39,7 +41,11 @@ async def help(ctx, message):
     embed.add_field(name = '**~ping**', value = 'pong', inline = False)
     embed.add_field(name = '**~pizza**', value = 'It does something idk', inline = False)
     embed.add_field(name = '**~pong**', value = 'ping', inline = False)
-  
+    
+    if ctx.author.id == 275065846836101120:
+      embed.add_field(name = '**~yeet**', value = 'sends random memes', inline = False)
+
+
     await ctx.send(embed = embed)
     return
 
@@ -48,7 +54,7 @@ async def help(ctx, message):
     embed = discord.Embed(
       title = '**MOD COMMANDS**',
       description = 'Mr. bot mod',
-      colour = 0x36393F
+      colour = 0xFFC500
     )
 
     embed.set_footer(text = '*ok day gamers*')

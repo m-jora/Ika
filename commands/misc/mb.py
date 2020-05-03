@@ -3,6 +3,7 @@
 
 import random
 import discord
+#import shutil, tempfile
 import json, urllib
 
 
@@ -78,6 +79,7 @@ async def _8ball(ctx, question):
     'Please shake again',
     'Who said I had the answers',
     'Ask someone else',
+    'Why would you ask me that?',
   ]
 
   if question == '':
@@ -100,13 +102,17 @@ async def dog(ctx):
     description = None,
     colour = 0xFF00FF
   )
+  urls = [
+    'http://random.dog/woof',
+    'https://dog.ceo/api/breeds/image/random',
+  ]
 
   url = 'https://dog.ceo/api/breeds/image/random'
   response = urllib.request.urlopen(url)
   data = json.loads(response.read())
   img = data.get('message')
 
-
+ 
   #embed.set_footer(text = 'dog footer')
   embed.set_image(url = img)
   #embed.set_thumbnail(url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
@@ -148,7 +154,7 @@ async def mathfun(ctx, message):
     await ctx.send(embed = embed)
     return
 
-  elif message == '1' or message == 1 or message == 'one' or message == 'One':
+  elif message == '1' or message == 1 or message == 'one' or message == 'One' or message == 'eins':
     embed = discord.Embed(
       colour = 0x00FF00
     )
@@ -159,7 +165,7 @@ async def mathfun(ctx, message):
     return
 
 
-  elif message == '2' or message == 2 or message == 'two' or message == 'Two':
+  elif message == '2' or message == 2 or message == 'two' or message == 'Two' or message == 'zwei':
     embed = discord.Embed(
       colour = 0x00FF00
     )
@@ -169,7 +175,7 @@ async def mathfun(ctx, message):
     await ctx.send(embed = embed)
     return
 
-  elif message == '3' or message == 3 or message == 'three' or message == 'Three':
+  elif message == '3' or message == 3 or message == 'three' or message == 'Three' or message == 'drei':
     embed = discord.Embed(
       colour = 0x00FF00
     )
@@ -182,11 +188,28 @@ async def mathfun(ctx, message):
   else:
     return
 
+async def say(ctx, message):
+  if message == '':
+    return
+
+  else:
+    await ctx.send(message)
+
+async def meme(ctx):
+  embed = discord.Embed(
+    colour = 0xFFFF00
+  )
+
+  url = 'https://meme-api.herokuapp.com/gimme'
+  response = urllib.request.urlopen(url)
+  data = json.loads(response.read())
+  link = data.get('url')
+
+  embed.set_image(url = link)
+
+  await ctx.send(embed = embed)
 
 
-
-
-
-
-
+#async def inspire(ctx):
+  
 
