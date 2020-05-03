@@ -17,6 +17,8 @@ Add commands
 >add reddit command
 
 Check if yeet command is not in CS server
+>make bot able to remove its own messages
+
 
 Pull users avater
 >send user info

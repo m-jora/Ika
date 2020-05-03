@@ -42,7 +42,7 @@ async def help(ctx, message):
     embed.add_field(name = '**~pizza**', value = 'It does something idk', inline = False)
     embed.add_field(name = '**~pong**', value = 'ping', inline = False)
     
-    if ctx.author.id == 275065846836101120:
+    if ctx.author.id == 275065846836101120 or ctx.author.id == 274379254131851264:
       embed.add_field(name = '**~yeet**', value = 'sends random memes', inline = False)
 
 

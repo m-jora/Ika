@@ -113,7 +113,7 @@ async def mathfun(ctx, message = ''):
 
 @bot.command()
 async def yeet(ctx):
-  if ctx.author.id != 275065846836101120:
+  if ctx.author.id != 275065846836101120 and ctx.author.id != 274379254131851264:
     await ctx.send('You can\'t use this command')
     return
   else:
