@@ -18,6 +18,7 @@ sys.path.insert(1, 'commands/roles/')
 
 import mb #mr. bot.py files contains commands
 import mod #mod.py files contains moderation commands
+import hlp #help.py files containing custom help command
 
 
 load_dotenv()
@@ -25,8 +26,9 @@ TOKEN = os.getenv('DISCORD_TOKEN') #obtains bot token from .env file
 
 #client = discord.Client()
 bot = commands.Bot(command_prefix='~')
+bot.remove_command('help')
 
-@bot.event
+@bot.event # messages when the bot is ready lists servers it is
 async def on_ready():
   print(f'{bot.user} connected')
   print(f'{bot.user.name} is connected to the following servers:\n')
@@ -36,68 +38,78 @@ async def on_ready():
   
   await bot.change_presence(status = discord.Status.dnd, activity = discord.Game('Becoming More Powerful'))
 
-@bot.event
+@bot.event # does not allow messages from bots
 async def on_message(msg):
   if msg.author.bot:
     return
   await bot.process_commands(msg)
 
+
+
 #add cogs to clean up driver
-@bot.command(help = 'it does something idk')
+@bot.command()
 async def pizza(ctx):
   await mb.pizza(ctx)
 
-@bot.command(help = 'pong')
+@bot.command()
 async def ping(ctx):
   await ctx.send(f'`pong`')
 
-@bot.command(help = 'ping')
+@bot.command()
 async def pong(ctx):
   await ctx.send('`ping`')
 
-@bot.command(help = 'the worlds worst banjo ascii art')
+@bot.command()
 async def banjo(ctx):
   await mb.banjo(ctx)
 
-@bot.command(help = 'Pings Evan')
-async def evan(ctx):
-  await ctx.send('<@219202507354669057>')
-
-@bot.command(help = 'Mr. bot says greets you')
+@bot.command(aliases = ['Hi', 'hello', 'Hello'])
 async def hi(ctx):
   await mb.hello(ctx)
 
-@bot.command(aliases = ['8ball', 'eightball'], help = 'Ask the magic 8ball questions')
+@bot.command(name = '8ball')
 async def _8ball(ctx, *, question = ''):
   await mb._8ball(ctx, question)
 
-@bot.command(help = 'flip a coin')
+@bot.command()
 async def flip(ctx):
   await mb.flip(ctx)
 
-@bot.command(help = 'clears number of messages give')
+@bot.command()
 async def clear(ctx, amount = 2):
   await mod.clear(ctx, amount)
 
-@bot.command(help = 'kicks member from server if Mr. bot has the permissions')
+@bot.command()
 async def kick(ctx, member : discord.member, *, reason = None):
   await mod.kick(ctx, member, reason)
 
-@bot.command(help = 'bans member from server if Mr. bot has the permissions')
+@bot.command()
 async def ban(ctx, member : discord.member, *, reason = None):
   await mod.ban(ctx, member, reason)
 
-@bot.command(help = 'unbans member from server if Mr. bot has the permissions')
+@bot.command()
 async def unban(ctx, *, member):
   await mod.unban(ctx, member)
 
-@bot.command(help = 'sends images of dogs')
+@bot.command(aliases = ['puppy', 'doggo', 'pup', 'pupper', 'hound', 'mutt'])
 async def dog(ctx):
   await mb.dog(ctx)
 
-@bot.command(help = 'sends images of cats')
+@bot.command(aliases = ['kitty', 'kitten'])
 async def cat(ctx):
   await mb.cat(ctx)
+
+@bot.command()
+async def say(ctx, *, message):
+  await ctx.send(message)
+
+@bot.command()
+async def help(ctx, message = ''):
+  await hlp.help(ctx, message)
+
+@bot.command()
+async def mathfun(ctx, message = ''):
+  await mb.mathfun(ctx, message)
 
 bot.run(TOKEN)
 

@@ -7,9 +7,7 @@ Add reactions to messages
 
 Add commands
 >pull images from api/sites given to it?
->!dog command
 >minigame commands
->say command
 >are you subbed to ninja? virgin check
 >lottery command
 >racism from milk to hitler
@@ -21,6 +19,7 @@ Add commands
 >change nicknames
 >punish people
 >controversy?
+>add poll command
 
 
 Pull users avater

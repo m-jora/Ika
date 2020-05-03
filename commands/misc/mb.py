@@ -53,8 +53,6 @@ async def hello(ctx):
 
   await ctx.send(greeting + ' <@' + str(ctx.author.id) + '>' + greets2)
 
-#async def dog(ctx):
-
 async def _8ball(ctx, question):
   responses = [
     'As I see it, yes',
@@ -117,7 +115,6 @@ async def dog(ctx):
 
   await ctx.send(embed = embed)
 
-
 async def cat(ctx):
   embed = discord.Embed(
     colour = 0x0F00A2
@@ -132,6 +129,64 @@ async def cat(ctx):
 
   await ctx.send(embed = embed)
 
-  
+async def mathfun(ctx, message):
+  if message == '':
+    urls = [
+      'https://i.imgur.com/qsWyYA6.png',
+      'https://i.imgur.com/E6OPjhh.png',
+      'https://i.imgur.com/mDmNUIu.png',
+    ]
+
+    url = random.choice(urls)
+
+    embed = discord.Embed(
+      colour = 0x00FF00
+    )
+
+    embed.set_image(url = url)
+
+    await ctx.send(embed = embed)
+    return
+
+  elif message == '1' or message == 1 or message == 'one' or message == 'One':
+    embed = discord.Embed(
+      colour = 0x00FF00
+    )
+
+    embed.set_image(url = 'https://i.imgur.com/qsWyYA6.png')
+
+    await ctx.send(embed = embed)
+    return
+
+
+  elif message == '2' or message == 2 or message == 'two' or message == 'Two':
+    embed = discord.Embed(
+      colour = 0x00FF00
+    )
+
+    embed.set_image(url = 'https://i.imgur.com/E6OPjhh.png')
+
+    await ctx.send(embed = embed)
+    return
+
+  elif message == '3' or message == 3 or message == 'three' or message == 'Three':
+    embed = discord.Embed(
+      colour = 0x00FF00
+    )
+
+    embed.set_image(url = 'https://i.imgur.com/mDmNUIu.png')
+
+    await ctx.send(embed = embed)
+    return
+
+  else:
+    return
+
+
+
+
+
+
+
 
 
