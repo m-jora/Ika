@@ -35,6 +35,7 @@ async def on_ready():
 
   for guild in bot.guilds:
     print(f'  {guild.name} (id: {guild.id})')
+  print()
   
   await bot.change_presence(status = discord.Status.dnd, activity = discord.Game('Becoming More Powerful'))
 

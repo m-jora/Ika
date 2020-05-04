@@ -155,12 +155,16 @@ async def anisearch(ctx, message):
     response = urllib.request.urlopen(url)
     data = json.loads(response.read())
 
+
     if x == 4:
       if data.get('title_english') == None:
         desc += '**·** **' + data.get('title') + '**'
 
       elif data.get('title_english').lower() != data.get('title').lower():
         desc += '**·** **' + data.get('title') + '**\n' + '--' + data.get('title_english')
+
+      elif data.get('title_english').lower() == data.get('title').lower():
+        desc += '**·** **' + data.get('title') + '**'
 
     else:
       if data.get('title_english') == None:
@@ -169,7 +173,11 @@ async def anisearch(ctx, message):
       elif data.get('title_english').lower() != data.get('title').lower():
         desc += '**·** **' + data.get('title') + '**\n' + '--' + data.get('title_english') + '\n'
 
-  
+      elif data.get('title_english').lower() == data.get('title').lower():
+        desc += '**·** **' + data.get('title') + '**\n'
+
+    #print(desc)
+
   embed = discord.Embed(
     title = '**RESULTS**',
     description = desc,
@@ -339,12 +347,18 @@ async def mangasearch(ctx, message):
       elif data.get('title_english').lower() != data.get('title').lower():
         desc += '**·** **' + data.get('title') + '**\n' + '--' + data.get('title_english')
 
+      elif data.get('title_english').lower() == data.get('title').lower():
+        desc += '**·** **' + data.get('title') + '**'
+
     else:
       if data.get('title_english') == None:
         desc += '**·** **' + data.get('title') + '**\n'
 
       elif data.get('title_english').lower() != data.get('title').lower():
         desc += '**·** **' + data.get('title') + '**\n' + '--' + data.get('title_english') + '\n'
+
+      elif data.get('title_english').lower() == data.get('title').lower():
+        desc += '**·** **' + data.get('title') + '**\n'
 
   
   embed = discord.Embed(

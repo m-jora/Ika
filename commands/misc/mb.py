@@ -205,7 +205,7 @@ async def say(ctx, message):
     return
 
   else:
-    print(ctx.author, ' said ', message)
+    print(ctx.author, 'said', message)
     await ctx.send(message)
 
 async def meme(ctx):
