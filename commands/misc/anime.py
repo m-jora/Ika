@@ -30,6 +30,9 @@ async def mal(ctx, message):
   for x in range(len(title)):
     if title[x].isalnum() or title[x] == ' ':
       title1 += title[x]
+     
+    else:
+      title1 += ' '
 
   if title1 != message:
     info = results.get('results')
