@@ -127,6 +127,10 @@ async def inspire(ctx):
 async def mal(ctx, *, message = ''):
   await anime.mal(ctx, message)
 
+@bot.command()
+async def malsearch(ctx, *, message = ''):
+  await anime.malsearch(ctx, message)
+
 
 bot.run(TOKEN)
 

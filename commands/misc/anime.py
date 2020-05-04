@@ -6,6 +6,7 @@ import random
 import discord
 import urllib, json
 from jikanpy import Jikan
+from emoji import UNICODE_EMOJI
 
 jikan = Jikan()
 
@@ -25,21 +26,18 @@ async def mal(ctx, message):
   info = info[0]
   show = info.get('mal_id')
   title = info.get('title').lower()
-  title1 = ''
+  #title1 = ''
 
-  for x in range(len(title)):
+  '''for x in range(len(title)):
     if title[x].isalnum() or title[x] == ' ':
       title1 += title[x]
      
     else:
-      title1 += ' '
+      title1 += ' '''
 
-  if title1 != message:
-    info = results.get('results')
-    info = info[1]
-    show = info.get('mal_id')
-    title = info.get('title')
+  
 
+  
   url = 'https://api.jikan.moe/v3/anime/' + str(show)
   response = urllib.request.urlopen(url)
   data = json.loads(response.read())
@@ -56,13 +54,16 @@ async def mal(ctx, message):
 
   genre = ''
   for x in genres:
+    if x.get('name') == 'Hentai':
+      await ctx.send('That is not allowed in this channel')
+      return
+
     if x != genres[len(genres) - 1]:
       genre += x.get('name') + ', '
 
     else:
       genre += x.get('name')
   
-
   
   
   #handles dates of the show airing
@@ -108,7 +109,7 @@ async def mal(ctx, message):
 
 
   embed.set_thumbnail(url = img)
-  embed.set_footer(text = 'stuff')
+  #embed.set_footer(text = 'stuff')
   embed.add_field(name = 'Status', value = status)
   embed.add_field(name = 'Number of episodes', value = num_ep)
   embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(pop) + ' / Rank: ' + str(rank), inline = False)
@@ -119,3 +120,62 @@ async def mal(ctx, message):
 
 
   await ctx.send(embed = embed)
+
+
+
+
+
+
+async def malsearch(ctx, message):
+  if message == '':
+    await ctx.send('`You need to enter a show name`')
+    return
+
+  else:
+    message = message.lower()
+
+
+  if message in UNICODE_EMOJI:
+    await ctx.send('Emjois are not allowed')
+    return 
+
+
+  results = jikan.search('anime', message)
+  info = results.get('results')
+  ids = []
+  for x in range(5):
+    ids.append(info[x].get('mal_id'))
+  
+  desc =  ''
+
+  for x in range(5):
+    url = 'https://api.jikan.moe/v3/anime/' + str(ids[x])
+    response = urllib.request.urlopen(url)
+    data = json.loads(response.read())
+
+    if x == 4:
+      if data.get('title_english') == None:
+        desc += '**·** **' + data.get('title') + '**'
+
+      elif data.get('title_english').lower() != data.get('title').lower():
+        desc += '**·** **' + data.get('title') + '**\n' + '---' + data.get('title_english')
+
+    else:
+      if data.get('title_english') == None:
+        desc += '**·** **' + data.get('title') + '**\n'
+
+      elif data.get('title_english').lower() != data.get('title').lower():
+        desc += '**·** **' + data.get('title') + '**\n' + '---' + data.get('title_english') + '\n'
+
+  
+  embed = discord.Embed(
+    title = '**RESULTS**',
+    description = desc,
+    colour = 0x000CFF,
+  )
+
+  embed.set_footer(text = 'Use ~mal <title> to get more information')
+
+  await ctx.send(embed = embed)
+
+  

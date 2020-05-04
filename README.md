@@ -22,6 +22,9 @@ Add commands
 >anime help pages
 >manga search section
 >add option to send list of top 5 shows from results
+>add exception handling for if the anime search returns nothing
+>add image search
+>add account search and score
 >check for channel nsfw other block hentai genre
 
 Check if yeet command is not in CS server
