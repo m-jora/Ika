@@ -19,7 +19,7 @@ sys.path.insert(1, 'commands/roles/')
 import mb #mr. bot.py files contains commands
 import mod #mod.py files contains moderation commands
 import hlp #help.py files containing custom help command
-
+import anime #anime.py files containing jikan mal api
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN') #obtains bot token from .env file
@@ -119,11 +119,13 @@ async def yeet(ctx):
   else:
     await mb.meme(ctx)
 
-
-'''@bot.command()
+@bot.command()
 async def inspire(ctx):
   await mb.inspire(ctx)
-'''
+
+@bot.command()
+async def mal(ctx, *, message = ''):
+  await anime.mal(ctx, message)
 
 
 bot.run(TOKEN)

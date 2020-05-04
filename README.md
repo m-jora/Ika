@@ -15,6 +15,14 @@ Add commands
 >change nicknames
 >add poll command
 >add reddit command
+>dice roll function
+>copy pasta command?
+>dialup command
+>help pages
+>anime help pages
+>manga search section
+>add option to send list of top 5 shows from results
+>check for channel nsfw other block hentai genre
 
 Check if yeet command is not in CS server
 >make bot able to remove its own messages

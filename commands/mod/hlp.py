@@ -1,4 +1,5 @@
 # hlp.py
+# contains the custom help commands
 
 import discord
 
@@ -10,7 +11,7 @@ async def help(ctx, message):
       colour = 0xFFC500
     )
 
-    embed.set_footer(text = '*great day gamers*')
+    embed.set_footer(text = 'great day gamers')
     embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
     embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
     embed.add_field(name = '**GENERAL**', value = 'Type `~help general`', inline = False)
@@ -26,7 +27,7 @@ async def help(ctx, message):
       colour = 0xFFC500
     )
 
-    embed.set_footer(text = '*good day gamers*')
+    embed.set_footer(text = 'good day gamers')
     embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
     embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
     embed.add_field(name = '**~8ball**', value = 'Ask the Magic 8Ball questions', inline = False)
@@ -37,6 +38,7 @@ async def help(ctx, message):
     embed.add_field(name = '**~flip**', value = 'Flips a coin', inline = False)
     embed.add_field(name = '**~help**', value = 'Shows help options', inline = False)
     embed.add_field(name = '**~hi**', value = 'Mr. bot says hello', inline = False)
+    embed.add_field(name = '**~inspire**', value = 'Mr. bot sends an inspirational image', inline = False)
     embed.add_field(name = '**~mathfun**', value = '***mathfun***', inline = False)
     embed.add_field(name = '**~ping**', value = 'pong', inline = False)
     embed.add_field(name = '**~pizza**', value = 'It does something idk', inline = False)
@@ -57,7 +59,7 @@ async def help(ctx, message):
       colour = 0xFFC500
     )
 
-    embed.set_footer(text = '*ok day gamers*')
+    embed.set_footer(text = 'ok day gamers')
     embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
     embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
     embed.add_field(name = '**~ban**', value = 'Bans user passed if calling user has permission', inline = False)

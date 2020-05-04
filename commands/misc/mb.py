@@ -107,19 +107,31 @@ async def dog(ctx):
     'https://dog.ceo/api/breeds/image/random',
   ]
 
-  url = 'https://dog.ceo/api/breeds/image/random'
+  url = random.choice(urls)
   response = urllib.request.urlopen(url)
-  data = json.loads(response.read())
-  img = data.get('message')
 
- 
-  #embed.set_footer(text = 'dog footer')
-  embed.set_image(url = img)
-  #embed.set_thumbnail(url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
-  #embed.set_author(name = 'dog author', icon_url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
-  #embed.add_field(name = 'dog field', value = 'dog value', inline = False)
+  if url == urls[0]:
+    data = response.read()
+    img = data.decode('utf-8')
+    pic = 'http://random.dog/' + img
 
-  await ctx.send(embed = embed)
+    embed.set_image(url = pic)
+
+    await ctx.send(embed = embed)
+    return
+
+  else:
+    data = json.loads(response.read())
+    img = data.get('message')
+
+    #embed.set_footer(text = 'dog footer')
+    embed.set_image(url = img)
+    #embed.set_thumbnail(url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
+    #embed.set_author(name = 'dog author', icon_url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
+    #embed.add_field(name = 'dog field', value = 'dog value', inline = False)
+
+    await ctx.send(embed = embed)
+    return
 
 async def cat(ctx):
   embed = discord.Embed(
@@ -209,7 +221,21 @@ async def meme(ctx):
 
   await ctx.send(embed = embed)
 
+async def inspire(ctx):
+  embed = discord.Embed(
+    colour = 0x8000FF
+  )  
 
-#async def inspire(ctx):
-  
+  headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+  }
 
+  url = 'https://inspirobot.me/api?generate=true'
+  req = urllib.request.Request(url = url, headers = headers)
+  response = urllib.request.urlopen(req).read()
+
+  img = response.decode('utf-8')
+
+  embed.set_image(url = img)
+
+  await ctx.send(embed = embed)
