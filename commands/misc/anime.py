@@ -290,8 +290,8 @@ async def manga(ctx, message):
   embed.add_field(name = 'Status', value = status)
   embed.add_field(name = 'Number of Chapters', value = str(chapters))
   embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(pop) + ' / Rank: ' + str(rank), inline = False)
-  embed.add_field(name = 'Started Airing', value = start)
-  embed.add_field(name = 'Finished Airing', value = end)
+  embed.add_field(name = 'Started Publishing', value = start)
+  embed.add_field(name = 'Finished Publishing', value = end)
   embed.add_field(name = 'Synopsis', value = description, inline = False)
   embed.add_field(name = 'Genres', value = genre, inline = False)
 
