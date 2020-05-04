@@ -135,7 +135,7 @@ async def dog(ctx):
 
 async def cat(ctx):
   embed = discord.Embed(
-    colour = 0x0F00A2
+    colour = 0xFF00FF
   )
 
   url = 'http://aws.random.cat/meow'

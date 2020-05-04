@@ -358,4 +358,7 @@ async def mangasearch(ctx, message):
   await ctx.send(embed = embed)
 
 
+async def account(ctx, message):
+  user = jikan.user(username = message)
 
+  print(user)

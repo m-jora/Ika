@@ -139,6 +139,10 @@ async def manga(ctx, *, message = ''):
 async def mangasearch(ctx, *, message = ''):
   await anime.mangasearch(ctx, message)
 
+@bot.command()
+async def account(ctx, *, message = ''):
+  await anime.account(ctx, message)
+
 bot.run(TOKEN)
 
 
