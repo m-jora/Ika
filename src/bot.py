@@ -124,13 +124,20 @@ async def inspire(ctx):
   await mb.inspire(ctx)
 
 @bot.command()
-async def mal(ctx, *, message = ''):
-  await anime.mal(ctx, message)
+async def ani(ctx, *, message = ''):
+  await anime.ani(ctx, message)
 
 @bot.command()
-async def malsearch(ctx, *, message = ''):
-  await anime.malsearch(ctx, message)
+async def anisearch(ctx, *, message = ''):
+  await anime.anisearch(ctx, message)
 
+@bot.command()
+async def manga(ctx, *, message = ''):
+  await anime.manga(ctx, message)
+
+@bot.command()
+async def mangasearch(ctx, *, message = ''):
+  await anime.mangasearch(ctx, message)
 
 bot.run(TOKEN)
 
