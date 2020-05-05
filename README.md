@@ -1,6 +1,6 @@
 Mr. bot
 =======
-[![Travis (.org)](https://i.imgur.com/CUvhFkS.png)](https://travis-ci.org/AWConant/jikanpy)
+[![Travis (.org)](https://i.imgur.com/CUvhFkS.png)]
 
 
 
