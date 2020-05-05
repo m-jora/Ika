@@ -10,8 +10,7 @@ Add reactions to messages
 
 Add commands
 >mingames?
->>tic tac toe
-
+>>tic tac toe / 
 >>hangman game
 
 >ability to change user nicknames
@@ -25,21 +24,20 @@ Add commands
 >copy pasta command?
 
 >audio commands
->>piano sounds, violin sounds, etc.\n
+>>piano sounds, violin sounds, etc. / 
 >>dialup sound
 
 >anime commands
->>add image anime search
+>>add image anime search / 
+>>add season search / 
 
->>add season search
+>>add top shows preview / 
 
->>add top shows preview
+>>add account search and score / 
 
->>add account search and score
+>>check for channel nsfw other block hentai genre / 
 
->>check for channel nsfw other block hentai genre
-
->>add character search
+>>add character search / 
 
 
 >make bot abole to remove its own messages
