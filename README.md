@@ -1,3 +1,9 @@
+Mr. bot
+=======
+[![Travis (.org)](https://i.imgur.com/CUvhFkS.png)](https://travis-ci.org/AWConant/jikanpy)
+
+
+
 # Description
 Beginings of my Discord bot
 
