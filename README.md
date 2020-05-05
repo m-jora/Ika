@@ -1,41 +1,56 @@
 Mr. bot
 =======
-[![Travis (.org)](https://i.imgur.com/CUvhFkS.png)]
+
+Mr. bot is a discord bot made in python designed with many different functions but, is mainly focused on connection with the Jikanpy MAL API. 
 
 
-
-# Description
-Beginings of my Discord bot
 
 # todo
 Add reactions to messages
->frogpog
 
 Add commands
 >mingames?
 >>tic tac toe
->lottery command
->hangman game
->change nicknames
+
+>>hangman game
+
+>ability to change user nicknames
+
 >add poll command
->add reddit command
+>>include timer and send results when pole finishs
+
 >dice roll function
+>>select which type of die you would like d6, d20, d12, etc
+
 >copy pasta command?
->dialup command
->add image anime search
->add season search
->add top preview
->add account search and score
->check for channel nsfw other block hentai genre
->add character search
+
+>audio commands
+>>piano sounds, violin sounds, etc.
+
+>>dialup sound
+
+>anime commands
+>>add image anime search
+
+>>add season search
+
+>>add top shows preview
+
+>>add account search and score
+
+>>check for channel nsfw other block hentai genre
+
+>>add character search
 
 
-Check if yeet command is not in CS server
->make bot able to remove its own messages
+>make bot abole to remove its own messages
 
+> make userinfo 
 
-Pull users avater
->send user info
->addbot status
+>bot status command
 
-Add math?
+>implement math
+
+>add server checks for specific commands
+
+>add role checks for mod commands
