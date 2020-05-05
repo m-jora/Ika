@@ -373,9 +373,16 @@ async def mangasearch(ctx, message):
 
 
 async def account(ctx, message):
-  user = jikan.user(username = message)
+  if message == '':
+    await ctx.send('`Please provide an account name`')
+    return
 
-  #print(user)
+  try:
+    user = jikan.user(username = message)
+
+  except:
+    await ctx.send('`User not found`')
+    return
 
   url = user.get('url')
   username = user.get('username')

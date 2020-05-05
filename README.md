@@ -30,13 +30,9 @@ Add commands
 >anime commands
 >>add image anime search / 
 >>add season search / 
-
 >>add top shows preview / 
-
 >>add account search and score / 
-
 >>check for channel nsfw other block hentai genre / 
-
 >>add character search / 
 
 
@@ -53,3 +49,5 @@ Add commands
 >add role checks for mod commands
 
 >tyme returns time formatted wrong ex: if time is 6:30 return 5:90
+
+>error handling for commands that dont exist
