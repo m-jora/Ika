@@ -51,3 +51,5 @@ Add commands
 >add server checks for specific commands
 
 >add role checks for mod commands
+
+>tyme returns time formatted wrong ex: if time is 6:30 return 5:90

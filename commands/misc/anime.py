@@ -375,4 +375,44 @@ async def mangasearch(ctx, message):
 async def account(ctx, message):
   user = jikan.user(username = message)
 
-  print(user)
+  #print(user)
+
+  url = user.get('url')
+  username = user.get('username')
+  anime = user.get('anime_stats')
+
+  if user.get('image_url') == None:
+    img = 'https://i.imgur.com/9mnjji8.png'
+
+  else:
+    img = user.get('image_url')
+
+  days = anime.get('days_watched')
+  avg_score = anime.get('mean_score')
+  watching = anime.get('watching')
+  completed = anime.get('completed')
+  hold = anime.get('on_hold')
+  dropped = anime.get('dropped')
+  plan = anime.get('plan_to_watch')
+  total = anime.get('total_entries')
+  num_ep = anime.get('episodes_watched')
+
+  embed = discord.Embed(
+    title = '**' + username + '**',
+    colour = 0x000CFF,
+    url = url
+  )
+
+
+  embed.set_thumbnail(url = img)
+  embed.add_field(name = 'Days watched', value = days)
+  embed.add_field(name = 'Episodes Watched', value = num_ep)
+
+  await ctx.send(embed = embed)
+
+
+
+
+
+
+
