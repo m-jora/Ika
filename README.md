@@ -25,7 +25,7 @@ Add commands
 >copy pasta command?
 
 >audio commands
->>piano sounds, violin sounds, etc.
+>>piano sounds, violin sounds, etc.\n
 >>dialup sound
 
 >anime commands
