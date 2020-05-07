@@ -414,6 +414,13 @@ async def account(ctx, message):
   embed.set_thumbnail(url = img)
   embed.add_field(name = 'Days watched', value = days)
   embed.add_field(name = 'Episodes Watched', value = num_ep)
+  embed.add_field(name = 'Avg Score', value = avg_score)
+  embed.add_field(name = 'Total number of shows', value = total)
+  embed.add_field(name = 'Watching', value = watching)
+  embed.add_field(name = 'Completed', value = completed)
+  embed.add_field(name = 'Plan to Watch', value = plan)
+  embed.add_field(name = 'Dropped', value = dropped)
+  embed.add_field(name = 'On hold', value = hold)
 
   await ctx.send(embed = embed)
 
