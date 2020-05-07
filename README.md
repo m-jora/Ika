@@ -49,3 +49,7 @@ Add commands
 >add role checks for mod commands
 
 >tyme returns time formatted wrong ex: if time is 6:30 return 5:90
+
+>add custom prefix help
+
+>add status help for only me

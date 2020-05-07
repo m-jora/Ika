@@ -149,52 +149,28 @@ async def cat(ctx):
 
 async def mathfun(ctx, message):
   if message == '':
-    urls = [
-      'https://i.imgur.com/qsWyYA6.png',
-      'https://i.imgur.com/E6OPjhh.png',
-      'https://i.imgur.com/mDmNUIu.png',
+    location = [
+      'images/3.png',
+      'images/2.png',
+      'images/1.png',
     ]
 
-    url = random.choice(urls)
+    pic = random.choice(location)
 
-    embed = discord.Embed(
-      colour = 0x00FF00
-    )
-
-    embed.set_image(url = url)
-
-    await ctx.send(embed = embed)
+    await ctx.send(file = discord.File(pic))
     return
 
   elif message == '1' or message == 1 or message == 'one' or message == 'One' or message == 'eins':
-    embed = discord.Embed(
-      colour = 0x00FF00
-    )
-
-    embed.set_image(url = 'https://i.imgur.com/qsWyYA6.png')
-
-    await ctx.send(embed = embed)
+    await ctx.send(file = discord.File('images/1.png'))
     return
 
 
   elif message == '2' or message == 2 or message == 'two' or message == 'Two' or message == 'zwei':
-    embed = discord.Embed(
-      colour = 0x00FF00
-    )
-
-    embed.set_image(url = 'https://i.imgur.com/E6OPjhh.png')
-
-    await ctx.send(embed = embed)
+    await ctx.send(file = discord.File('images/2.png'))
     return
 
   elif message == '3' or message == 3 or message == 'three' or message == 'Three' or message == 'drei':
-    embed = discord.Embed(
-      colour = 0x00FF00
-    )
-
-    embed.set_image(url = 'https://i.imgur.com/mDmNUIu.png')
-
-    await ctx.send(embed = embed)
+    await ctx.send(file = discord.File('images/3.png'))
     return
 
   else:

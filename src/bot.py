@@ -174,6 +174,9 @@ async def cat(ctx):
 
 @bot.command()
 async def say(ctx, *, message = ''):
+  if ctx.guild.id == 647960154079232041:
+    await ctx.send('Not allowed in this server')
+    return
   await mb.say(ctx, message)
 
 @bot.command()
@@ -186,8 +189,8 @@ async def mathfun(ctx, message = ''):
 
 @bot.command()
 async def yeet(ctx):
-  if ctx.author.id != 275065846836101120 and ctx.author.id != 274379254131851264:
-    await ctx.send('You can\'t use this command')
+  if ctx.guild.id == 647960154079232041:
+    await ctx.send('`Command not allowed in this server.`')
     return
   else:
     await mb.meme(ctx)
@@ -215,8 +218,6 @@ async def mangasearch(ctx, *, message = ''):
 @bot.command()
 async def account(ctx, *, message = ''):
   await anime.account(ctx, message)
-
-
 
 
 

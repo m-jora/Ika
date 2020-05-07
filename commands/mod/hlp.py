@@ -39,13 +39,14 @@ async def help(ctx, message):
     embed.add_field(name = '**~help**', value = 'Shows help options', inline = False)
     embed.add_field(name = '**~hi**', value = 'Mr. bot says hello', inline = False)
     embed.add_field(name = '**~inspire**', value = 'Mr. bot sends an inspirational image', inline = False)
-    embed.add_field(name = '**~mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
+    if ctx.guild.id == 647960154079232041:
+      embed.add_field(name = '**~mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
     embed.add_field(name = '**~ping**', value = 'pong', inline = False)
     embed.add_field(name = '**~pizza**', value = 'It does something idk', inline = False)
     embed.add_field(name = '**~pong**', value = 'ping', inline = False)
     embed.add_field(name = '**~say <message to repeat>**', value = 'Mr. bot repeats message given', inline = False)
     
-    if ctx.author.id == 275065846836101120 or ctx.author.id == 274379254131851264:
+    if ctx.guild.id != 647960154079232041:
       embed.add_field(name = '**~yeet**', value = 'sends random memes', inline = False)
 
 
