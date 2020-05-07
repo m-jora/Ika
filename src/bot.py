@@ -45,9 +45,39 @@ async def on_message(msg):
     return
   await bot.process_commands(msg)
 
-
+@bot.event # prints Command not Found to console if given command does not exist
+async def on_command_error(ctx, error):
+  if isinstance(error, commands.CommandNotFound):
+    print('CNF')
+  else:
+    print(error)
 
 #add cogs to clean up driver
+@bot.command()
+async def status(ctx, status, *, msg = ''):
+  if ctx.author.id != 275065846836101120:
+    await ctx.send('`You can\'t use this command`')
+    return
+  else:
+    if status == '':
+      return
+
+    elif status == 'online':
+      await bot.change_presence(status = discord.Status.online, activity = discord.Game(msg))
+      return
+
+    elif status == 'invisible':
+      await bot.change_presence(status = discord.Status.invisible, activity = discord.Game(msg))
+      return
+
+    elif status == 'dnd':
+      await bot.change_presence(status = discord.Status.dnd, activity = discord.Game(msg))
+      return
+
+    elif status == 'idle':
+      await bot.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
+      return
+
 @bot.command()
 async def pizza(ctx):
   await mb.pizza(ctx)
@@ -144,7 +174,14 @@ async def mangasearch(ctx, *, message = ''):
 async def account(ctx, *, message = ''):
   await anime.account(ctx, message)
 
+
+
+
+
+
+
+
+
+
+
 bot.run(TOKEN)
-
-
-#random myanimelist anime link
