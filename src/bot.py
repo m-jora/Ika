@@ -4,7 +4,7 @@
 
 import os
 import sys
-import random
+import random, json
 import discord
 import urllib.request
 
@@ -24,8 +24,15 @@ import anime #anime.py files containing jikan mal api
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN') #obtains bot token from .env file
 
+def get_prefix(bot, msg):
+  with open('src/prefix.json', 'r') as f:
+    prefixes = json.load(f)
+
+  return prefixes[str(msg.guild.id)]
+
+
 #client = discord.Client()
-bot = commands.Bot(command_prefix='~')
+bot = commands.Bot(command_prefix = get_prefix)
 bot.remove_command('help')
 
 @bot.event # messages when the bot is ready lists servers it is
@@ -44,6 +51,26 @@ async def on_message(msg):
   if msg.author.bot:
     return
   await bot.process_commands(msg)
+
+@bot.event
+async def on_guild_join(guild):
+  with open('src/prefix.json', 'r') as f:
+    prefixes = json.load(f)
+
+  prefixes[str(guild.id)] = '~'
+
+  with open('src/prefix.json', 'w') as f:
+    json.dump(prefixes, f, indent = 2)
+
+@bot.event
+async def on_guild_remove(guild):
+  with open('src/prefix.json', 'r') as f:
+    prefixes = json.load(f)
+
+  prefixes.pop(str(guild.id))
+
+  with open('src/prefixes.json', 'w') as f:
+    json.dump(prefixes, f, indent = 2)
 
 @bot.event # prints Command not Found to console if given command does not exist
 async def on_command_error(ctx, error):
@@ -77,6 +104,21 @@ async def status(ctx, status, *, msg = ''):
     elif status == 'idle':
       await bot.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
       return
+
+@bot.command()
+async def prefix(ctx, prefix):
+  if ctx.author.id != 275065846836101120:
+    await ctx.send('`You can\'t use this command`')
+    return
+
+  else:
+    with open('src/prefix.json', 'r') as f:
+      prefixes = json.load(f)
+
+    prefixes[str(ctx.guild.id)] = prefix
+
+    with open('src/prefix.json', 'w') as f:
+      json.dump(prefixes, f, indent = 2)
 
 @bot.command()
 async def pizza(ctx):
