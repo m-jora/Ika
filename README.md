@@ -34,6 +34,8 @@ Add commands
 >>add account search and score / 
 >>check for channel nsfw other block hentai genre / 
 >>add character search / 
+>>select airing shows per user /
+>>bot posts airing shows daily/weekly?
 
 
 >make bot abole to remove its own messages

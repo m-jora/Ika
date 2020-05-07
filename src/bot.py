@@ -174,9 +174,6 @@ async def cat(ctx):
 
 @bot.command()
 async def say(ctx, *, message = ''):
-  if ctx.guild.id == 647960154079232041:
-    await ctx.send('Not allowed in this server')
-    return
   await mb.say(ctx, message)
 
 @bot.command()
