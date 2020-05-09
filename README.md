@@ -37,6 +37,7 @@ Add commands
 >>select airing shows per user /
 >>bot posts airing shows daily/weekly?
 
+>make pings async so whole bot doesnt hault
 
 >make bot abole to remove its own messages
 

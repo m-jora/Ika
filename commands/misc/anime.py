@@ -4,7 +4,7 @@
 
 import random
 import discord
-import urllib, json
+import asyncio, aiohttp
 from jikanpy import Jikan
 from emoji import UNICODE_EMOJI
 
@@ -39,9 +39,9 @@ async def ani(ctx, message):
 
   
   url = 'https://api.jikan.moe/v3/anime/' + str(show)
-  response = urllib.request.urlopen(url)
-  data = json.loads(response.read())
-
+  async with aiohttp.ClientSession() as session:
+    data = await fetch(session, url)
+ 
   img = data.get('image_url')
   title = data.get('title')
   num_ep = data.get('episodes')
@@ -109,7 +109,6 @@ async def ani(ctx, message):
 
 
   embed.set_thumbnail(url = img)
-  #embed.set_footer(text = 'stuff')
   embed.add_field(name = 'Status', value = status)
   embed.add_field(name = 'Number of episodes', value = num_ep)
   embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(pop) + ' / Rank: ' + str(rank), inline = False)
@@ -152,8 +151,8 @@ async def anisearch(ctx, message):
 
   for x in range(5):
     url = 'https://api.jikan.moe/v3/anime/' + str(ids[x])
-    response = urllib.request.urlopen(url)
-    data = json.loads(response.read())
+    async with aiohttp.ClientSession() as session:
+      data = await fetch(session, url)
 
 
     if x == 4:
@@ -176,7 +175,6 @@ async def anisearch(ctx, message):
       elif data.get('title_english').lower() == data.get('title').lower():
         desc += '**·** **' + data.get('title') + '**\n'
 
-    #print(desc)
 
   embed = discord.Embed(
     title = '**RESULTS**',
@@ -213,11 +211,11 @@ async def manga(ctx, message):
   show = info.get('mal_id')
   title = info.get('title').lower()
   
-
   
   url = 'https://api.jikan.moe/v3/manga/' + str(show)
-  response = urllib.request.urlopen(url)
-  data = json.loads(response.read())
+  async with aiohttp.ClientSession() as session:
+    data = await fetch(session, url)
+
 
   img = data.get('image_url')
   title = data.get('title')
@@ -225,10 +223,6 @@ async def manga(ctx, message):
   chapters = data.get('chapters')
   if chapters == None:
     chapters = 'Currently Publishing'
-
-  '''volumes = data.get('volumes')
-  if volumes == None:
-    volumes = 'Currently Publishing'''
 
   status = data.get('status')
   score = data.get('score')
@@ -249,8 +243,6 @@ async def manga(ctx, message):
     else:
       genre += x.get('name')
   
-  
-  
   #handles dates of the show airing
   aired = data.get('published')
   start = aired.get('from')
@@ -264,14 +256,11 @@ async def manga(ctx, message):
     start = start[:10]
  
 
-
   if end == None and start != None:
     end = 'On Going'
 
   elif end != 'Not Yet Published':
     end = end[:10]
-
-  
 
 
   link = data.get('url')
@@ -294,7 +283,6 @@ async def manga(ctx, message):
 
 
   embed.set_thumbnail(url = img)
-  #embed.set_footer(text = 'stuff')
   embed.add_field(name = 'Status', value = status)
   embed.add_field(name = 'Number of Chapters', value = str(chapters))
   embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(pop) + ' / Rank: ' + str(rank), inline = False)
@@ -337,8 +325,8 @@ async def mangasearch(ctx, message):
 
   for x in range(5):
     url = 'https://api.jikan.moe/v3/manga/' + str(ids[x])
-    response = urllib.request.urlopen(url)
-    data = json.loads(response.read())
+    async with aiohttp.ClientSession() as session:
+      data = await fetch(session, url)
 
     if x == 4:
       if data.get('title_english') == None:
@@ -424,9 +412,29 @@ async def account(ctx, message):
 
   await ctx.send(embed = embed)
 
+async def aniseason(ctx, year, sesn):
+  season = jikan.season(year = int(year), season = sesn)
+  anime = season.get('anime')
+
+  embed = discord.Embed(
+    title = sesn + ' ' + year + ' season',
+    colour = 0x000CFF
+  )
+
+
+  for x in range(5):
+    title = anime[x].get('title')
+    ep = anime[x].get('episodes')
+    score = anime[x].get('score')
+
+    embed.add_field(name = title, value = '#Eps: ' + str(ep) + ' / Score: ' + str(score))
+
+
+  await ctx.send(embed = embed)
+  #'anime': is list of shows
 
 
 
-
-
-
+async def fetch(session, url):
+  async with session.get(url) as response:
+    return await response.json()

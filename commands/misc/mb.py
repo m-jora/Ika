@@ -3,8 +3,7 @@
 
 import random
 import discord
-#import shutil, tempfile
-import json, urllib
+import asyncio, aiohttp
 
 
 async def pizza(ctx):
@@ -108,12 +107,11 @@ async def dog(ctx):
   ]
 
   url = random.choice(urls)
-  response = urllib.request.urlopen(url)
 
   if url == urls[0]:
-    data = response.read()
-    img = data.decode('utf-8')
-    pic = 'http://random.dog/' + img
+    async with aiohttp.ClientSession() as session:
+      html = await ftext(session, url)
+      pic = 'http://random.dog/' + html
 
     embed.set_image(url = pic)
 
@@ -121,14 +119,11 @@ async def dog(ctx):
     return
 
   else:
-    data = json.loads(response.read())
-    img = data.get('message')
+    async with aiohttp.ClientSession() as session:
+      html = await fetch(session, url)
+      img = html.get('message')
 
-    #embed.set_footer(text = 'dog footer')
     embed.set_image(url = img)
-    #embed.set_thumbnail(url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
-    #embed.set_author(name = 'dog author', icon_url = "https://images.dog.ceo/breeds/terrier-lakeland/n02095570_284.jpg")
-    #embed.add_field(name = 'dog field', value = 'dog value', inline = False)
 
     await ctx.send(embed = embed)
     return
@@ -139,9 +134,9 @@ async def cat(ctx):
   )
 
   url = 'http://aws.random.cat/meow'
-  response = urllib.request.urlopen(url)
-  data = json.loads(response.read())
-  img = data.get('file')
+  async with aiohttp.ClientSession() as session:
+    html = await fetch(session, url)
+    img = html.get('file')
 
   embed.set_image(url = img)
 
@@ -190,9 +185,9 @@ async def meme(ctx):
   )
 
   url = 'https://meme-api.herokuapp.com/gimme'
-  response = urllib.request.urlopen(url)
-  data = json.loads(response.read())
-  link = data.get('url')
+  async with aiohttp.ClientSession() as session:
+    html = await fetch(session, url)
+    link = html.get('url')
 
   embed.set_image(url = link)
 
@@ -216,3 +211,14 @@ async def inspire(ctx):
   embed.set_image(url = img)
 
   await ctx.send(embed = embed)
+
+
+
+
+async def fetch(session, url):
+  async with session.get(url) as response:
+    return await response.json()
+
+async def ftext(session, url):
+  async with session.get(url) as response:
+    return await response.text()

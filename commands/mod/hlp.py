@@ -33,7 +33,7 @@ async def help(ctx, message):
     embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
     embed.add_field(name = '**~8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
     embed.add_field(name = '**~banjo**', value = 'Prints worlds worst ascii art', inline = False)
-    embed.add_field(name = '**~cat**', value = 'Sends random cat pictures', inline = False)
+    #embed.add_field(name = '**~cat**', value = 'Sends random cat pictures', inline = False)
     embed.add_field(name = '**~dog**', value = 'Sends random dog pictures', inline = False)
     embed.add_field(name = '**~flip**', value = 'Flips a coin', inline = False)
     embed.add_field(name = '**~help**', value = 'Shows help options', inline = False)
