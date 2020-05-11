@@ -1,15 +1,16 @@
 # anime.py
 # allows for searching of mal returning animes
-# maybe mangas soon?
 
 import random
 import discord
 import asyncio, aiohttp
-from jikanpy import Jikan
+#from jikanpy import Jikan
+from jikanpy import AioJikan
 from emoji import UNICODE_EMOJI
 
-jikan = Jikan()
-
+#jikan = Jikan()
+loop = asyncio.get_event_loop()
+aio_jikan = AioJikan(loop = loop)
 
 async def ani(ctx, message):
 
@@ -24,7 +25,7 @@ async def ani(ctx, message):
     await ctx.send('`Emjois are not allowed`')
     return
 
-  results = jikan.search('anime', message)
+  results = await aio_jikan.search('anime', message)
   info = results.get('results')
 
   check = []
@@ -135,7 +136,7 @@ async def anisearch(ctx, message):
     return 
 
 
-  results = jikan.search('anime', message)
+  results = await aio_jikan.search('anime', message)
   info = results.get('results')
   ids = []
 
@@ -199,7 +200,7 @@ async def manga(ctx, message):
     await ctx.send('`Emjois are not allowed`')
     return
 
-  results = jikan.search('manga', message)
+  results = await aio_jikan.search('manga', message)
   info = results.get('results')
 
   check = []
@@ -309,7 +310,7 @@ async def mangasearch(ctx, message):
     return 
 
 
-  results = jikan.search('manga', message)
+  results = await aio_jikan.search('manga', message)
   info = results.get('results')
   ids = []
 
@@ -366,7 +367,7 @@ async def account(ctx, message):
     return
 
   try:
-    user = jikan.user(username = message)
+    user = await aio_jikan.user(username = message)
 
   except:
     await ctx.send('`User not found`')
@@ -412,26 +413,99 @@ async def account(ctx, message):
 
   await ctx.send(embed = embed)
 
+
 async def aniseason(ctx, year, sesn):
-  season = jikan.season(year = int(year), season = sesn)
+  season = await aio_jikan.season(year = int(year), season = sesn)
   anime = season.get('anime')
 
   embed = discord.Embed(
-    title = sesn + ' ' + year + ' season',
+    title = sesn.capitalize() + ' ' + year + ' Season',
     colour = 0x000CFF
   )
-
 
   for x in range(5):
     title = anime[x].get('title')
     ep = anime[x].get('episodes')
     score = anime[x].get('score')
 
-    embed.add_field(name = title, value = '#Eps: ' + str(ep) + ' / Score: ' + str(score), inline = False)
-
+    embed.add_field(name = title, value = 'Eps: ' + str(ep) + ' / Score: ' + str(score), inline = False)
 
   await ctx.send(embed = embed)
   #'anime': is list of shows
+
+
+async def schedule(ctx, day):
+  shows = {
+    'm':'monday',
+    't':'tuesday',
+    'w':'wednesday',
+    'r':'thursday',
+    'f':'friday',
+    's':'saturday',
+    'su':'sunday'
+  }
+
+  if day == '':
+    scheduled = await aio_jikan.schedule()
+    days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+
+    embed = discord.Embed(
+      title = 'Airing',
+      colour = 0x000CFF
+    )
+
+    for x in range(7):
+      hr = scheduled.get(days[x])
+      date = days[x]
+      sch = hr[0]
+      title = sch.get('title')
+      score = sch.get('score')
+
+      embed.add_field(name = date.capitalize(), value = title + '\nScore: ' + str(score), inline = False)
+
+
+    await ctx.send(embed = embed)
+    return
+
+  elif day == 'days':
+    desc = ''
+
+    for x in shows:
+      desc += x + ' : ' + shows[x] + '\n'
+      print(desc)
+
+    embed = discord.Embed(
+      title = 'Days',
+      colour = 0x000CFF,
+      description = desc
+    )
+    await ctx.send(embed = embed)
+    return
+
+  elif day in shows:
+    scheduled = await aio_jikan.schedule(shows[day])
+    
+    embed = discord.Embed(
+      title = shows[day].capitalize(),
+      colour = 0x000CFF
+    )
+
+    for x in range(7):
+      hr = scheduled.get(shows[day])
+      sch = hr[x]
+      title = sch.get('title')
+      score = sch.get('score')
+
+      embed.add_field(name = title, value = 'Score: ' + str(score), inline = False)
+
+    await ctx.send(embed = embed)
+    return
+
+  else:
+    await ctx.send('`input a valid day`')
+    return
+
+
 
 
 

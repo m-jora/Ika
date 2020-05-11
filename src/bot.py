@@ -57,7 +57,7 @@ async def on_guild_join(guild):
   with open('src/prefix.json', 'r') as f:
     prefixes = json.load(f)
 
-  prefixes[str(guild.id)] = '~'
+  prefixes[str(guild.id)] = 'm.'
 
   with open('src/prefix.json', 'w') as f:
     json.dump(prefixes, f, indent = 2)
@@ -215,6 +215,15 @@ async def mangasearch(ctx, *, message = ''):
 @bot.command()
 async def aniseason(ctx, year = '', season = ''):
   await anime.aniseason(ctx, year, season)
+
+@bot.command()
+async def schedule(ctx, day = ''):
+  await anime.schedule(ctx, day)
+
+
+
+
+
 
 @bot.command()
 async def account(ctx, *, message = ''):

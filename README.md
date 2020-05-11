@@ -28,18 +28,11 @@ Add commands
 >>dialup sound
 
 >anime commands
->>add image anime search / 
->>add season search / 
 >>add top shows preview / 
->>add account search and score / 
 >>check for channel nsfw other block hentai genre / 
 >>add character search / 
->>select airing shows per user /
->>bot posts airing shows daily/weekly?
 
->make pings async so whole bot doesnt hault
-
->make bot abole to remove its own messages
+>make bot able to remove its own messages
 
 > make userinfo 
 
@@ -54,5 +47,3 @@ Add commands
 >tyme returns time formatted wrong ex: if time is 6:30 return 5:90
 
 >add custom prefix help
-
->add status help for only me
