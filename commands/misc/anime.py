@@ -427,7 +427,7 @@ async def aniseason(ctx, year, sesn):
     ep = anime[x].get('episodes')
     score = anime[x].get('score')
 
-    embed.add_field(name = title, value = '#Eps: ' + str(ep) + ' / Score: ' + str(score))
+    embed.add_field(name = title, value = '#Eps: ' + str(ep) + ' / Score: ' + str(score), inline = False)
 
 
   await ctx.send(embed = embed)

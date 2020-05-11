@@ -203,12 +203,11 @@ async def inspire(ctx):
   }
 
   url = 'https://inspirobot.me/api?generate=true'
-  req = urllib.request.Request(url = url, headers = headers)
-  response = urllib.request.urlopen(req).read()
 
-  img = response.decode('utf-8')
+  async with aiohttp.ClientSession() as session:
+    html = await ftext(session, url)
 
-  embed.set_image(url = img)
+  embed.set_image(url = html)
 
   await ctx.send(embed = embed)
 
