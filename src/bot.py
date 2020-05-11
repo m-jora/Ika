@@ -6,7 +6,7 @@ import os
 import sys
 import random, json
 import discord
-import urllib.request
+#import urllib.request
 
 from discord.ext import commands
 
@@ -147,7 +147,7 @@ async def _8ball(ctx, *, question = ''):
 @bot.command()
 async def flip(ctx):
   await mb.flip(ctx)
-
+'''
 @bot.command()
 async def clear(ctx, amount = 2):
   await mod.clear(ctx, amount)
@@ -163,7 +163,7 @@ async def ban(ctx, member : discord.member, *, reason = None):
 @bot.command()
 async def unban(ctx, *, member):
   await mod.unban(ctx, member)
-
+'''
 @bot.command(aliases = ['puppy', 'doggo', 'pup', 'pupper', 'hound', 'mutt'])
 async def dog(ctx):
   await mb.dog(ctx)
