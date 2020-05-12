@@ -199,9 +199,9 @@ async def getsay(ctx, user, index):
   with open('src/say.json', 'r') as f:
     said = json.load(f)
 
-  user = user[2:]
+  user = user[3:]
   length = len(user)
-  user = user[:length - 2]
+  #user = user[:length - 1]
 
   messages = said[str(user)]
   message = messages[index]
