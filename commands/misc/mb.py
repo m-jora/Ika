@@ -200,7 +200,7 @@ async def getsay(ctx, user, index):
     said = json.load(f)
 
   user = user[2:]
-  length = user.length()
+  length = len(user)
   user = user[:length - 2]
 
   messages = said[str(user)]
