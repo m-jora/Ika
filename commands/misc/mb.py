@@ -275,6 +275,26 @@ async def inspire(ctx):
 
   await ctx.send(embed = embed)
 
+async def ran(ctx):
+  imgs = [
+    'images/fp.png',
+    'images/fp1.png',
+    'images/fp2.png',
+    'images/fp3.png',
+    'images/fp4.png',
+    'images/fp5.png',
+    'images/fp6.png',
+    'images/fp7.png',
+    'images/help.png',
+    'images/pogg.png',
+    'images/reverse.png'
+  ]
+
+  pic = random.choice(imgs)
+  await ctx.send(file = discord.File(pic))
+  return
+
+
 async def fetch(session, url):
   async with session.get(url) as response:
     return await response.json()

@@ -106,14 +106,14 @@ async def on_guild_remove(guild):
   with open('src/prefixes.json', 'w') as f:
     json.dump(prefixes, f, indent = 2)
 
-'''
+
 @bot.event # prints Command not Found to console if given command does not exist
 async def on_command_error(ctx, error):
   if isinstance(error, commands.CommandNotFound):
     print('CNF')
   else:
     print(error)
-'''
+
 #add cogs to clean up driver
 @bot.command()
 async def status(ctx, game, status, *, msg = ''):
@@ -342,6 +342,9 @@ async def schedule(ctx, day = ''):
 async def account(ctx, *, message = ''):
   await anime.account(ctx, message)
 
+@bot.command(name = 'random')
+async def ran(ctx):
+  await mb.ran(ctx)
 
 
 
