@@ -204,9 +204,21 @@ async def getsay(ctx, user, index):
   user = user[:length - 1]
 
   messages = said[str(user)]
-  message = messages[index]
+  message = messages[int(index)]
 
-  await ctx.send('<@' + str(user) + '>' + 'said' + message)
+  await ctx.send('<@' + str(user) + '>' + ' said ' + message)
+
+async def saylen(ctx, user):
+  with open('src/say.json', 'r') as f:
+    said = json.load(f)
+
+  user = user[3:]
+  length = len(user)
+  user = user[:length - 1]
+
+  messages = said[str(user)]
+
+  await ctx.send(len(messages))
 
 async def meme(ctx):
   embed = discord.Embed(
@@ -239,9 +251,6 @@ async def inspire(ctx):
   embed.set_image(url = html)
 
   await ctx.send(embed = embed)
-
-
-
 
 async def fetch(session, url):
   async with session.get(url) as response:

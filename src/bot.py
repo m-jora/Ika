@@ -184,6 +184,13 @@ async def getsay(ctx, user, index):
   await mb.getsay(ctx, user, index)
 
 @bot.command()
+async def saylen(ctx, user):
+  if ctx.author.id != 275065846836101120:
+    await ctx.send('`You cannot use this command`')
+    return
+  await mb.saylen(ctx, user)
+
+@bot.command()
 async def help(ctx, message = ''):
   await hlp.help(ctx, message)
 
