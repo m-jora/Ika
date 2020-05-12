@@ -111,8 +111,45 @@ async def dog(ctx):
 
   embed.set_image(url = img)
 
-  await ctx.send(embed = embed)
+  this = await ctx.send(embed = embed)
+
+  with open('src/dog.json', 'r') as f:
+    dogs = json.load(f)
+
+  dogs.clear()
+  dogs[str(this.id)] = 0
+
+  with open('src/dog.json', 'w') as f:
+    json.dump(dogs, f, indent = 2)
+
   return
+
+async def redog(ctx):
+  with open('src/dog.json', 'r')as f:
+    ids = json.load(f)
+
+  id = list(ids.keys())[0]
+  
+  message = await ctx.fetch_message(int(id))
+  if message.author.id != 705683895055679521:
+    await ctx.message.add_reaction('👎')
+    return
+
+  embed = discord.Embed(
+    title = None,
+    description = None,
+    colour = 0xFF00FF
+  )
+
+  url = 'https://dog.ceo/api/breeds/image/random'
+
+  async with aiohttp.ClientSession() as session:
+    html = await fetch(session, url)
+    img = html.get('message')
+
+  embed.set_image(url = img)
+
+  await message.edit(embed = embed) #delete_after = time limit
 
 async def cat(ctx):
   embed = discord.Embed(

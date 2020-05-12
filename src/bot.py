@@ -6,6 +6,7 @@ import os
 import sys
 import random, json
 import discord
+import aiohttp
 
 from discord.ext import commands
 
@@ -148,6 +149,10 @@ async def status(ctx, game, status, *, msg = ''):
         await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
         return
+
+@bot.command()
+async def redog(ctx):
+  await mb.redog(ctx)
 
 @bot.command()
 async def restatus(ctx):
