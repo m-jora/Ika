@@ -3,6 +3,7 @@
 
 import random
 import discord
+import json
 import asyncio, aiohttp
 
 
@@ -176,8 +177,26 @@ async def say(ctx, message):
     return
 
   else:
+    with open('src/say.json', 'r') as f:
+      users = json.load(f)
+
+    if str(ctx.author.id) in users:
+      list = users[str(ctx.author.id)]
+      list.append(message)
+      users[str(ctx.author.id)] = list
+
+    else:
+      list = [message]
+      users[str(ctx.author.id)] = list
+
+    with open('src/say.json', 'w') as f:
+      json.dump(users, f, indent = 2) 
+
     print(ctx.author, 'said', message)
     await ctx.send(message)
+
+async def getsay(ctx, user, index):
+  
 
 async def meme(ctx):
   embed = discord.Embed(
