@@ -37,6 +37,39 @@ bot.remove_command('help')
 
 @bot.event # messages when the bot is ready lists servers it is
 async def on_ready():
+  anime = [
+    'Spirited Away',
+    'Steins;Gate',
+    'Your Name',
+    'My Hero Academia',
+    'Howl\'s Moving Castle',
+    'Fullmetal Alchemist: Brotherhood',
+    'Attack on Titan',
+    'No Game No Life',
+    'Assassination Classroom',
+    'Re:Zero',
+    'Darling in the Franxx',
+    'Bunny Girl Senpai',
+    'Black Lagoon',
+    'Future Diary',
+    'Guilty Crown',
+    'Zetsuen no Tempest',
+    'Chuunibyou',
+    'Your Lie in April',
+    'A Silent Voice',
+    'Charlotte',
+    'Dragon Maid',
+    'Rising of the Shield Hero',
+    'Quintessential Quintuplets',
+    'The girl who leapt through time',
+    'Soul Eater',
+    'Fairy Tail',
+    'One Punch Man',
+    'Danmachi'
+  ]
+
+  show = random.choice(anime)
+
   print(f'{bot.user} connected')
   print(f'{bot.user.name} is connected to the following servers:\n')
 
@@ -44,7 +77,7 @@ async def on_ready():
     print(f'  {guild.name} (id: {guild.id})')
   print()
   
-  await bot.change_presence(status = discord.Status.dnd, activity = discord.Game('Becoming More Powerful'))
+  await bot.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
 
 @bot.event # does not allow messages from bots
 async def on_message(msg):
@@ -71,6 +104,7 @@ async def on_guild_remove(guild):
 
   with open('src/prefixes.json', 'w') as f:
     json.dump(prefixes, f, indent = 2)
+
 '''
 @bot.event # prints Command not Found to console if given command does not exist
 async def on_command_error(ctx, error):
@@ -81,29 +115,69 @@ async def on_command_error(ctx, error):
 '''
 #add cogs to clean up driver
 @bot.command()
-async def status(ctx, status, *, msg = ''):
+async def status(ctx, game, status, *, msg = ''):
   if ctx.author.id != 275065846836101120:
     await ctx.send('`You can\'t use this command`')
     return
+
   else:
-    if status == '':
-      return
+    if game == 'stream':
+      if status == 'online':
+        await bot.change_presence(status = discord.Status.online, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
+        return
+      elif status == 'dnd':
+        await bot.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
+        return
+      elif status == 'idle':
+        await bot.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
+        return
 
-    elif status == 'online':
-      await bot.change_presence(status = discord.Status.online, activity = discord.Game(msg))
-      return
+    elif game == 'game':
+      if status == 'online':
+        await bot.change_presence(status = discord.Status.online, activity = discord.Game(msg))
+        return
+      elif status == 'dnd':
+        await bot.change_presence(status = discord.Status.dnd, activity = discord.Game(msg))
+        return
+      elif status == 'idle':
+        await bot.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
+        return
 
-    elif status == 'invisible':
-      await bot.change_presence(status = discord.Status.invisible, activity = discord.Game(msg))
-      return
+@bot.command()
+async def restatus(ctx):
+  anime = [
+    'Spirited Away',
+    'Steins;Gate',
+    'Your Name',
+    'My Hero Academia',
+    'Howl\'s Moving Castle',
+    'Fullmetal Alchemist: Brotherhood',
+    'Attack on Titan',
+    'No Game No Life',
+    'Assassination Classroom',
+    'Re:Zero',
+    'Darling in the Franxx',
+    'Bunny Girl Senpai',
+    'Black Lagoon',
+    'Future Diary',
+    'Guilty Crown',
+    'Zetsuen no Tempest',
+    'Chuunibyou',
+    'Your Lie in April',
+    'A Silent Voice',
+    'Charlotte',
+    'Dragon Maid',
+    'Rising of the Shield Hero',
+    'Quintessential Quintuplets',
+    'The girl who leapt through time',
+    'Soul Eater',
+    'Fairy Tail',
+    'One Punch Man',
+    'Danmachi'
+  ]
 
-    elif status == 'dnd':
-      await bot.change_presence(status = discord.Status.dnd, activity = discord.Game(msg))
-      return
-
-    elif status == 'idle':
-      await bot.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
-      return
+  show = random.choice(anime)
+  await bot.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
 
 @bot.command()
 async def prefix(ctx, prefix):
@@ -147,7 +221,9 @@ async def _8ball(ctx, *, question = ''):
 @bot.command()
 async def flip(ctx):
   await mb.flip(ctx)
+
 '''
+add back once proper role checks have been added
 @bot.command()
 async def clear(ctx, amount = 2):
   await mod.clear(ctx, amount)
@@ -164,6 +240,7 @@ async def ban(ctx, member : discord.member, *, reason = None):
 async def unban(ctx, *, member):
   await mod.unban(ctx, member)
 '''
+
 @bot.command(aliases = ['puppy', 'doggo', 'pup', 'pupper', 'hound', 'mutt'])
 async def dog(ctx):
   await mb.dog(ctx)

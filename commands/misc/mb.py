@@ -102,32 +102,17 @@ async def dog(ctx):
     description = None,
     colour = 0xFF00FF
   )
-  urls = [
-    'http://random.dog/woof',
-    'https://dog.ceo/api/breeds/image/random',
-  ]
 
-  url = random.choice(urls)
+  url = 'https://dog.ceo/api/breeds/image/random'
 
-  if url == urls[0]:
-    async with aiohttp.ClientSession() as session:
-      html = await ftext(session, url)
-      pic = 'http://random.dog/' + html
+  async with aiohttp.ClientSession() as session:
+    html = await fetch(session, url)
+    img = html.get('message')
 
-    embed.set_image(url = pic)
+  embed.set_image(url = img)
 
-    await ctx.send(embed = embed)
-    return
-
-  else:
-    async with aiohttp.ClientSession() as session:
-      html = await fetch(session, url)
-      img = html.get('message')
-
-    embed.set_image(url = img)
-
-    await ctx.send(embed = embed)
-    return
+  await ctx.send(embed = embed)
+  return
 
 async def cat(ctx):
   embed = discord.Embed(
@@ -212,7 +197,7 @@ async def saylen(ctx, user):
   with open('src/say.json', 'r') as f:
     said = json.load(f)
 
-  user = user[3:]
+  user = user[3:] #slice username to make sure its only the digits
   length = len(user)
   user = user[:length - 1]
 
