@@ -260,6 +260,13 @@ async def unban(ctx, *, member):
   await mod.unban(ctx, member)
 '''
 
+@bot.command()
+async def delete(ctx, id):
+  if ctx.author.id != 275065846836101120:
+    await ctx.message.add_reaction('👎')
+    return
+  await mod.delete(ctx, id)
+
 @bot.command(aliases = ['puppy', 'doggo', 'pup', 'pupper', 'hound', 'mutt'])
 async def dog(ctx):
   await mb.dog(ctx)

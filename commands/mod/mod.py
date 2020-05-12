@@ -28,8 +28,16 @@ async def unban(ctx, member):
       await ctx.send(f'Unbanned {user.mention}')
       return
 
+async def delete(ctx, id):
+  message = await ctx.fetch_message(id)
 
+  if message.author.id != 705683895055679521:
+    await ctx.message.add_reaction('👎')
+    return
 
+  else:
+    await ctx.message.add_reaction('👍')
+    await message.edit(delete_after = 0)
 
 
 
