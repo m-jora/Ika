@@ -13,6 +13,7 @@ async def help(ctx, message):
   if message == '':
     embed = discord.Embed(
       title = '**COMMANDS**',
+      url = 'https://hheselbarth.gitbook.io/mr-bot/',
       description = ' <> = required arguments, [] = optional.',
       colour = 0xFFC500
     )
@@ -30,7 +31,8 @@ async def help(ctx, message):
   elif message == 'general' or message == 'General':
     embed = discord.Embed(
       title = '**GENERAL COMMANDS**',
-      description = 'Mr. bot general',
+      url = 'https://hheselbarth.gitbook.io/mr-bot/',
+      description = ' <> = required arguments, [] = optional.',
       colour = 0xFFC500
     )
 
@@ -45,14 +47,13 @@ async def help(ctx, message):
     embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options', inline = False)
     embed.add_field(name = '**' + prefix + 'hi**', value = 'Mr. bot says hello', inline = False)
     embed.add_field(name = '**' + prefix + 'inspire**', value = 'Mr. bot sends an inspirational image', inline = False)
-    if ctx.guild.id == 647960154079232041:
-      embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
+    embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
     embed.add_field(name = '**' + prefix + 'ping**', value = 'pong', inline = False)
     embed.add_field(name = '**' + prefix + 'pizza**', value = 'It does something idk', inline = False)
     embed.add_field(name = '**' + prefix + 'pong**', value = 'ping', inline = False)
     embed.add_field(name = '**' + prefix + 'say <message to repeat>**', value = 'Mr. bot repeats message given', inline = False)
     
-    if ctx.guild.id != 647960154079232041:
+    if ctx.guild.id == 459928054014148608 or ctx.guild.id == 654930414657339403 or ctx.guild.id == 686001936155410453:
       embed.add_field(name = '**' + prefix + 'yeet**', value = 'sends random memes', inline = False)
 
 
@@ -63,7 +64,8 @@ async def help(ctx, message):
   elif message == 'mal' or message == 'MAL':
     embed = discord.Embed(
       title = '**MAL COMMANDS**',
-      description =  'Search MAL for manga and anime',
+      url = 'https://hheselbarth.gitbook.io/mr-bot/',
+      description = ' <> = required arguments, [] = optional.',
       colour = 0xFFC500
     )
 
@@ -72,10 +74,10 @@ async def help(ctx, message):
     embed.add_field(name = '**'  + prefix + 'account <mal username>**', value = 'Displays account information for given username', inline = False)
     embed.add_field(name = '**' + prefix + 'ani <anime title>**', value = 'Displays detailed information on the title given', inline = False)
     embed.add_field(name = '**' + prefix + 'anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
-    embed.add_filed(name = '**' + prefix + 'aniseason <year> <season>**', value = 'Gives information on currently airing shows', inline = False)
+    embed.add_field(name = '**' + prefix + 'aniseason <year> <season>**', value = 'Gives information on anime from given season', inline = False)
     embed.add_field(name = '**' + prefix + 'manga <manga title>**', value = 'Displays detailed information on the title given', inline = False)
     embed.add_field(name = '**' + prefix + 'mangasearch <manga title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
-    embed.add_field(name = '**' + prefix + 'schedule [m,t,w,r,f,s,su]', value = 'Gives information on shows airing the given day or whole week if no day is given', inline = False)
+    embed.add_field(name = '**' + prefix + 'schedule [m,t,w,r,f,s,su]**', value = 'Gives information on shows airing the given day or whole week if no day is given', inline = False)
 
     await ctx.send(embed = embed)
     return

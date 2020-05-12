@@ -186,11 +186,12 @@ async def mathfun(ctx, message = ''):
 
 @bot.command()
 async def yeet(ctx):
-  if ctx.guild.id == 647960154079232041:
+  if ctx.guild.id == 459928054014148608 or ctx.guild.id == 654930414657339403 or ctx.guild.id == 686001936155410453:
+    await mb.meme(ctx)
+    
+  else:
     await ctx.send('`Command not allowed in this server.`')
     return
-  else:
-    await mb.meme(ctx)
 
 @bot.command()
 async def inspire(ctx):

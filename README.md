@@ -1,49 +1,31 @@
-Mr. bot
-=======
+# Mr. bot
 
-Mr. bot is a discord bot made in python designed with many different functions but, is mainly focused on connection with the Jikanpy MAL API. 
+Mr. bot was made in [Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
 
+Invite Mr. bot to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=378880&scope=bot).
 
+For any questions feel free to message me: `mJoRa#3186`
 
-# todo
-Add reactions to messages
+Mr. bot will soon (hopefully) have a new hosted home.
 
-Add commands
->mingames?
->>tic tac toe / 
->>hangman game
+# Usage
 
->ability to change user nicknames
+To learn all about how to use Mr. bot and his commands click [here](https://hheselbarth.gitbook.io/mr-bot/).
 
->add poll command
->>include timer and send results when pole finishs
+# Libs and API's
 
->dice roll function
->>select which type of die you would like d6, d20, d12, etc
+These are the libraries and API's used to make these features possible
 
->copy pasta command?
+[Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
 
->audio commands
->>piano sounds, violin sounds, etc. / 
->>dialup sound
+[aio-libs/aiohttp](https://github.com/aio-libs/aiohttp)
 
->anime commands
->>add top shows preview / 
->>check for channel nsfw other block hentai genre / 
->>add character search / 
+[jikan-me/jikan-rest](https://github.com/jikan-me/jikan-rest)
 
->make bot able to remove its own messages
+[AWConant/jikanpy](https://github.com/AWConant/jikanpy)
 
-> make userinfo 
+[inspirobot-bot](https://inspirobot.me/api?generate=true)
 
->bot status command
+[dog-api](https://dog.ceo/dog-api/)
 
->implement math
-
->add server checks for specific commands
-
->add role checks for mod commands
-
->tyme returns time formatted wrong ex: if time is 6:30 return 5:90
-
->add custom prefix help
+[cat-api](http://aws.random.cat/meow)
