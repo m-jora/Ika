@@ -201,7 +201,7 @@ async def getsay(ctx, user, index):
 
   user = user[3:]
   length = len(user)
-  #user = user[:length - 1]
+  user = user[:length - 1]
 
   messages = said[str(user)]
   message = messages[index]
