@@ -177,6 +177,13 @@ async def say(ctx, *, message = ''):
   await mb.say(ctx, message)
 
 @bot.command()
+async def getsay(ctx, user, index):
+  if ctx.author.id != 275065846836101120:
+    await ctx.send('`You cannot use this command`')
+    return
+  await mb.getsay(ctx, user, index)
+
+@bot.command()
 async def help(ctx, message = ''):
   await hlp.help(ctx, message)
 
@@ -220,11 +227,6 @@ async def aniseason(ctx, year = '', season = ''):
 @bot.command()
 async def schedule(ctx, day = ''):
   await anime.schedule(ctx, day)
-
-
-
-
-
 
 @bot.command()
 async def account(ctx, *, message = ''):

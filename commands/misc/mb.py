@@ -196,7 +196,13 @@ async def say(ctx, message):
     await ctx.send(message)
 
 async def getsay(ctx, user, index):
-  
+  with open('src/say.json', 'r') as f:
+    said = json.load(f)
+
+  messages = said[str(user)]
+  message = messages[index]
+
+  await ctx.send('<@' + str(user) + '>' + 'said' + message)
 
 async def meme(ctx):
   embed = discord.Embed(
