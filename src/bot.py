@@ -6,7 +6,6 @@ import os
 import sys
 import random, json
 import discord
-#import urllib.request
 
 from discord.ext import commands
 
