@@ -155,6 +155,7 @@ async def mathfun(ctx, message):
     return
 
   else:
+    await ctx.message.add_reaction('👎')
     return
 
 async def say(ctx, message):

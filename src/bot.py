@@ -80,9 +80,10 @@ async def on_ready():
   await bot.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
 
 @bot.event # does not allow messages from bots
-async def on_message(msg):
+async def on_message(msg: discord.Message):
   if msg.author.bot:
     return
+
   await bot.process_commands(msg)
 
 @bot.event
@@ -117,72 +118,84 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def status(ctx, game, status, *, msg = ''):
   if ctx.author.id != 275065846836101120:
-    await ctx.send('`You can\'t use this command`')
+    await ctx.message.add_reaction('👎')
     return
 
   else:
     if game == 'stream':
       if status == 'online':
+        await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.online, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
         return
       elif status == 'dnd':
+        await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
         return
       elif status == 'idle':
+        await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
         return
 
     elif game == 'game':
       if status == 'online':
+        await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.online, activity = discord.Game(msg))
         return
       elif status == 'dnd':
+        await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.dnd, activity = discord.Game(msg))
         return
       elif status == 'idle':
+        await ctx.message.add_reaction('👍')
         await bot.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
         return
 
 @bot.command()
 async def restatus(ctx):
-  anime = [
-    'Spirited Away',
-    'Steins;Gate',
-    'Your Name',
-    'My Hero Academia',
-    'Howl\'s Moving Castle',
-    'Fullmetal Alchemist: Brotherhood',
-    'Attack on Titan',
-    'No Game No Life',
-    'Assassination Classroom',
-    'Re:Zero',
-    'Darling in the Franxx',
-    'Bunny Girl Senpai',
-    'Black Lagoon',
-    'Future Diary',
-    'Guilty Crown',
-    'Zetsuen no Tempest',
-    'Chuunibyou',
-    'Your Lie in April',
-    'A Silent Voice',
-    'Charlotte',
-    'Dragon Maid',
-    'Rising of the Shield Hero',
-    'Quintessential Quintuplets',
-    'The girl who leapt through time',
-    'Soul Eater',
-    'Fairy Tail',
-    'One Punch Man',
-    'Danmachi'
-  ]
+  if ctx.author.id != 275065846836101120:
+    await ctx.message.add_reaction('👎')
+    return
+  
+  else:
+    anime = [
+      'Spirited Away',
+      'Steins;Gate',
+      'Your Name',
+      'My Hero Academia',
+      'Howl\'s Moving Castle',
+      'Fullmetal Alchemist: Brotherhood',
+      'Attack on Titan',
+      'No Game No Life',
+      'Assassination Classroom',
+      'Re:Zero',
+      'Darling in the Franxx',
+      'Bunny Girl Senpai',
+      'Black Lagoon',
+      'Future Diary',
+      'Guilty Crown',
+      'Zetsuen no Tempest',
+      'Chuunibyou',
+      'Your Lie in April',
+      'A Silent Voice',
+      'Charlotte',
+      'Dragon Maid',
+      'Rising of the Shield Hero',
+      'Quintessential Quintuplets',
+      'The girl who leapt through time',
+      'Soul Eater',
+      'Fairy Tail',
+      'One Punch Man',
+      'Danmachi'
+    ]
 
-  show = random.choice(anime)
-  await bot.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
+    show = random.choice(anime)
+    await ctx.message.add_reaction('👍')
+    await bot.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
 
 @bot.command()
 async def prefix(ctx, prefix):
   if ctx.author.id != 275065846836101120:
-    await ctx.send('`You can\'t use this command`')
+    await ctx.message.add_reaction('👎')
     return
 
   else:
@@ -193,6 +206,8 @@ async def prefix(ctx, prefix):
 
     with open('src/prefix.json', 'w') as f:
       json.dump(prefixes, f, indent = 2)
+    
+    await ctx.message.add_reaction('👍')
 
 @bot.command()
 async def pizza(ctx):
@@ -256,14 +271,14 @@ async def say(ctx, *, message = ''):
 @bot.command()
 async def getsay(ctx, user, index):
   if ctx.author.id != 275065846836101120:
-    await ctx.send('`You cannot use this command`')
+    await ctx.message.add_reaction('👎')
     return
   await mb.getsay(ctx, user, index)
 
 @bot.command()
 async def saylen(ctx, user):
   if ctx.author.id != 275065846836101120:
-    await ctx.send('`You cannot use this command`')
+    await ctx.message.add_reaction('👎')
     return
   await mb.saylen(ctx, user)
 
@@ -281,7 +296,7 @@ async def yeet(ctx):
     await mb.meme(ctx)
     
   else:
-    await ctx.send('`Command not allowed in this server.`')
+    await ctx.message.add_reaction('👎')
     return
 
 @bot.command()
