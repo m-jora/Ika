@@ -89,5 +89,17 @@ class event(commands.Cog):
 
 
 
+  @commands.Cog.listener()
+  async def on_command_error(self, ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+      print('CNF')
+      await ctx.message.add_reaction('🇳')
+      await ctx.message.add_reaction('🅾️')
+    else:
+      print(error)
+      await ctx.message.add_reaction('⚠️')
+
+
+
 def setup(bot):
   bot.add_cog(event(bot))

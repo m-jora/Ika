@@ -50,7 +50,7 @@ class hlp(commands.Cog):
       embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
       embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
-      embed.add_field(name = '**' + prefix + 'dog**', value = 'Sends random dog pictures', inline = False)
+      embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'flip**', value = 'Flips a coin', inline = False)
       embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options', inline = False)
       embed.add_field(name = '**' + prefix + 'hi**', value = 'Mr. bot says hello', inline = False)
@@ -59,7 +59,8 @@ class hlp(commands.Cog):
       embed.add_field(name = '**' + prefix + 'ping**', value = 'pong', inline = False)
       embed.add_field(name = '**' + prefix + 'pizza**', value = 'It does something idk', inline = False)
       embed.add_field(name = '**' + prefix + 'pong**', value = 'ping', inline = False)
-      embed.add_field(name = '**' + prefix + 'redog**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
+      embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
+      embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
       embed.add_field(name = '**' + prefix + 'say <message to repeat>**', value = 'Mr. bot repeats message given', inline = False)
     
       if ctx.guild.id == 459928054014148608 or ctx.guild.id == 654930414657339403 or ctx.guild.id == 686001936155410453:
