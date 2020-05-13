@@ -1,304 +1,109 @@
 # mb.py
-'''contains misc commands'''
+# handles misc goofy commands that just kinda exist
 
 import random
-import discord
 import json
-import asyncio, aiohttp
+
+from discord.ext import commands
 
 
-async def pizza(ctx):
-  lit = ['Hi Kendall', 'Pizza', 'Howdy Partner', 'Hello Travis', '<@275065846836101120>', 'Hi Evan',]
-  response = random.choice(lit)
-  await ctx.send(response)
+class mb(commands.Cog):
 
-async def banjo(ctx):
-  await ctx.send('''
+  def __init__(self, bot):
+    self.client = bot
 
-                .----.
-           [-\|.  .\|-]
-           [-\|.\\/.\|-]
-             \|\|\|\|/
-              \|\|\|\|
-              \|\|\|\|
-              \|\|\|\|
-              \|\|\|\|
-              \|\|\|\|
-              \|\|\|\|
-             /\|\|\|\|
-           [-\|\|\|\|\|
-             \|\|\|\|\|
-             \|\|\|\|\|
-             \|\|\|\|\|
-             \|\|\|\|\|
-           _.\|\|\|\|\|._
-        .-\'  |||||  `-.
-      .\'     |||||     `.
-    .\'       |||||       `.
-   /         |||||         \
-  /          |||||          \
-  |          |||||          |
-  |          _____          |
-  |-.       \'-----\'         |
-  \  `.      |||||          /
-   \   \    .-----.        /
-    `.  \   |     |      .\'
-      \'.|   \'.    |    .\'
-        \'--._|____|_.-\'''')
+  @commands.command()
+  async def ping(self, ctx):
+    await ctx.send('`ping`')
 
-async def hello(ctx):
-  greetings = ['Hi', 'Hello', 'Howdy', 'Salutations', 'Hey', 'uwu', 'Shalom',]
-  greeting = random.choice(greetings)
-  greet2 = ['\nHow are you?', '\nWhat\'s up?', '\nWhat anime are you watching?', '\nHas school killed you yet?',]
-  greets2 = random.choice(greet2)
+  @commands.command()
+  async def pong(self, ctx):
+    await ctx.send('`pong`')
 
-  await ctx.send(greeting + ' <@' + str(ctx.author.id) + '>' + greets2)
+  @commands.command()
+  async def pizza(self, ctx):
+    lit = ['Hi Kendall', 'Pizza', 'Howdy Partner', 'Hello Travis', '<@275065846836101120>', 'Hi Evan',]
+    response = random.choice(lit)
+    await ctx.send(response)
 
-async def _8ball(ctx, question):
-  responses = [
-    'As I see it, yes',
-    'Ask again later',
-    'Better not tell you now',
-    'Cannot predict now',
-    'Concentrate and ask again',
-    'Don\'t count on it',
-    'It is certain',
-    'It is decidedly so',
-    'Most likely',
-    'My reply is no',
-    'My sources say no',
-    'Outlook not so good',
-    'Outlook good',
-    'Reply hazy, try again',
-    'Signs point to yes',
-    'Very doubtful',
-    'Without a doubt',
-    'Yes',
-    'Yes - definitely',
-    'You may rely on it',
-    'Please shake again',
-    'Who said I had the answers',
-    'Ask someone else',
-    'Why would you ask me that?',
-  ]
+  @commands.command(aliases = ['Hi', 'hello', 'Hello'])
+  async def hi(self, ctx):
+    greetings = ['Hi', 'Hello', 'Howdy', 'Salutations', 'Hey', 'uwu', 'Shalom',]
+    greeting = random.choice(greetings)
+    greet2 = ['\nHow are you?', '\nWhat\'s up?', '\nWhat anime are you watching?', '\nHas school killed you yet?',]
+    greets2 = random.choice(greet2)
 
-  if question == '':
-    await ctx.send('Ask me a question by typing ~8ball <question>')
+    await ctx.send(greeting + ' <@' + str(ctx.author.id) + '>' + greets2)
 
-  else:
-    await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')
-
-async def flip(ctx):
-  sides = [
-    'heads',
-    'tails',
-  ]
-
-  await ctx.send(f'It\'s {random.choice(sides)}')
-
-async def dog(ctx):
-  embed = discord.Embed(
-    title = None,
-    description = None,
-    colour = 0xFF00FF
-  )
-
-  url = 'https://dog.ceo/api/breeds/image/random'
-
-  async with aiohttp.ClientSession() as session:
-    html = await fetch(session, url)
-    img = html.get('message')
-
-  embed.set_image(url = img)
-
-  this = await ctx.send(embed = embed)
-
-  with open('src/dog.json', 'r') as f:
-    dogs = json.load(f)
-
-  dogs.clear()
-  dogs[str(this.id)] = 0
-
-  with open('src/dog.json', 'w') as f:
-    json.dump(dogs, f, indent = 2)
-
-  return
-
-async def redog(ctx):
-  with open('src/dog.json', 'r')as f:
-    ids = json.load(f)
-
-  id = list(ids.keys())[0]
-  
-  message = await ctx.fetch_message(int(id))
-  if message.author.id != 705683895055679521:
-    await ctx.message.add_reaction('👎')
-    return
-
-  embed = discord.Embed(
-    title = None,
-    description = None,
-    colour = 0xFF00FF
-  )
-
-  url = 'https://dog.ceo/api/breeds/image/random'
-
-  async with aiohttp.ClientSession() as session:
-    html = await fetch(session, url)
-    img = html.get('message')
-
-  embed.set_image(url = img)
-
-  await message.edit(embed = embed) #delete_after = time limit
-
-async def cat(ctx):
-  embed = discord.Embed(
-    colour = 0xFF00FF
-  )
-
-  url = 'http://aws.random.cat/meow'
-  async with aiohttp.ClientSession() as session:
-    html = await fetch(session, url)
-    img = html.get('file')
-
-  embed.set_image(url = img)
-
-  await ctx.send(embed = embed)
-
-async def mathfun(ctx, message):
-  if message == '':
-    location = [
-      'images/3.png',
-      'images/2.png',
-      'images/1.png',
+  @commands.command(name = '8ball')
+  async def _8ball(self, ctx, *, question):
+    responses = [
+      'As I see it, yes',
+      'Ask again later',
+      'Better not tell you now',
+      'Cannot predict now',
+      'Concentrate and ask again',
+      'Don\'t count on it',
+      'It is certain',
+      'It is decidedly so',
+      'Most likely',
+      'My reply is no',
+      'My sources say no',
+      'Outlook not so good',
+      'Outlook good',
+      'Reply hazy, try again',
+      'Signs point to yes',
+      'Very doubtful',
+      'Without a doubt',
+      'Yes',
+      'Yes - definitely',
+      'You may rely on it',
+      'Please shake again',
+      'Who said I had the answers',
+      'Ask someone else',
+      'Why would you ask me that?',
     ]
 
-    pic = random.choice(location)
-
-    await ctx.send(file = discord.File(pic))
-    return
-
-  elif message == '1' or message == 1 or message == 'one' or message == 'One' or message == 'eins':
-    await ctx.send(file = discord.File('images/1.png'))
-    return
-
-
-  elif message == '2' or message == 2 or message == 'two' or message == 'Two' or message == 'zwei':
-    await ctx.send(file = discord.File('images/2.png'))
-    return
-
-  elif message == '3' or message == 3 or message == 'three' or message == 'Three' or message == 'drei':
-    await ctx.send(file = discord.File('images/3.png'))
-    return
-
-  else:
-    await ctx.message.add_reaction('👎')
-    return
-
-async def say(ctx, message):
-  if message == '':
-    return
-
-  else:
-    with open('src/say.json', 'r') as f:
-      users = json.load(f)
-
-    if str(ctx.author.id) in users:
-      list = users[str(ctx.author.id)]
-      list.append(message)
-      users[str(ctx.author.id)] = list
+    if question == '':
+      await ctx.send('Ask me a question by typing ~8ball <question>')
 
     else:
-      list = [message]
-      users[str(ctx.author.id)] = list
+      await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')
 
-    with open('src/say.json', 'w') as f:
-      json.dump(users, f, indent = 2) 
+  @commands.command()
+  async def flip(self, ctx):
+    sides = [
+      'heads',
+      'tails',
+    ]
 
-    print(ctx.author, 'said', message)
-    await ctx.send(message)
-
-async def getsay(ctx, user, index):
-  with open('src/say.json', 'r') as f:
-    said = json.load(f)
-
-  user = user[3:]
-  length = len(user)
-  user = user[:length - 1]
-
-  messages = said[str(user)]
-  message = messages[int(index)]
-
-  await ctx.send('<@' + str(user) + '>' + ' said ' + message)
-
-async def saylen(ctx, user):
-  with open('src/say.json', 'r') as f:
-    said = json.load(f)
-
-  user = user[3:] #slice username to make sure its only the digits
-  length = len(user)
-  user = user[:length - 1]
-
-  messages = said[str(user)]
-
-  await ctx.send(len(messages))
-
-async def meme(ctx):
-  embed = discord.Embed(
-    colour = 0xFFFF00
-  )
-
-  url = 'https://meme-api.herokuapp.com/gimme'
-  async with aiohttp.ClientSession() as session:
-    html = await fetch(session, url)
-    link = html.get('url')
-
-  embed.set_image(url = link)
-
-  await ctx.send(embed = embed)
-
-async def inspire(ctx):
-  embed = discord.Embed(
-    colour = 0x8000FF
-  )  
-
-  headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
-  }
-
-  url = 'https://inspirobot.me/api?generate=true'
-
-  async with aiohttp.ClientSession() as session:
-    html = await ftext(session, url)
-
-  embed.set_image(url = html)
-
-  await ctx.send(embed = embed)
-
-async def ran(ctx):
-  imgs = [
-    'images/fp.png',
-    'images/fp1.png',
-    'images/fp2.png',
-    'images/fp3.png',
-    'images/fp4.png',
-    'images/fp5.png',
-    'images/fp6.png',
-    'images/fp7.png',
-    'images/help.png',
-    'images/pogg.png',
-    'images/reverse.png'
-  ]
-
-  pic = random.choice(imgs)
-  await ctx.send(file = discord.File(pic))
-  return
+    await ctx.send(f'It\'s {random.choice(sides)}')
 
 
-async def fetch(session, url):
-  async with session.get(url) as response:
-    return await response.json()
+  @commands.command()
+  async def say(self, ctx, *, message):
+    if message == '':
+      return
 
-async def ftext(session, url):
-  async with session.get(url) as response:
-    return await response.text()
+    else:
+      with open('json/say.json', 'r') as f:
+        users = json.load(f)
+
+      if str(ctx.author.id) in users:
+        list = users[str(ctx.author.id)]
+        list.append(message)
+        users[str(ctx.author.id)] = list
+
+      else:
+        list = [message]
+        users[str(ctx.author.id)] = list
+
+      with open('json/say.json', 'w') as f:
+        json.dump(users, f, indent = 2) 
+
+      print(ctx.author, 'said', message)
+      await ctx.send(message)
+
+
+def setup(bot):
+  bot.add_cog(mb(bot))

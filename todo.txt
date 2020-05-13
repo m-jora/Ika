@@ -27,6 +27,13 @@ Add commands
 
 > make userinfo 
 >bot status command
+>grab avatar of user
+
+>add reaction in case of error on commands
+
+>implement doge that returns only shiba pictures
+>m.borz for borzoi 
+> m.dog [breed]
 
 >implement math
 
