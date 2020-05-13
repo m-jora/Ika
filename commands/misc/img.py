@@ -44,7 +44,7 @@ class img(commands.Cog):
 
   @commands.command()
   async def yeet(self, ctx):
-    if ctx.guild.id == 459928054014148608 or ctx.guild.id == 654930414657339403 or ctx.guild.id == 686001936155410453:
+    if ctx.guild.id != 647960154079232041:
       embed = discord.Embed(
         colour = 0xFFFF00
       )
