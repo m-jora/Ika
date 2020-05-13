@@ -45,6 +45,23 @@ class animals(commands.Cog):
     return
 
 
+  @commands.command()
+  async def borz(self, ctx):
+    embed = discord.Embed(
+      colour = 0xFF00FF
+    )
+
+    url = 'https://dog.ceo/api/breed/borzoi/images/random'
+
+    async with aiohttp.ClientSession() as session:
+      html = await self.fetch(session, url)
+      img = html.get('message')
+
+    embed.set_image(url = img)
+
+    await ctx.send(embed = embed)
+
+
   @commands.command(aliases = ['repuppy', 'redoggo', 'repup', 'repupper', 'rehound', 'remutt'])
   async def redog(self, ctx, *, breed = ''):
     with open('json/dog.json', 'r')as f:
@@ -52,6 +69,8 @@ class animals(commands.Cog):
 
     id = list(ids.keys())[0]
   
+    await ctx.message.add_reaction('🐶')
+
     message = await ctx.fetch_message(int(id))
     if message.author.id != 705683895055679521:
       await ctx.message.add_reaction('👎')
@@ -111,6 +130,8 @@ class animals(commands.Cog):
       ids = json.load(f)
 
     id = list(ids.keys())[0]
+
+    await ctx.message.add_reaction('🐱')
 
     message = await ctx.fetch_message(int(id))
     if message.author.id != 705683895055679521:
