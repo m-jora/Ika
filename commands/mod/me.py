@@ -50,7 +50,7 @@ class me(commands.Cog):
 
   @commands.command()
   async def restatus(self, ctx):
-    if ctx.author.id != 275065846836101120:
+    if ctx.author.id != 275065846836101120 and ctx.author.id != 125492204234997761:
       await ctx.message.add_reaction('👎')
       return
   
@@ -77,6 +77,7 @@ class me(commands.Cog):
         'A Silent Voice',
         'Charlotte',
         'Dragon Maid',
+        'Kimetsu no Yaiba',
         'Rising of the Shield Hero',
         'Quintessential Quintuplets',
         'The girl who leapt through time',

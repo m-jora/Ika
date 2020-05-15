@@ -49,14 +49,37 @@ async def unload(ctx, extension):
 
 
 @bot.command()
-async def reload(ctx, extension):
+async def reload(ctx, extension = ''):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
     return
   
+  elif extension == '':
+    for filename in os.listdir('./commands/mal'):
+      if filename.endswith('.py'):
+        bot.reload_extension(f'commands.mal.{filename[:-3]}')
+
+    for filename in os.listdir('./commands/misc'):
+      if filename.endswith('.py'):
+        bot.reload_extension(f'commands.misc.{filename[:-3]}')
+
+    for filename in os.listdir('./commands/mod'):
+      if filename.endswith('.py'):
+        bot.reload_extension(f'commands.mod.{filename[:-3]}')
+
+    for filename in os.listdir('./commands/start'):
+      if filename.endswith('.py'):
+        bot.reload_extension(f'commands.start.{filename[:-3]}')
+    
+    await ctx.message.add_reaction('👍')
+
+
   else:
     await ctx.message.add_reaction('👍')
     bot.reload_extension(f'commands.{extension}')
+
+
+
 
 
 
