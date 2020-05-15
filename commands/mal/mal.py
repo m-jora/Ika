@@ -100,7 +100,7 @@ class mal(commands.Cog):
 
 
   @commands.command()
-  async def schedule(self, ctx, day):
+  async def schedule(self, ctx, day = ''):
     loop = asyncio.get_event_loop()
     aio_jikan = AioJikan(loop = loop)
 
@@ -131,9 +131,10 @@ class mal(commands.Cog):
         score = sch.get('score')
 
         embed.add_field(name = date.capitalize(), value = title + '\nScore: ' + str(score), inline = False)
-
+  
 
       await ctx.send(embed = embed)
+      await aio_jikan.close()
       return
 
     elif day == 'days':
@@ -159,13 +160,23 @@ class mal(commands.Cog):
         colour = 0x000CFF
       )
 
-      for x in range(7):
-        hr = scheduled.get(shows[day])
-        sch = hr[x]
-        title = sch.get('title')
-        score = sch.get('score')
+      hr = scheduled.get(shows[day])
 
-        embed.add_field(name = title, value = 'Score: ' + str(score), inline = False)
+      if len(hr) > 7:
+        for x in range(7):
+          sch = hr[x]
+          title = sch.get('title')
+          score = sch.get('score')
+
+          embed.add_field(name = title, value = 'Score: ' + str(score), inline = False)
+
+      else:
+        for x in range(len(hr)):
+          sch = hr[x]
+          title = sch.get('title')
+          score = sch.get('score')
+
+          embed.add_field(name = title, value = 'Score: ' + str(score), inline = False)
 
       await ctx.send(embed = embed)
       await aio_jikan.close()
