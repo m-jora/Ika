@@ -50,6 +50,7 @@ class hlp(commands.Cog):
       embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
       embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
+      embed.add_field(name = '**' + prefix + 'choose <item1> <item2>**', value = 'Mr. bot chooses between two items given', inline = False)
       embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'flip**', value = 'Flips a coin', inline = False)
       embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options', inline = False)

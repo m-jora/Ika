@@ -106,7 +106,11 @@ class mb(commands.Cog):
 
 
   @commands.command()
-  async def choose(self, ctx, msg1, msg2):
+  async def choose(self, ctx, msg1 = '', msg2 = ''):
+    if msg1 == '' or msg2 == '':
+      await ctx.send('Please provide at least 2 arguments')
+      return
+    
     msgs = [msg1, msg2]
     send = random.choice(msgs)
 
