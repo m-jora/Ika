@@ -105,5 +105,13 @@ class mb(commands.Cog):
       await ctx.send(message)
 
 
+  @commands.command()
+  async def choose(self, ctx, msg1, msg2):
+    msgs = [msg1, msg2]
+    send = random.choice(msgs)
+
+    await ctx.send (send)
+
+
 def setup(bot):
   bot.add_cog(mb(bot))
