@@ -89,7 +89,7 @@ class me(commands.Cog):
 
       show = random.choice(anime)
       await ctx.message.add_reaction('👍')
-      await self.client.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
+      await self.client.change_presence(status = discord.Status.online, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
 
 
   @commands.command()
