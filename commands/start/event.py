@@ -54,7 +54,7 @@ class event(commands.Cog):
       print(f'  {guild.name} (id: {guild.id})')
     print()
   
-    await self.client.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
+    await self.client.change_presence(status = discord.Status.online, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
 
 
 
