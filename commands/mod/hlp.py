@@ -49,6 +49,8 @@ class hlp(commands.Cog):
       embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
       embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
+      embed.add_field(name = '**' + prefix + 'Avatar [user]', value = 'Sends users avatar as embed', inline = False)
+      embed.add_field(name = '**' + prefix + 'Botstatus [user]', value = 'Sends status and info on bot.', inline = False)
       embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'choose <item1> <item2>**', value = 'Mr. bot chooses between two items given', inline = False)
       embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
@@ -63,7 +65,8 @@ class hlp(commands.Cog):
       embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
       embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
       embed.add_field(name = '**' + prefix + 'say <message to repeat>**', value = 'Mr. bot repeats message given', inline = False)
-    
+      embed.add_field(name = '**' + prefix + 'userinfo [user]**', value = 'Returns information on the given user', inline = False)
+
       if ctx.guild.id == 459928054014148608 or ctx.guild.id == 654930414657339403 or ctx.guild.id == 686001936155410453:
         embed.add_field(name = '**' + prefix + 'yeet**', value = 'sends random memes', inline = False)
 
