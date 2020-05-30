@@ -25,7 +25,7 @@ class info(commands.Cog):
     for guild in self.client.guilds:
       members += len(guild.members)
 
-    embed.set_thumbnail(url = 'https://i.imgur.com/casmQx0.jpg')
+    embed.set_thumbnail(url = 'https://i.imgur.com/NXWb7Ik.png')
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#3186')
     embed.add_field(name = '**Mr. Bot is in:**', value = str(len(self.client.guilds)) + ' servers')
     embed.add_field(name = '**Mr. Bot is watching:**', value = str(members) + ' users')
