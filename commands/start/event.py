@@ -70,7 +70,7 @@ class event(commands.Cog):
     with open('json/prefix.json', 'r') as f:
       prefixes = json.load(f)
 
-    prefixes[str(guild.id)] = '<@!712416120535253034> '
+    prefixes[str(guild.id)] = 'm.'
 
     with open('json/prefix.json', 'w') as f:
       json.dump(prefixes, f, indent = 2)
