@@ -32,7 +32,7 @@ class info(commands.Cog):
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#3186')
     embed.add_field(name = '**' + name + ' is in:**', value = str(len(self.client.guilds)) + ' servers')
     embed.add_field(name = '**' + name + ' is watching:**', value = str(members) + ' users')
-    embed.add_field(name = '**' + name + 'is watching:**', value = str(channel) + ' channels')
+    embed.add_field(name = '**' + name + ' is watching:**', value = str(channel) + ' channels')
     embed.set_footer(text = 'Have a nice day :)')
 
     await ctx.send(embed = embed)
