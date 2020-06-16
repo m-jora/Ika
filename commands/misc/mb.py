@@ -14,11 +14,11 @@ class mb(commands.Cog):
 
   @commands.command()
   async def ping(self, ctx):
-    await ctx.send('`ping`')
+    await ctx.send('`pong`')
 
   @commands.command()
   async def pong(self, ctx):
-    await ctx.send('`pong`')
+    await ctx.send('`ping`')
 
   @commands.command()
   async def pizza(self, ctx):

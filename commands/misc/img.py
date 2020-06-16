@@ -43,28 +43,6 @@ class img(commands.Cog):
 
 
   @commands.command()
-  async def yeet(self, ctx):
-    if ctx.guild.id != 647960154079232041:
-      embed = discord.Embed(
-        colour = 0xFFFF00
-      )
-
-      url = 'https://meme-api.herokuapp.com/gimme'
-      async with aiohttp.ClientSession() as session:
-        html = await self.fetch(session, url)
-        link = html.get('url')
-
-      embed.set_image(url = link)
-
-      await ctx.send(embed = embed)
-      return
-
-    else:
-      await ctx.message.add_reaction('👎')
-      return
-
-
-  @commands.command()
   async def inspire(self, ctx):
     embed = discord.Embed(
       colour = 0x8000FF

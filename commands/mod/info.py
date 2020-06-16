@@ -25,11 +25,14 @@ class info(commands.Cog):
     for guild in self.client.guilds:
       members += len(guild.members)
 
+    mem = ctx.guild.get_member(705683895055679521)
+    name = mem.display_name
+
     embed.set_thumbnail(url = 'https://i.imgur.com/NXWb7Ik.png')
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#3186')
-    embed.add_field(name = '**Mr. Bot is in:**', value = str(len(self.client.guilds)) + ' servers')
-    embed.add_field(name = '**Mr. Bot is watching:**', value = str(members) + ' users')
-    embed.add_field(name = '**Mr. Bot is watching:**', value = str(channel) + ' channels')
+    embed.add_field(name = '**' + name + ' is in:**', value = str(len(self.client.guilds)) + ' servers')
+    embed.add_field(name = '**' + name + ' is watching:**', value = str(members) + ' users')
+    embed.add_field(name = '**' + name + 'is watching:**', value = str(channel) + ' channels')
     embed.set_footer(text = 'Have a nice day :)')
 
     await ctx.send(embed = embed)
@@ -72,12 +75,12 @@ class info(commands.Cog):
   @commands.command()
   async def avatar(self, ctx, user = ''):
     if user == '':
-      name = ctx.author.nick
+      name = ctx.author.display_name
       url = str(ctx.author.avatar_url)
 
     else:
       mem = ctx.guild.get_member(int(user[3:-1]))
-      name = mem.nick
+      name = mem.display_name
       url = str(mem.avatar_url)
 
     embed = discord.Embed(

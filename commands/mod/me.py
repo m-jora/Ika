@@ -22,15 +22,15 @@ class me(commands.Cog):
       if game == 'stream':
         if status == 'online':
           await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.online, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
+          await self.client.change_presence(status = discord.Status.online, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/ika'))
           return
         elif status == 'dnd':
           await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
+          await self.client.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/ika'))
           return
         elif status == 'idle':
           await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/mr.bot'))
+          await self.client.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/ika'))
           return
 
       elif game == 'game':
