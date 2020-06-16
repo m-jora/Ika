@@ -28,7 +28,7 @@ class info(commands.Cog):
     mem = ctx.guild.get_member(705683895055679521)
     name = mem.display_name
 
-    embed.set_thumbnail(url = 'https://i.imgur.com/NXWb7Ik.png')
+    embed.set_thumbnail(url = mem.avatar_url)
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#3186')
     embed.add_field(name = '**' + name + ' is in:**', value = str(len(self.client.guilds)) + ' servers')
     embed.add_field(name = '**' + name + ' is watching:**', value = str(members) + ' users')
