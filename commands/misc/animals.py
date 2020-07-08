@@ -103,10 +103,12 @@ class animals(commands.Cog):
       colour = 0xFF00FF
     )
 
-    url = 'http://aws.random.cat/meow'
-    async with aiohttp.ClientSession() as session:
+    headers = {"Authorization": "api_key=8589f552-4b09-4ffc-8561-cc6ef4e59018"}
+
+    url = 'https://api.thecatapi.com/v1/images/search'
+    async with aiohttp.ClientSession(headers = headers) as session:
       html = await self.fetch(session, url)
-      img = html.get('file')
+      img = (html[0]).get('url')
 
     embed.set_image(url = img)
 
@@ -144,11 +146,13 @@ class animals(commands.Cog):
       colour = 0xFF00FF
     )
 
-    url = 'http://aws.random.cat/meow'
+    headers = {"Authorization": "api_key=8589f552-4b09-4ffc-8561-cc6ef4e59018"}
 
-    async with aiohttp.ClientSession() as session:
+    url = 'https://api.thecatapi.com/v1/images/search'
+
+    async with aiohttp.ClientSession(headers = headers) as session:
       html = await self.fetch(session, url)
-      img = html.get('file')
+      img = (html[0]).get('url')
 
     embed.set_image(url = img)
 
