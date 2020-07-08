@@ -51,7 +51,7 @@ class hlp(commands.Cog):
         colour = 0xFFC500
       )
 
-      embed.set_footer(text = 'good day gamers')
+      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
@@ -85,7 +85,7 @@ class hlp(commands.Cog):
         colour = 0xFFC500
       )
 
-      embed.set_footer(text = 'all weebs welcome here')
+      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**'  + prefix + 'account <mal username>**', value = 'Displays account information for given username', inline = False)
