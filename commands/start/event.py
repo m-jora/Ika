@@ -93,8 +93,6 @@ class event(commands.Cog):
   async def on_command_error(self, ctx, error):
     if isinstance(error, commands.CommandNotFound):
       print('CNF')
-      await ctx.message.add_reaction('🇳')
-      await ctx.message.add_reaction('🅾️')
     else:
       print(error)
       await ctx.message.add_reaction('⚠️')
