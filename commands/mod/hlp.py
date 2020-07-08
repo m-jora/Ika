@@ -121,6 +121,8 @@ class hlp(commands.Cog):
       embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
       embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
       
+      await ctx.send(embed = embed)
+      return
 
     else:
       return
