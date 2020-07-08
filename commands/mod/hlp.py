@@ -31,11 +31,13 @@ class hlp(commands.Cog):
         colour = 0xFFC500
       )
 
-      embed.set_footer(text = 'great day gamers')
+      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**MYANIMELIST**', value = 'Type `' + prefix + 'help mal`', inline = False)
       embed.add_field(name = '**GENERAL**', value = 'Type `' + prefix + 'help general`', inline = False)
+      embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
+      embed.add_field(name = 'If you like Ika please consider voting!', value = '[Vote](https://top.gg/bot/705683895055679521/vote)')
       #embed.add_field(name = '**MOD**', value = 'Type `~help mod`', inline = False)
  
       await ctx.send(embed = embed)
@@ -53,8 +55,8 @@ class hlp(commands.Cog):
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
-      embed.add_field(name = '**' + prefix + 'Avatar [user]**', value = 'Sends users avatar as embed', inline = False)
-      embed.add_field(name = '**' + prefix + 'Botstatus [user]**', value = 'Sends status and info on bot.', inline = False)
+      embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
+      embed.add_field(name = '**' + prefix + 'botstatus**', value = 'Sends status and info on bot.', inline = False)
       embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'choose <item1> <item2>**', value = name + ' chooses between two items given', inline = False)
       embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
