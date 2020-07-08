@@ -4,6 +4,7 @@
 import random
 import aiohttp
 import discord
+import json
 from discord.ext import commands
 
 class img(commands.Cog):
@@ -13,6 +14,18 @@ class img(commands.Cog):
 
   @commands.command()
   async def mathfun(self, ctx, message = ''):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'mathfun' in tracking:
+      tracking['mathfun'] += 1
+
+    else:
+      tracking['mathfun'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+    
     if message == '':
       location = [
         'images/3.png',
@@ -60,28 +73,6 @@ class img(commands.Cog):
     embed.set_image(url = html)
 
     await ctx.send(embed = embed)
-
-
-  @commands.command(name = 'random')
-  async def ran(self, ctx):
-    imgs = [
-      'images/fp.png',
-      'images/fp1.png',
-      'images/fp2.png',
-      'images/fp3.png',
-      'images/fp4.png',
-      'images/fp5.png',
-      'images/fp6.png',
-      'images/fp7.png',
-      'images/help.png',
-      'images/pogg.png',
-      'images/reverse.png'
-    ]
-
-    pic = random.choice(imgs)
-    await ctx.send(file = discord.File(pic))
-    return
-
 
   async def fetch(self, session, url):
     async with session.get(url) as response:

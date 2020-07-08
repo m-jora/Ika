@@ -14,17 +14,53 @@ class mb(commands.Cog):
 
   @commands.command()
   async def ping(self, ctx):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'ping' in tracking:
+      tracking['ping'] += 1
+
+    else:
+      tracking['ping'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
     await ctx.send('`pong`')
 
   @commands.command()
   async def pong(self, ctx):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'pong' in tracking:
+      tracking['pong'] += 1
+
+    else:
+      tracking['pong'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
     await ctx.send('`ping`')
 
   @commands.command()
   async def pizza(self, ctx):
     lit = ['Hi Kendall', 'Pizza', 'Howdy Partner', 'Hello Travis', '<@275065846836101120>', 'Hi Evan',]
     response = random.choice(lit)
+
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'pizza' in tracking:
+      tracking['pizza'] += 1
+
+    else:
+      tracking['pizza'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     await ctx.send(response)
+    
 
   @commands.command(aliases = ['Hi', 'hello', 'Hello'])
   async def hi(self, ctx):
@@ -33,7 +69,22 @@ class mb(commands.Cog):
     greet2 = ['\nHow are you?', '\nWhat\'s up?', '\nWhat anime are you watching?', '\nHas school killed you yet?',]
     greets2 = random.choice(greet2)
 
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'hi' in tracking:
+      tracking['hi'] += 1
+
+    else:
+      tracking['hi'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
+
     await ctx.send(greeting + ' <@' + str(ctx.author.id) + '>' + greets2)
+
+
 
   @commands.command(name = '8ball')
   async def _8ball(self, ctx, *, question):
@@ -64,6 +115,19 @@ class mb(commands.Cog):
       'Why would you ask me that?',
     ]
 
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if '8ball' in tracking:
+      tracking['8ball'] += 1
+
+    else:
+      tracking['8ball'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
+
     if question == '':
       await ctx.send('Ask me a question by typing ~8ball <question>')
 
@@ -77,11 +141,35 @@ class mb(commands.Cog):
       'tails',
     ]
 
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'flip' in tracking:
+      tracking['flip'] += 1
+
+    else:
+      tracking['flip'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     await ctx.send(f'It\'s {random.choice(sides)}')
 
 
   @commands.command()
   async def say(self, ctx, *, message):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'say' in tracking:
+      tracking['say'] += 1
+
+    else:
+      tracking['say'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+    
     if message == '':
       return
 
@@ -107,6 +195,18 @@ class mb(commands.Cog):
 
   @commands.command()
   async def choose(self, ctx, msg1 = '', msg2 = ''):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'choose' in tracking:
+      tracking['choose'] += 1
+
+    else:
+      tracking['choose'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+    
     if msg1 == '' or msg2 == '':
       await ctx.send('Please provide at least 2 arguments')
       return
