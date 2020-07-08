@@ -217,5 +217,17 @@ class mb(commands.Cog):
     await ctx.send (send)
 
 
+  @commands.command()
+  async def track(self, ctx):
+    if ctx.author.id != 275065846836101120:
+      return
+
+    else:
+      with open('json/track.json', 'r') as f:
+        track = json.load(f)
+
+      await ctx.send(str(track))
+
+
 def setup(bot):
   bot.add_cog(mb(bot))
