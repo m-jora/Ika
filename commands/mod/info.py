@@ -17,20 +17,41 @@ class info(commands.Cog):
       colour = 0x09D2FF
     )
 
+    ids = [
+      264445053596991498,
+      374071874222686211,
+      446425626988249089,
+      110373943822540800,
+      450100127256936458,
+    ]
+
     channel = 0
     for guild in self.client.guilds:
-      channel += len(guild.channels)
+      if guild.id in ids:
+        pass
+      else:
+        channel += len(guild.channels)
 
     members = 0
     for guild in self.client.guilds:
-      members += len(guild.members)
+      if guild.id in ids:
+        pass
+      else: 
+        members += len(guild.members)
+
+    servers = 0
+    for guild in self.client.guilds:
+      if guild.id in ids:
+        pass
+      else:
+        servers += 1
 
     mem = ctx.guild.get_member(705683895055679521)
     name = mem.display_name
 
     embed.set_thumbnail(url = mem.avatar_url)
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#3186')
-    embed.add_field(name = '**' + name + ' is in:**', value = str(len(self.client.guilds)) + ' servers')
+    embed.add_field(name = '**' + name + ' is in:**', value = str(servers) + ' servers')
     embed.add_field(name = '**' + name + ' is watching:**', value = str(members) + ' users')
     embed.add_field(name = '**' + name + ' is watching:**', value = str(channel) + ' channels')
     embed.set_footer(text = 'Have a nice day :)')
