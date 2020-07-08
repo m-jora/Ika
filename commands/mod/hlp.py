@@ -110,7 +110,7 @@ class hlp(commands.Cog):
       )
 
       embed.set_footer(text = 'Replying to: ' + str(ctx.author))
-      embed.set_thumbail(url = 'https://i.imgur.com/mqrgVsu.gif')
+      embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
 
       embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
