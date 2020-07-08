@@ -36,6 +36,7 @@ class hlp(commands.Cog):
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**MYANIMELIST**', value = 'Type `' + prefix + 'help mal`', inline = False)
       embed.add_field(name = '**GENERAL**', value = 'Type `' + prefix + 'help general`', inline = False)
+      embed.add_field(name = '**IMAGES**', value = 'Type `' + prefix + 'help images`', inline = False)
       embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
       embed.add_field(name = 'If you like Ika please consider voting!', value = '[Vote](https://top.gg/bot/705683895055679521/vote)')
       #embed.add_field(name = '**MOD**', value = 'Type `~help mod`', inline = False)
@@ -55,21 +56,21 @@ class hlp(commands.Cog):
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
-      embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
+      #embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
       embed.add_field(name = '**' + prefix + 'botstatus**', value = 'Sends status and info on bot.', inline = False)
-      embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
+      #embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'choose <item1> <item2>**', value = name + ' chooses between two items given', inline = False)
-      embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
-      embed.add_field(name = '**' + prefix + 'flip**', value = 'Flips a coin', inline = False)
-      embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options', inline = False)
-      embed.add_field(name = '**' + prefix + 'hi**', value = name + ' says hello', inline = False)
-      embed.add_field(name = '**' + prefix + 'inspire**', value = name + ' sends an inspirational image', inline = False)
-      embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
-      embed.add_field(name = '**' + prefix + 'ping**', value = 'pong', inline = False)
-      embed.add_field(name = '**' + prefix + 'pizza**', value = 'It does something idk', inline = False)
-      embed.add_field(name = '**' + prefix + 'pong**', value = 'ping', inline = False)
-      embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
-      embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
+      #embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
+      embed.add_field(name = '**' + prefix + 'flip**', value = 'Flips a coin')
+      embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options')
+      embed.add_field(name = '**' + prefix + 'hi**', value = name + ' says hello')
+      #embed.add_field(name = '**' + prefix + 'inspire**', value = name + ' sends an inspirational image', inline = False)
+      #embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
+      embed.add_field(name = '**' + prefix + 'ping**', value = 'pong')
+      embed.add_field(name = '**' + prefix + 'pizza**', value = 'It does something idk')
+      embed.add_field(name = '**' + prefix + 'pong**', value = 'ping')
+      #embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
+      #embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
       embed.add_field(name = '**' + prefix + 'say <message to repeat>**', value = name + ' repeats message given', inline = False)
       embed.add_field(name = '**' + prefix + 'userinfo [user]**', value = 'Returns information on the given user', inline = False)
 
@@ -98,6 +99,28 @@ class hlp(commands.Cog):
 
       await ctx.send(embed = embed)
       return
+
+
+    elif message == 'images' or message == 'Images':
+      embed = discord.Embed(
+        title = '**IMAGE COMMANDS**',
+        url = 'https://hheselbarth.gitbook.io/mr-bot/',
+        description = ' <> = required arguments, [] = optional.',
+        colour = 0xFFC500
+      )
+
+      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
+      embed.set_thumbail(url = 'https://i.imgur.com/mqrgVsu.gif')
+      embed.set_author(name = name, icon_url = pfp)
+
+      embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
+      embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
+      embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
+      embed.add_field(name = '**' + prefix + 'inspire**', value = name + ' sends an inspirational image', inline = False)
+      embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
+      embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
+      embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
+      
 
     else:
       return
