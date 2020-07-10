@@ -2,6 +2,7 @@
 # contains the account, season and schedule commands for mal
 import discord
 import asyncio, aiohttp
+import json
 
 from jikanpy import AioJikan
 from discord.ext import commands
