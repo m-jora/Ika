@@ -14,6 +14,18 @@ class mal(commands.Cog):
 
   @commands.command()
   async def account(self, ctx, message):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'account' in tracking:
+      tracking['account'] += 1
+
+    else:
+      tracking['account'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     loop = asyncio.get_event_loop()
     aio_jikan = AioJikan(loop = loop)
     
@@ -75,6 +87,18 @@ class mal(commands.Cog):
 
   @commands.command()
   async def aniseason(self, ctx, year, sesn):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'aniseason' in tracking:
+      tracking['aniseason'] += 1
+
+    else:
+      tracking['aniseason'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     loop = asyncio.get_event_loop()
     aio_jikan = AioJikan(loop = loop)
 
@@ -101,6 +125,18 @@ class mal(commands.Cog):
 
   @commands.command()
   async def schedule(self, ctx, day = ''):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'schedule' in tracking:
+      tracking['schedule'] += 1
+
+    else:
+      tracking['schedule'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     loop = asyncio.get_event_loop()
     aio_jikan = AioJikan(loop = loop)
 

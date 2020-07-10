@@ -16,6 +16,18 @@ class anime(commands.Cog):
 
   @commands.command()
   async def ani(self, ctx, *, message):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'ani' in tracking:
+      tracking['ani'] += 1
+
+    else:
+      tracking['ani'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     loop = asyncio.get_event_loop()
     aio_jikan = AioJikan(loop = loop)
     
@@ -131,6 +143,18 @@ class anime(commands.Cog):
 
   @commands.command()
   async def anisearch(self, ctx, *, message):
+    with open('json/track.json', 'r') as f:
+      tracking = json.load(f)
+      
+    if 'anisearch' in tracking:
+      tracking['anisearch'] += 1
+
+    else:
+      tracking['anisearch'] = 1
+
+    with open('json/track.json','w') as f:
+      json.dump(tracking, f, indent = 2)
+
     with open('json/prefix.json', 'r') as f:
       prefixes = json.load(f)
 
