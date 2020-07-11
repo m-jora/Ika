@@ -1,16 +1,16 @@
-# Mr. bot
+# Ika
 
-Mr. bot was made in [Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
+Ika was made in [Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
 
-Invite Mr. bot to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=378880&scope=bot).
+Invite Ika to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=378880&scope=bot).
 
 For any questions feel free to message me: `mJoRa#3186`
 
-Mr. bot will soon (hopefully) have a new hosted home.
+Ika is being hosted on Google Cloud Platform,
 
 # Usage
 
-To learn all about how to use Mr. bot and his commands click [here](https://hheselbarth.gitbook.io/mr-bot/).
+To learn all about how to use Ika and his commands click [here](https://hheselbarth.gitbook.io/mr-bot/).
 
 # Libs and API's
 
@@ -28,4 +28,4 @@ These are the libraries and API's used to make these features possible
 
 [dog-api](https://dog.ceo/dog-api/)
 
-[cat-api](http://aws.random.cat/meow)
+[cat-api](http://thecatapi.com)
