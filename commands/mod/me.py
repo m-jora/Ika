@@ -12,42 +12,7 @@ class me(commands.Cog):
   def __init__(self, bot):
     self.client = bot
 
-  @commands.command()
-  async def status(self, ctx, game, status, *, msg = ''):
-    if ctx.author.id != 275065846836101120:
-      await ctx.message.add_reaction('👎')
-      return
-
-    else:
-      if game == 'stream':
-        if status == 'online':
-          await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.online, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/ika'))
-          return
-        elif status == 'dnd':
-          await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.dnd, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/ika'))
-          return
-        elif status == 'idle':
-          await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.idle, activity = discord.Streaming(name = msg, url = 'https://twitch.tv/ika'))
-          return
-
-      elif game == 'game':
-        if status == 'online':
-          await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.online, activity = discord.Game(msg))
-          return
-        elif status == 'dnd':
-          await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.dnd, activity = discord.Game(msg))
-          return
-        elif status == 'idle':
-          await ctx.message.add_reaction('👍')
-          await self.client.change_presence(status = discord.Status.idle, activity = discord.Game(msg))
-          return
-
-
+  
   @commands.command()
   async def restatus(self, ctx):
     if ctx.author.id != 275065846836101120 and ctx.author.id != 125492204234997761:
@@ -56,36 +21,26 @@ class me(commands.Cog):
   
     else:
       anime = [
-        'Spirited Away',
-        'Steins;Gate',
-        'Your Name',
-        'My Hero Academia',
-        'Howl\'s Moving Castle',
-        'Fullmetal Alchemist: Brotherhood',
-        'Attack on Titan',
-        'No Game No Life',
-        'Assassination Classroom',
-        'Re:Zero',
-        'Darling in the Franxx',
-        'Bunny Girl Senpai',
-        'Black Lagoon',
-        'Future Diary',
-        'Guilty Crown',
-        'Zetsuen no Tempest',
-        'Chuunibyou',
-        'Your Lie in April',
-        'A Silent Voice',
-        'Charlotte',
-        'Dragon Maid',
-        'Kimetsu no Yaiba',
-        'Rising of the Shield Hero',
-        'Quintessential Quintuplets',
-        'The girl who leapt through time',
-        'Soul Eater',
-        'Fairy Tail',
-        'One Punch Man',
-        'Danmachi'
-      ]
+      'Steins;Gate',
+      'Your Name',
+      'MHA',
+      'FMAB',
+      'SnK',
+      'NGNL',
+      'Re:Zero',
+      'DITF',
+      'BNA',
+      'Future Diary',
+      'Guilty Crown',
+      'Chuunibyou',
+      'A Silent Voice',
+      'Charlotte',
+      'Dragon Maid',
+      'Soul Eater',
+      'Fairy Tail',
+      'One Punch Man',
+      'Danmachi'
+    ]
 
       show = random.choice(anime)
       await ctx.message.add_reaction('👍')
@@ -108,24 +63,6 @@ class me(commands.Cog):
         json.dump(prefixes, f, indent = 2)
     
       await ctx.message.add_reaction('👍')
-
-
-  @commands.command()
-  async def delete(self, ctx, id):
-    if ctx.author.id != 275065846836101120:
-      await ctx.message.add_reaction('👎')
-      return
-  
-    else:
-      message = await ctx.fetch_message(id)
-
-      if message.author.id != 705683895055679521:
-        await ctx.message.add_reaction('👎')
-        return
-
-      else:
-        await ctx.message.add_reaction('👍')
-        await message.edit(delete_after = 0)
 
 
   @commands.command()

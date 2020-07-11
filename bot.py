@@ -22,12 +22,11 @@ def get_prefix(bot, msg):
   return prefixes[str(msg.guild.id)]
 
 
-#client = discord.Client()
 bot = commands.Bot(command_prefix = get_prefix)
 bot.remove_command('help')
 
 
-@bot.command()
+@bot.command() # live load cogs
 async def load(ctx, extension):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
@@ -37,7 +36,7 @@ async def load(ctx, extension):
     bot.load_extension(f'commands.{extension}')
 
 
-@bot.command()
+@bot.command() # live unload cogs
 async def unload(ctx, extension):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
@@ -54,6 +53,7 @@ async def reload(ctx, extension = ''):
     await ctx.message.add_reaction('👎')
     return
   
+  #reloads all cogs if no extension is spefically given
   elif extension == '':
     for filename in os.listdir('./commands/mal'):
       if filename.endswith('.py'):

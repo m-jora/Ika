@@ -32,6 +32,10 @@ class animals(commands.Cog):
     embed.set_image(url = img)
 
     this = await ctx.send(embed = embed)
+    msg = await ctx.fetch_message(int(this.id))
+
+    await msg.add_reaction('🐶')
+    await msg.add_reaction('🐕')
 
     with open('json/dog.json', 'r') as f:
       dogs = json.load(f)
@@ -62,41 +66,6 @@ class animals(commands.Cog):
     await ctx.send(embed = embed)
 
 
-  @commands.command(aliases = ['repuppy', 'redoggo', 'repup', 'repupper', 'rehound', 'remutt'])
-  async def redog(self, ctx, *, breed = ''):
-    with open('json/dog.json', 'r')as f:
-      ids = json.load(f)
-
-    id = list(ids.keys())[0]
-  
-    await ctx.message.add_reaction('🐶')
-
-    message = await ctx.fetch_message(int(id))
-    if message.author.id != 705683895055679521:
-      await ctx.message.add_reaction('👎')
-      return
-
-    embed = discord.Embed(
-      title = None,
-      description = None,
-      colour = 0xFF00FF
-    )
-    
-    if breed == '':
-      url = 'https://dog.ceo/api/breeds/image/random'
-
-    else:
-      url = 'https://dog.ceo/api/breed/' + breed + '/images/random'
-
-    async with aiohttp.ClientSession() as session:
-      html = await self.fetch(session, url)
-      img = html.get('message')
-
-    embed.set_image(url = img)
-
-    await message.edit(embed = embed)
-
-
   @commands.command(aliases = ['kitty', 'kitten'])
   async def cat(self, ctx):
     embed = discord.Embed(
@@ -113,6 +82,9 @@ class animals(commands.Cog):
     embed.set_image(url = img)
 
     this = await ctx.send(embed = embed)
+    msg = await ctx.fetch_message(int(this.id))
+
+    await msg.add_reaction('🐱')
 
     with open('json/cat.json', 'r') as f:
       cats = json.load(f)
@@ -124,39 +96,6 @@ class animals(commands.Cog):
       json.dump(cats, f, indent = 2)
 
     return
-
-
-  @commands.command(aliases = ['rekitty', 'rekitten'])
-  async def recat(self, ctx):
-    with open('json/cat.json', 'r') as f:
-      ids = json.load(f)
-
-    id = list(ids.keys())[0]
-
-    await ctx.message.add_reaction('🐱')
-
-    message = await ctx.fetch_message(int(id))
-    if message.author.id != 705683895055679521:
-      await ctx.message.add_reaction('👎')
-      return
-
-    embed = discord.Embed(
-      title = None,
-      description = None,
-      colour = 0xFF00FF
-    )
-
-    headers = {"Authorization": "api_key=8589f552-4b09-4ffc-8561-cc6ef4e59018"}
-
-    url = 'https://api.thecatapi.com/v1/images/search'
-
-    async with aiohttp.ClientSession(headers = headers) as session:
-      html = await self.fetch(session, url)
-      img = (html[0]).get('url')
-
-    embed.set_image(url = img)
-
-    await message.edit(embed = embed)
 
 
   async def fetch(self, session, url):

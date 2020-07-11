@@ -39,8 +39,8 @@ class hlp(commands.Cog):
       embed.add_field(name = '**IMAGES**', value = 'Type `' + prefix + 'help images`', inline = False)
       embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
       embed.add_field(name = 'If you like Ika please consider voting!', value = '[Vote](https://top.gg/bot/705683895055679521/vote)')
-      #embed.add_field(name = '**MOD**', value = 'Type `~help mod`', inline = False)
- 
+      
+
       await ctx.send(embed = embed)
       return
 
@@ -56,21 +56,10 @@ class hlp(commands.Cog):
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
-      #embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
       embed.add_field(name = '**' + prefix + 'botstatus**', value = 'Sends status and info on bot.', inline = False)
-      #embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'choose <item1> <item2>**', value = name + ' chooses between two items given', inline = False)
-      #embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'flip**', value = 'Flips a coin')
       embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options')
-      embed.add_field(name = '**' + prefix + 'hi**', value = name + ' says hello')
-      #embed.add_field(name = '**' + prefix + 'inspire**', value = name + ' sends an inspirational image', inline = False)
-      #embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
-      embed.add_field(name = '**' + prefix + 'ping**', value = 'pong')
-      embed.add_field(name = '**' + prefix + 'pizza**', value = 'It does something idk')
-      embed.add_field(name = '**' + prefix + 'pong**', value = 'ping')
-      #embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
-      #embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
       embed.add_field(name = '**' + prefix + 'say <message to repeat>**', value = name + ' repeats message given', inline = False)
       embed.add_field(name = '**' + prefix + 'userinfo [user]**', value = 'Returns information on the given user', inline = False)
 
@@ -118,32 +107,13 @@ class hlp(commands.Cog):
       embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
       embed.add_field(name = '**' + prefix + 'inspire**', value = name + ' sends an inspirational image', inline = False)
       embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
-      embed.add_field(name = '**' + prefix + 'recat**', value = 'Gives you a new cat if you didn\'t like the old one.', inline = False)
-      embed.add_field(name = '**' + prefix + 'redog [breed]**', value = 'Gives you a new dog if you didn\'t like the old one.', inline = False)
       
+
       await ctx.send(embed = embed)
       return
 
     else:
       return
-
-    '''elif message == 'mod' or message == 'Mod':
-      embed = discord.Embed(
-        title = '**MOD COMMANDS**',
-        description = 'Mr. bot mod',
-        colour = 0xFFC500
-      )
-
-      embed.set_footer(text = 'ok day gamers')
-      embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
-      embed.set_author(name = 'Mr. bot', icon_url = 'https://i.imgur.com/NXWb7Ik.png')
-      embed.add_field(name = '**~ban <user id>**', value = 'Bans user passed if calling user has permission', inline = False)
-      embed.add_field(name = '**~clear [num messages]**', value = 'deletes number of messages given', inline = False)
-      embed.add_field(name = '**~kick <user id>**', value = 'Kicks user passed if calling user has permission', inline = False)
-      embed.add_field(name = '**~unban <user id>**', value = 'Unbans user passed if calling user has permission', inline = False)
-
-      await ctx.send(embed = embed)
-      return'''
 
 def setup(bot):
   bot.add_cog(hlp(bot))
