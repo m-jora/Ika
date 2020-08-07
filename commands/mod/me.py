@@ -41,7 +41,7 @@ class me(commands.Cog):
 
       show = random.choice(anime)
       await ctx.message.add_reaction('👍')
-      await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = show + ' // m.help')
+      await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = show + ' // m.help'))
 
 
   @commands.command()
