@@ -28,23 +28,20 @@ class me(commands.Cog):
       'SnK',
       'NGNL',
       'Re:Zero',
-      'DITF',
+      'DitF',
       'BNA',
-      'Future Diary',
-      'Guilty Crown',
       'Chuunibyou',
       'A Silent Voice',
       'Charlotte',
       'Dragon Maid',
       'Soul Eater',
       'Fairy Tail',
-      'One Punch Man',
       'Danmachi'
     ]
 
       show = random.choice(anime)
       await ctx.message.add_reaction('👍')
-      await self.client.change_presence(status = discord.Status.online, activity = discord.Streaming(name = show, url = 'https://twitch.tv/mr.bot'))
+      await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = show + ' // m.help')
 
 
   @commands.command()
