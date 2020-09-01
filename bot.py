@@ -55,22 +55,26 @@ async def reload(ctx, extension = ''):
   
   #reloads all cogs if no extension is spefically given
   elif extension == '':
-    for filename in os.listdir('./commands/mal'):
+    for filename in os.listdir('./commands/general'):
       if filename.endswith('.py'):
-        bot.reload_extension(f'commands.mal.{filename[:-3]}')
+        bot.reload_extension(f'commands.general.{filename[:-3]}')
+
+    for filename in os.listdir('./commands/img'):
+      if filename.endswith('.py'):
+        bot.reload_extension(f'commands.img.{filename[:-3]}')
+
+    for filename in os.listdir('./commands/mal_anilist'):
+      if filename.endswith('.py'):
+        bot.reload_extension(f'commands.mal_anilist.{filename[:-3]}')
 
     for filename in os.listdir('./commands/misc'):
       if filename.endswith('.py'):
         bot.reload_extension(f'commands.misc.{filename[:-3]}')
 
-    for filename in os.listdir('./commands/mod'):
+    for filename in os.listdir('./commands/src'):
       if filename.endswith('.py'):
-        bot.reload_extension(f'commands.mod.{filename[:-3]}')
+        bot.reload_extension(f'commands.src.{filename[:-3]}')
 
-    for filename in os.listdir('./commands/start'):
-      if filename.endswith('.py'):
-        bot.reload_extension(f'commands.start.{filename[:-3]}')
-    
     await ctx.message.add_reaction('👍')
 
 
@@ -84,21 +88,25 @@ async def reload(ctx, extension = ''):
 
 
 #Load all cogs when bot starts
-for filename in os.listdir('./commands/mal'):
+for filename in os.listdir('./commands/general'):
   if filename.endswith('.py'):
-    bot.load_extension(f'commands.mal.{filename[:-3]}')
+    bot.load_extension(f'commands.general.{filename[:-3]}')
+
+for filename in os.listdir('./commands/img'):
+  if filename.endswith('.py'):
+    bot.load_extension(f'commands.img.{filename[:-3]}')
+
+for filename in os.listdir('./commands/mal_anilist'):
+  if filename.endswith('.py'):
+    bot.load_extension(f'commands.mal_anilist.{filename[:-3]}')
 
 for filename in os.listdir('./commands/misc'):
   if filename.endswith('.py'):
     bot.load_extension(f'commands.misc.{filename[:-3]}')
 
-for filename in os.listdir('./commands/mod'):
+for filename in os.listdir('./commands/src'):
   if filename.endswith('.py'):
-    bot.load_extension(f'commands.mod.{filename[:-3]}')
-
-for filename in os.listdir('./commands/start'):
-  if filename.endswith('.py'):
-    bot.load_extension(f'commands.start.{filename[:-3]}')
+    bot.load_extension(f'commands.src.{filename[:-3]}')
 
 
 bot.run(TOKEN)
