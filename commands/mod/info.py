@@ -50,7 +50,7 @@ class info(commands.Cog):
     name = mem.display_name
 
     embed.set_thumbnail(url = mem.avatar_url)
-    embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#3186')
+    embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#0002')
     embed.add_field(name = '**' + name + ' is in:**', value = str(servers) + ' servers')
     embed.add_field(name = '**' + name + ' is watching:**', value = str(members) + ' users')
     embed.add_field(name = '**' + name + ' is watching:**', value = str(channel) + ' channels')
