@@ -28,13 +28,13 @@ class hlp(commands.Cog):
         title = '**COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
-        colour = 0xFFC500
+        colour = 0x000CFF
       )
 
       embed.set_footer(text = 'Replying to: ' + str(ctx.author))
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
-      embed.add_field(name = '**MYANIMELIST**', value = 'Type `' + prefix + 'help mal`', inline = False)
+      embed.add_field(name = '**ANIME/MANGA**', value = 'Type `' + prefix + 'help anime`', inline = False)
       embed.add_field(name = '**GENERAL**', value = 'Type `' + prefix + 'help general`', inline = False)
       embed.add_field(name = '**IMAGES**', value = 'Type `' + prefix + 'help images`', inline = False)
       embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
@@ -49,7 +49,7 @@ class hlp(commands.Cog):
         title = '**GENERAL COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
-        colour = 0xFFC500
+        colour = 0x000CFF
       )
 
       embed.set_footer(text = 'Replying to: ' + str(ctx.author))
@@ -67,24 +67,25 @@ class hlp(commands.Cog):
       return
 
 
-    elif message == 'mal' or message == 'MAL':
+    elif message == 'anime':
       embed = discord.Embed(
-        title = '**MAL COMMANDS**',
+        title = '**ANIME/MANGA COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
-        colour = 0xFFC500
+        colour = 0x000CFF
       )
 
       embed.set_footer(text = 'Replying to: ' + str(ctx.author))
       embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**'  + prefix + 'account <mal username>**', value = 'Displays account information for given username', inline = False)
-      embed.add_field(name = '**' + prefix + 'ani <anime title>**', value = 'Displays detailed information on the title given', inline = False)
+      embed.add_field(name = '**' + prefix + 'ani [mal or al] <anime title>**', value = 'Displays detailed information on the title given', inline = False)
       embed.add_field(name = '**' + prefix + 'anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
       embed.add_field(name = '**' + prefix + 'aniseason <year> <season>**', value = 'Gives information on anime from given season', inline = False)
       embed.add_field(name = '**' + prefix + 'manga <manga title>**', value = 'Displays detailed information on the title given', inline = False)
       embed.add_field(name = '**' + prefix + 'mangasearch <manga title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
       embed.add_field(name = '**' + prefix + 'schedule [m,t,w,r,f,s,su]**', value = 'Gives information on shows airing the given day or whole week if no day is given', inline = False)
+      embed.add_field(name = '**coming soon**', value = 'More commands that pull information from anilist.co are currently under development.', inline = False)
 
       await ctx.send(embed = embed)
       return
@@ -95,7 +96,7 @@ class hlp(commands.Cog):
         title = '**IMAGE COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
-        colour = 0xFFC500
+        colour = 0x000CFF
       )
 
       embed.set_footer(text = 'Replying to: ' + str(ctx.author))
