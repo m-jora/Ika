@@ -1,5 +1,7 @@
 # Ika
 
+[![Discord Bots](https://top.gg/api/widget/705683895055679521.svg)](https://top.gg/bot/705683895055679521)
+
 Ika was made in [Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
 
 Invite Ika to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=378880&scope=bot).
