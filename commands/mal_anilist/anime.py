@@ -139,12 +139,7 @@ class anime(commands.Cog):
 
       await aio_jikan.close()
 
-      this = await ctx.send(embed = embed)
-      msg = await ctx.fetch_message(int(this.id))
-
-      await msg.add_reaction('⬅️')
-      await msg.add_reaction('❌')
-      await msg.add_reaction('➡️')
+      await ctx.send(embed = embed)
 
 
   async def alani(self, ctx, message):
