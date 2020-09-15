@@ -6,13 +6,13 @@ Ika was made in [Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
 
 Invite Ika to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=378880&scope=bot).
 
-For any questions feel free to message me: `mJoRa#3186`
+For any questions feel free to message me: `mJoRa#0002`
 
 Ika is being hosted on Google Cloud Platform,
 
 # Usage
 
-To learn all about how to use Ika and his commands click [here](https://hheselbarth.gitbook.io/mr-bot/).
+To learn all about how to use Ika and her commands click [here](https://hheselbarth.gitbook.io/mr-bot/).
 
 # Libs and API's
 
