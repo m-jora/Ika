@@ -1,4 +1,4 @@
-# Ika
+# Ika V 2.2
 
 [![Discord Bots](https://top.gg/api/widget/705683895055679521.svg)](https://top.gg/bot/705683895055679521)
 
