@@ -8,7 +8,7 @@
 <h4 align = "center"> Obtain compact embeds of Anime/Manga from Anilist and MyAnimelist without ever leaving Discord.
 
 <p align = "center">
-  <a href="https://top.gg/bot/705683895055679521">
+  <a href="https://top.gg/user/275065846836101120">
     <img src="https://top.gg/api/widget/owner/705683895055679521.svg?noavatar=true" alt="Ika Owner">
   </a>
   <a href="https://top.gg/bot/705683895055679521">
