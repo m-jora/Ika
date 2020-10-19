@@ -1,20 +1,52 @@
-# Ika V2.2
+<h1 align = "center">
+  <br>
+  <a href = "https://github.com/m-jora/Ika"><img src = "https://i.imgur.com/mqrgVsu.gifv" alt = "Ika Discord Bot"></a>
+  <br>
+  Ika Discord Bot
+</h1>
 
-[![Discord Bots](https://top.gg/api/widget/705683895055679521.svg)](https://top.gg/bot/705683895055679521)
+<h4 align = "center"> Obtain compact embed from Anilist and MyAnimelist without ever leaving Discord.
 
-Ika was made in [Rapptz/Discord.py](https://github.com/Rapptz/discord.py)
+<p align = "center">
+  <a href="https://top.gg/bot/705683895055679521">
+    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika Owner">
+  </a>
+  <a href="https://top.gg/bot/705683895055679521">
+    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika" />
+  </a>
+  <a href="https://top.gg/bot/705683895055679521">
+    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika" />
+  </a>
+  <a href="https://top.gg/bot/705683895055679521">
+    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika" />
+</a>
 
-Invite Ika to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=378880&scope=bot).
+<p align = "center">
+  <a href = "#overview">Overview</a>
+  •
+  <a href = "https://hheselbarth.gitbook.io/ika/">Documentation</a>
+  •
+  <a href = "#join-the-community">Community</a>
+  •
+  <a href = "#API">API</a>
+</p>
 
-For any questions feel free to message me: `mJoRa#0002`
+# Overview
 
-Ika is being hosted on Google Cloud Platform,
+Ika is a bot focused on providing compact embeds on information from MyAnimelist and Anilist. Ika can search
+accounts, manga, anime, and more while displaying stats and infor on items searched.Ika also has
+many fun commands providing a bit of randomness with some and some fun.
 
-# Usage
+# Join the community!
 
-To learn all about how to use Ika and her commands click [here](https://hheselbarth.gitbook.io/mr-bot/).
+**Ika** is in constant development, and is supported by a new and growing community which accpets requests
+for content and features for Ika. New features are constantly added. 
 
-# Libs and API's
+Join our [Discord Server](https://discord.gg/xG7HEHu)
+
+[Invite](https://discord.com/api/oauth2/authorize?client_id=705683895055679521&permissions=3533888&scope=bot) Ika to your Server!
+
+# API
 
 These are the libraries and API's used to make these features possible
 
