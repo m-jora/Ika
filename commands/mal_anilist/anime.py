@@ -26,7 +26,7 @@ class anime(commands.Cog):
       await self.alani(ctx, message)
 
     else:
-      await self.malani(ctx, message)
+      await self.alani(ctx, message)
   
 
   async def malani(self, ctx, message):
