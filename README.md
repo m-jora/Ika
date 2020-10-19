@@ -1,6 +1,6 @@
 <h1 align = "center">
   <br>
-  <a href = "https://github.com/m-jora/Ika"><img src = "https://i.imgur.com/mqrgVsu.gifv" alt = "Ika Discord Bot"></a>
+  <a href = "https://github.com/m-jora/Ika"><img src = "https://i.imgur.com/oF1Yd7A.jpg" alt = "Ika Discord Bot"></a>
   <br>
   Ika Discord Bot
 </h1>
