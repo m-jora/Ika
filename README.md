@@ -9,16 +9,16 @@
 
 <p align = "center">
   <a href="https://top.gg/bot/705683895055679521">
-    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika Owner">
+    <img src="https://top.gg/api/widget/owner/705683895055679521.svg?noavatar=true" alt="Ika Owner">
   </a>
   <a href="https://top.gg/bot/705683895055679521">
-    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika" />
+    <img src="https://top.gg/api/widget/status/705683895055679521.svg" alt="Ika Status" />
   </a>
   <a href="https://top.gg/bot/705683895055679521">
-    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika" />
+    <img src="https://top.gg/api/widget/servers/705683895055679521.svg?noavatar=true" alt="Ika Servers" />
   </a>
   <a href="https://top.gg/bot/705683895055679521">
-    <img src="https://top.gg/api/widget/705683895055679521.svg" alt="Ika" />
+    <img src="https://top.gg/api/widget/lib/705683895055679521.svg?noavatar=true" alt="Ika Lib" />
 </a>
 
 <p align = "center">
