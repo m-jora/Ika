@@ -5,7 +5,7 @@
   Ika Discord Bot
 </h1>
 
-<h4 align = "center"> Obtain compact embed from Anilist and MyAnimelist without ever leaving Discord.
+<h4 align = "center"> Obtain compact embeds of Anime/Manga from Anilist and MyAnimelist without ever leaving Discord.
 
 <p align = "center">
   <a href="https://top.gg/bot/705683895055679521">
