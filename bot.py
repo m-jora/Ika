@@ -11,7 +11,7 @@ import aiohttp
 from discord.ext import commands
 
 from dotenv import load_dotenv
-#add memebers = True
+#add memebers = True yes
 intents = discord.Intents(guilds = True, emojis = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
