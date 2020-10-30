@@ -11,18 +11,13 @@ import aiohttp
 from discord.ext import commands
 
 from dotenv import load_dotenv
+#add memebers = True
+intents = discord.Intents(guilds = True, emojis = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN') #obtains bot token from .env file
 
-def get_prefix(bot, msg):
-  with open('json/prefix.json', 'r') as f:
-    prefixes = json.load(f)
-
-  return prefixes[str(msg.guild.id)]
-
-
-bot = commands.Bot(command_prefix = get_prefix)
+bot = commands.Bot(command_prefix = ('m.', '<@!705683895055679521>', '<@!705683895055679521> ', 'M.'), intents = intents)
 bot.remove_command('help')
 
 
