@@ -234,9 +234,19 @@ class anime(commands.Cog):
 
       popularity = media.get('popularity')
       rank = media.get('rankings')
-      print(rank)
-      rank = rank[1]
-      rank = rank.get('rank')
+      
+      try:
+        rank = rank[1]
+     
+      except IndexError:
+        if len(rank) < 1:
+          rank = 'N/A'
+
+        else:
+          rank = rank[0]
+
+      if rank is not 'N/A':
+        rank = rank.get('rank')
       genres = media.get('genres')
 
       genre = ''
