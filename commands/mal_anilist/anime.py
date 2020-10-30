@@ -139,7 +139,12 @@ class anime(commands.Cog):
 
       await aio_jikan.close()
 
-      await ctx.send(embed = embed)
+      this = await ctx.send(embed = embed)
+      msg = await ctx.fetch_message(int(this.id))
+
+      await msg.add_reaction('⬅️')
+      await msg.add_reaction('❌')
+      await msg.add_reaction('➡️')
 
 
   async def alani(self, ctx, message):
@@ -193,7 +198,7 @@ class anime(commands.Cog):
           }
       }
   }
-'''
+  '''
 
       variables = {
         'search': message,
@@ -234,14 +239,15 @@ class anime(commands.Cog):
 
       popularity = media.get('popularity')
       rank = media.get('rankings')
-      
+      #print(rank)
+
       try:
         rank = rank[1]
-     
+      
       except IndexError:
         if len(rank) < 1:
           rank = 'N/A'
-
+        
         else:
           rank = rank[0]
 
@@ -307,6 +313,9 @@ class anime(commands.Cog):
   async def fetch(self, session, url):
     async with session.get(url) as response:
       return await response.json()
+
+
+
 
 def setup(bot):
   bot.add_cog(anime(bot))

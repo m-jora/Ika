@@ -14,12 +14,7 @@ class hlp(commands.Cog):
 
   @commands.command()
   async def help(self, ctx, message = ''):
-    with open('json/prefix.json', 'r') as f:
-      prefixes = json.load(f)
-
-    prefix = prefixes[str(ctx.guild.id)]
-
-    mem = ctx.guild.get_member(705683895055679521)
+    mem = ctx.guild.get_member(712416120535253034)
     name = mem.display_name
     pfp = mem.avatar_url
   
@@ -31,18 +26,17 @@ class hlp(commands.Cog):
         colour = 0x000CFF
       )
 
-      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
-      embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
+
+      embed.set_footer(text = f'Replying to: {str(ctx.author)}')
+      embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
       embed.set_author(name = name, icon_url = pfp)
-      embed.add_field(name = '**ANIME/MANGA**', value = 'Type `' + prefix + 'help anime`', inline = False)
-      embed.add_field(name = '**GENERAL**', value = 'Type `' + prefix + 'help general`', inline = False)
-      embed.add_field(name = '**IMAGES**', value = 'Type `' + prefix + 'help images`', inline = False)
+      embed.add_field(name = '**ANIME/MANGA**', value = 'Type `m:help anime`', inline = False)
+      embed.add_field(name = '**GENERAL**', value = 'Type `m:help general`', inline = False)
+      embed.add_field(name = '**IMAGES**', value = 'Type `m:help images`', inline = False)
       embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
       embed.add_field(name = 'If you like Ika please consider voting!', value = '[Vote](https://top.gg/bot/705683895055679521/vote)')
-      
-
       await ctx.send(embed = embed)
-      return
+
 
     elif message == 'general' or message == 'General':
       embed = discord.Embed(
@@ -52,43 +46,17 @@ class hlp(commands.Cog):
         colour = 0x000CFF
       )
 
-      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
-      embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
+      embed.set_footer(text = f'Replying to: {str(ctx.author)}')
+      embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
       embed.set_author(name = name, icon_url = pfp)
-      embed.add_field(name = '**' + prefix + '8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
-      embed.add_field(name = '**' + prefix + 'botstatus**', value = 'Sends status and info on bot.', inline = False)
-      embed.add_field(name = '**' + prefix + 'choose <item1> <item2>**', value = name + ' chooses between two items given', inline = False)
-      embed.add_field(name = '**' + prefix + 'flip**', value = 'Flips a coin')
-      embed.add_field(name = '**' + prefix + 'help**', value = 'Shows help options')
-      embed.add_field(name = '**' + prefix + 'say <message to repeat>**', value = name + ' repeats message given', inline = False)
-      embed.add_field(name = '**' + prefix + 'userinfo [user]**', value = 'Returns information on the given user', inline = False)
-
+      embed.add_field(name = '**m:8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
+      embed.add_field(name = '**m:botstatus**', value = 'Sends status and info on bot.', inline = False)
+      embed.add_field(name = '**m:choose <item1> <item2>**', value = f'{name} chooses between two items given', inline = False)
+      embed.add_field(name = '**m:flip**', value = 'Flips a coin')
+      embed.add_field(name = '**m:help**', value = 'Shows help options')
+      embed.add_field(name = '**m:say <message to repeat>**', value = f'{name} repeats message given', inline = False)
+      embed.add_field(name = '**m:userinfo [user]**', value = 'Returns information on the given user', inline = False)
       await ctx.send(embed = embed)
-      return
-
-
-    elif message == 'anime':
-      embed = discord.Embed(
-        title = '**ANIME/MANGA COMMANDS**',
-        url = 'https://hheselbarth.gitbook.io/mr-bot/',
-        description = ' <> = required arguments, [] = optional.',
-        colour = 0x000CFF
-      )
-
-      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
-      embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
-      embed.set_author(name = name, icon_url = pfp)
-      embed.add_field(name = '**'  + prefix + 'account <mal username>**', value = 'Displays account information for given username', inline = False)
-      embed.add_field(name = '**' + prefix + 'ani [mal or al] <anime title>**', value = 'Displays detailed information on the title given', inline = False)
-      embed.add_field(name = '**' + prefix + 'anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
-      embed.add_field(name = '**' + prefix + 'aniseason <year> <season>**', value = 'Gives information on anime from given season', inline = False)
-      embed.add_field(name = '**' + prefix + 'manga <manga title>**', value = 'Displays detailed information on the title given', inline = False)
-      embed.add_field(name = '**' + prefix + 'mangasearch <manga title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
-      embed.add_field(name = '**' + prefix + 'schedule [m,t,w,r,f,s,su]**', value = 'Gives information on shows airing the given day or whole week if no day is given', inline = False)
-      embed.add_field(name = '**coming soon**', value = 'More commands that pull information from anilist.co are currently under development.', inline = False)
-
-      await ctx.send(embed = embed)
-      return
 
 
     elif message == 'images' or message == 'Images':
@@ -99,22 +67,37 @@ class hlp(commands.Cog):
         colour = 0x000CFF
       )
 
-      embed.set_footer(text = 'Replying to: ' + str(ctx.author))
-      embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
+      embed.set_footer(text = f'Replying to: {str(ctx.author)}')
+      embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
       embed.set_author(name = name, icon_url = pfp)
-
-      embed.add_field(name = '**' + prefix + 'avatar [user]**', value = 'Sends users avatar as embed', inline = False)
-      embed.add_field(name = '**' + prefix + 'cat**', value = 'Sends random cat pictures', inline = False)
-      embed.add_field(name = '**' + prefix + 'dog [breed]**', value = 'Sends random dog pictures', inline = False)
-      embed.add_field(name = '**' + prefix + 'inspire**', value = name + ' sends an inspirational image', inline = False)
-      embed.add_field(name = '**' + prefix + 'mathfun [1, 2, or 3]**', value = '***mathfun***', inline = False)
-      
-
+      embed.add_field(name = '**m:avatar [user]**', value = 'Sends users avatar as embed', inline = False)
+      embed.add_field(name = '**m:cat**', value = 'Sends random cat pictures', inline = False)
+      embed.add_field(name = '**m:dog [breed]**', value = 'Sends random dog pictures', inline = False)
+      embed.add_field(name = '**m:inspire**', value = name + ' sends an inspirational image', inline = False)
       await ctx.send(embed = embed)
-      return
 
-    else:
-      return
+
+    elif message == 'anime':
+      embed = discord.Embed(
+        title = '**ANIME/MANGA COMMANDS**',
+        url = 'https://hheselbarth.gitbook.io/mr-bot/',
+        description = ' <> = required arguments, [] = optional.',
+        colour = 0x000CFF
+      )
+
+      embed.set_footer(text = f'Replying to: {str(ctx.author)}')
+      embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
+      embed.set_author(name = name, icon_url = pfp)
+      embed.add_field(name = '**m:account <mal username>**', value = 'Displays account information for given username', inline = False)
+      embed.add_field(name = '**m:ani [mal or al] <anime title>**', value = 'Displays detailed information on the title given', inline = False)
+      embed.add_field(name = '**m:anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
+      embed.add_field(name = '**m:aniseason <year> <season>**', value = 'Gives information on anime from given season', inline = False)
+      embed.add_field(name = '**m:manga <manga title>**', value = 'Displays detailed information on the title given', inline = False)
+      embed.add_field(name = '**m:mangasearch <manga title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
+      embed.add_field(name = '**m:schedule [m,t,w,r,f,s,su]**', value = 'Gives information on shows airing the given day or whole week if no day is given', inline = False)
+      embed.add_field(name = '**coming soon**', value = 'More commands that get information from anilist are currently under development', inline = False)
+      await ctx.send(embed = embed)
+
 
 def setup(bot):
   bot.add_cog(hlp(bot))

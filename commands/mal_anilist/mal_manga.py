@@ -123,7 +123,12 @@ class manga(commands.Cog):
 
       await aio_jikan.close()
 
-      await ctx.send(embed = embed)
+      this = await ctx.send(embed = embed)
+      msg = await ctx.fetch_message(int(this.id))
+
+      await msg.add_reaction('⬅️')
+      await msg.add_reaction('❌')
+      await msg.add_reaction('➡️')
 
 
 
@@ -197,7 +202,12 @@ class manga(commands.Cog):
 
       await aio_jikan.close()
 
-      await ctx.send(embed = embed)
+      this = await ctx.send(embed = embed)
+      msg = await ctx.fetch_message(int(this.id))
+
+      await msg.add_reaction('⬅️')
+      await msg.add_reaction('❌')
+      await msg.add_reaction('➡️')
 
 
 

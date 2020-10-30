@@ -17,8 +17,20 @@ class listener(commands.Cog):
   async def on_reaction_add(self, reaction, user):
     channel = reaction.message.channel
 
-    if (str(reaction.emoji) == '🐶' or str(reaction.emoji) == '🐕') and reaction.message.author.id == 705683895055679521:
-      if user.id != 705683895055679521 and str(reaction.message.reactions[0]) == '🐶' and reaction.count > 1 and str(reaction.message.reactions[1] == '🐕'):
+    #await channel.send(reaction.message.embeds)
+    if str(reaction.emoji) == '❌' and reaction.message.author.id == 712416120535253034:
+      if len(reaction.message.reactions) < 3:
+        return
+
+      elif user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '⬅️' and str(reaction.message.reactions[1]) == '❌' and str(reaction.message.reactions[2]) == '➡️':
+        #await reaction.message.edit(delete_after = 0)
+        await reaction.remove(user)
+      else:
+        return
+
+
+    elif (str(reaction.emoji) == '🐶' or str(reaction.emoji) == '🐕') and reaction.message.author.id == 712416120535253034:
+      if user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '🐶' and reaction.count > 1 and str(reaction.message.reactions[1] == '🐕'):
         with open('json/dog.json', 'r') as f:
           ids = json.load(f)
 
@@ -45,8 +57,8 @@ class listener(commands.Cog):
         await reaction.remove(user)
 
 
-    elif str(reaction.emoji) == '🐱' and reaction.message.author.id == 705683895055679521:
-      if user.id != 705683895055679521 and str(reaction.message.reactions[0]) == '🐱':
+    elif str(reaction.emoji) == '🐱' and reaction.message.author.id == 712416120535253034:
+      if user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '🐱':
         with open('json/cat.json', 'r') as f:
           ids = json.load(f)
 

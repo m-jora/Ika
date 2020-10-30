@@ -7,21 +7,22 @@ import sys
 import random, json
 import discord
 import aiohttp
+import threading
 
 from discord.ext import commands
 
 from dotenv import load_dotenv
-#add memebers = True yes
+
 intents = discord.Intents(guilds = True, emojis = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN') #obtains bot token from .env file
 
-bot = commands.Bot(command_prefix = ('m.', '<@!705683895055679521>', '<@!705683895055679521> ', 'M.'), intents = intents)
+bot = commands.Bot(command_prefix = ('m:', 'M:', '<@!712416120535253034> ', '<@!712416120535253034>'), intents = intents)
 bot.remove_command('help')
 
-
-@bot.command() # live load cogs
+# loads cogs
+@bot.command()
 async def load(ctx, extension):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
@@ -30,8 +31,8 @@ async def load(ctx, extension):
     await ctx.message.add_reaction('👍')
     bot.load_extension(f'commands.{extension}')
 
-
-@bot.command() # live unload cogs
+# unloads cogs
+@bot.command()
 async def unload(ctx, extension):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
@@ -41,14 +42,14 @@ async def unload(ctx, extension):
     await ctx.message.add_reaction('👍')
     bot.unload_extension(f'commands.{extension}')
 
-
+# reloads the cogs 
+# ack
 @bot.command()
 async def reload(ctx, extension = ''):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
     return
   
-  #reloads all cogs if no extension is spefically given
   elif extension == '':
     for filename in os.listdir('./commands/general'):
       if filename.endswith('.py'):
