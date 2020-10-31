@@ -4,7 +4,8 @@
 import discord
 import sqlite3
 import time
-import asyncio, aiohttp
+#import asyncio
+#import aiohttp
 
 from jikanpy import AioJikan
 from discord.ext import commands
