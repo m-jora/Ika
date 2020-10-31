@@ -1,169 +1,136 @@
-# accounts.py
-# contains the account commands for mal and anilist
+# alhelper.py
+# helps with anilist commands
+# i need  help
 
 import discord
 import sqlite3
-import time
-import asyncio, aiohttp
+import uuid, requests
+import time, asyncio
 
-from jikanpy import AioJikan
 from discord.ext import commands
 
-class malacc(commands.Cog):
+QUERY = '''
+  query ($id: Int, $page: Int, $search: String) {
+  Page (page: $page, perPage: 10) {
+    users (id: $id, search: $search) {
+      name
+      id
+      about
+    }
+  }
+}
+'''
 
+
+class alhelper(commands.Cog):
+  
   def __init__(self, bot):
     self.client = bot
+    self.url = 'https://graphql.anilist.co'
 
 
-  @commands.command()
-  async def mal(self, ctx, message = ''):
-    aio_jikan = AioJikan()
-    
-    if message == '':
-      message = await self.malaccount(ctx, ctx.author.id)
-
-    if message == '':
-      return
-
-    async with ctx.channel.typing():
-
-      try:
-        user = await aio_jikan.user(username = message)
-
-      except:
-        await ctx.send('`User not found`')
-        return
-
-      url = user.get('url')
-      username = user.get('username')
-      anime = user.get('anime_stats')
-
-      if user.get('image_url') == None:
-        img = 'https://i.imgur.com/9mnjji8.png'
-
-      else:
-        img = user.get('image_url')
-
-      days = anime.get('days_watched')
-      avg_score = anime.get('mean_score')
-      watching = anime.get('watching')
-      completed = anime.get('completed')
-      hold = anime.get('on_hold')
-      dropped = anime.get('dropped')
-      plan = anime.get('plan_to_watch')
-      total = anime.get('total_entries')
-      num_ep = anime.get('episodes_watched')
-
-      print(user)
-
-      embed = discord.Embed(
-        title = '**' + username + '**',
-        colour = 0x000CFF,
-        url = url
-      )
-
-
-      embed.set_thumbnail(url = img)
-      embed.add_field(name = 'Days watched', value = days)
-      embed.add_field(name = 'Episodes Watched', value = num_ep)
-      embed.add_field(name = 'Avg Score', value = avg_score)
-      embed.add_field(name = 'Total number of shows', value = total)
-      embed.add_field(name = 'Watching', value = watching)
-      embed.add_field(name = 'Completed', value = completed)
-      embed.add_field(name = 'Plan to Watch', value = plan)
-      embed.add_field(name = 'Dropped', value = dropped)
-      embed.add_field(name = 'On hold', value = hold)
-
-      await aio_jikan.close()
-
-      await ctx.send(embed = embed)
-      return
-
-
-  async def malaccount(self, ctx, id):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
-    cur = conn.cursor()
-
-    cur.execute('SELECT EXISTS (SELECT username FROM mal WHERE userid = ?)', (str(id),))
-    data = cur.fetchall()
-
-
-    if [(1,)] == data:
-      cur.execute('SELECT username FROM mal WHERE userid = ?', (str(id),))
-      data = cur.fetchall()
-      cur.close()
-      conn.close()
-      return data[0][0]
-
-    else:
-      embed = discord.Embed(
-        title = '**Run m:malset <mal username>**',
-        colour = 0x000CFF
-      )
-      await ctx.send(embed = embed)
-      cur.close()
-      conn.close()
-      return ''
-
-
-  @commands.command()
-  async def malset(self, ctx, message = ''):
-    if message == '':
-      await ctx.send('Please include a username after the command')
-      return
-
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
-    cur = conn.cursor()
-
-    valid = await self.isaccount(message)
-    if valid is False:
-      embed = discord.Embed(
-        title = '**User does not exist**',
-        colour = 0x000CFF
-      )
-
-      await ctx.send(embed = embed)
-      return
-
-    cur.execute('SELECT EXISTS (SELECT ? FROM mal)', (str(ctx.author.id),))
-    data = cur.fetchall()
-
-    if [(1,)] == data:
-      cur.execute('''UPDATE mal SET username = ? WHERE userid = ?''', (message, str(ctx.author.id)))
-
-    else:
-      cur.execute('INSERT INTO mal (userid, username) VALUES (?,?)', (str(ctx.author.id), message))
-      
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    await ctx.message.add_reaction('✅')
-
-
-  @commands.command()
-  async def malremove(self, ctx):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
-    cur = conn.cursor()
-
-    cur.execute('DELETE FROM mal WHERE userid = ?', (str(ctx.author.id),))
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    await ctx.message.add_reaction('✅')
-
-
+  '''verifies that passed accounts are valid on anilist
+     returns True if valid account False otherwise'''
   async def isaccount(self, username):
-    aio_jikan = AioJikan()
-    try:
-      await aio_jikan.user(username = username)
-      await aio_jikan.close()
+    variables = {
+      'search' : username,
+      'page' : 1
+    }
 
-    except:
+    response = requests.post(self.url, json = {'query' : QUERY, 'variables': variables}).json()
+    user = response.get('data').get('Page').get('users')
+
+    if len(user) < 1:
       return False
 
     return True
 
+
+  '''used to validate a user owns a certain anilist account
+  send an embed with instructions on how to verify'''
+  async def validate(self, ctx, username):
+    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    cur = conn.cursor()
+
+    cur.execute('SELECT EXISTS (SELECT userid FROM al WHERE userid = ?)', (str(ctx.author.id),))
+    data = cur.fetchall()
+
+    if data == [(1,)]:
+      cur.execute('SELECT username FROM al WHERE userid = ?', (str(ctx.author.id),))
+      data = cur.fetchall()[0][0]
+      conn.close()
+
+      await ctx.send(f'You have already verified the account {data}.\nUse m:alremove if you wish to remove this account.')
+      return
+
+    embed = discord.Embed(
+      title = '**Account Verification**',
+      colour = 0x000CFF
+    )
+
+    new_key = uuid.uuid4()
+    instructions = '''Within 4 minutes complete the following instructions.
+                      • Navigate to [Anilist](https://anilist.co).
+                      • Click on settings in the drop down menu in the upper right corner.
+                      • Paste the given key into the about box then hit the save button.
+                      • If the save button does not appear try getting rid of the blank line under it.
+                      • Wait until you see Ika has informed you that the verification was successful, you are free to remove the key at this point.'''
+          
+    embed.set_thumbnail(url = 'https://i.imgur.com/0CibkbN.gif')
+    embed.add_field(name = 'Key', value = new_key, inline = False)
+    embed.add_field(name = 'How to Use Key', value = instructions)
+
+    try:
+      channel = await ctx.author.create_dm()
+      msg = await channel.send(embed = embed)
+    except:
+      await ctx.send('Please change Privacy settings to allow DM\'s from me')
+      return [False, '']
+    
+    await ctx.send('I have DMed you the instructions for verifying your account')
+
+    # done is list of values [bool, alid]
+    done = await self.ping(new_key, username)
+
+    title = '**Account Has Been Verified**' if done[0] else '**Failed to find the key in your description within time limit**'
+    url = 'https://i.imgur.com/DkuetBb.gif' if done[0] else 'https://i.imgur.com/qSCvqai.gif'
+    ret_val = [True, done[1]] if done[0] else [False, '']
+    
+    embed = discord.Embed(
+      title = title,
+      colour = 0x000CFF
+    )
+
+    embed.set_image(url = url)
+    await msg.edit(embed = embed)
+    return ret_val
+
+
+  '''pings the anilist api to check to see if the key is in the given users description'''
+  async def ping(self, new_key, username):
+    t_end = time.time() + 20
+
+    variables = {
+      'search' : username,
+      'page' : 1
+    }
+
+    while time.time() < t_end:
+      response = requests.post(self.url, json = {'query': QUERY, 'variables': variables}).json()
+
+      user = response.get('data').get('Page').get('users')[0]
+      key = user.get('about')
+      id = user.get('id')
+
+      await asyncio.sleep(5)
+      try:
+        if str(new_key) in key:
+          return [True, id]
+      except TypeError:
+        pass
+
+    return [False, id]
+
+
 def setup(bot):
-  bot.add_cog(malacc(bot))
+  bot.add_cog(alhelper(bot))
