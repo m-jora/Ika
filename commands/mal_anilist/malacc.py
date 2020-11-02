@@ -55,8 +55,6 @@ class malacc(commands.Cog):
       total = anime.get('total_entries')
       num_ep = anime.get('episodes_watched')
 
-      print(user)
-
       embed = discord.Embed(
         title = '**' + username + '**',
         colour = 0x000CFF,
@@ -82,7 +80,7 @@ class malacc(commands.Cog):
 
 
   async def malaccount(self, ctx, id):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     cur.execute('SELECT EXISTS (SELECT username FROM mal WHERE userid = ?)', (str(id),))
@@ -113,7 +111,7 @@ class malacc(commands.Cog):
       await ctx.send('Please include a username after the command')
       return
 
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     valid = await self.isaccount(message)
@@ -144,7 +142,7 @@ class malacc(commands.Cog):
 
   @commands.command()
   async def malremove(self, ctx):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     cur.execute('DELETE FROM mal WHERE userid = ?', (str(ctx.author.id),))

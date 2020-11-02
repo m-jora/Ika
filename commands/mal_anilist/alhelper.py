@@ -49,7 +49,7 @@ class alhelper(commands.Cog):
   '''used to validate a user owns a certain anilist account
   send an embed with instructions on how to verify'''
   async def validate(self, ctx, username):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     cur.execute('SELECT EXISTS (SELECT userid FROM al WHERE userid = ?)', (str(ctx.author.id),))

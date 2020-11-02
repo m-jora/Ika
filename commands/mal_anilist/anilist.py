@@ -75,7 +75,7 @@ class alacc(commands.Cog):
   does not call other functions just connects with db
   also sends an embed with command if user does not exist in db'''
   async def alaccount(self, ctx, id):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     cur.execute('SELECT EXISTS (SELECT alid FROM al WHERE userid = ?)', (str(id),))
@@ -103,7 +103,7 @@ class alacc(commands.Cog):
       await ctx.send('Please include a username after the command')
       return
 
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     valid = await self.al.isaccount(message)
@@ -128,7 +128,7 @@ class alacc(commands.Cog):
   then reacts with check mark just to confirm you have been deleted'''
   @commands.command()
   async def alremove(self, ctx):
-    conn = sqlite3.connect('/home/hheselbarth/Ikabeta/db/aniac.sqlite')
+    conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
     cur.execute('DELETE FROM al WHERE userid = ?', (str(ctx.author.id),))
