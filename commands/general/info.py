@@ -90,8 +90,8 @@ class info(commands.Cog):
   '''sends embed of users avatar'''
   @commands.command()
   async def avatar(self, ctx, user = ''):
-    mem = ctx.author if (user is '') else ctx.guild.get_member(user[3:-1])
-  
+    mem = ctx.author if (user is '') else ctx.guild.get_member(int(user[3:-1]))
+
     embed = discord.Embed(
       title = f'{mem.display_name}\'s Avatar',
       colour = 0x09D2FF,
