@@ -12,7 +12,7 @@ from discord.ext import commands
 
 from dotenv import load_dotenv
 #add memebers = True
-intents = discord.Intents(guilds = True, emojis = True, messages = True, reactions = True, typing = True)
+intents = discord.Intents(guilds = True, members = True, emojis = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN') #obtains bot token from .env file
