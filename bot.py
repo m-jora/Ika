@@ -13,7 +13,7 @@ from discord.ext import commands
 
 from dotenv import load_dotenv
 
-intents = discord.Intents(guilds = True, emojis = True, messages = True, reactions = True, typing = True)
+intents = discord.Intents(guilds = True, emojis = True, members = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
 TOKEN = os.getenv('BETA_TOKEN') #obtains bot token from .env file
