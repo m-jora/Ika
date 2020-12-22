@@ -90,7 +90,7 @@ class hlp(commands.Cog):
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**m:account <mal username>**', value = 'Displays account information for given username', inline = False)
       embed.add_field(name = '**m:ani [mal or al] <anime title>**', value = 'Displays detailed information on the title given', inline = False)
-      embed.add_field(name = '**m:anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
+      #embed.add_field(name = '**m:anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
       embed.add_field(name = '**m:aniseason <year> <season>**', value = 'Gives information on anime from given season', inline = False)
       embed.add_field(name = '**m:manga <manga title>**', value = 'Displays detailed information on the title given', inline = False)
       embed.add_field(name = '**m:mangasearch <manga title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
