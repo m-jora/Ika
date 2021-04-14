@@ -15,12 +15,6 @@ class mb(commands.Cog):
     self.client = bot
 
 
-  @commands.command() # sooper secret
-  async def dorrito(self, ctx):
-    await ctx.send(file = discord.File('images/dorito.jpg'))
-    await ctx.send('https://youtu.be/gGEv54rLvgs')
-
-
   @commands.command(name = '8ball')
   async def _8ball(self, ctx, *, question):
     responses = [
@@ -51,22 +45,16 @@ class mb(commands.Cog):
     ]
 
     if question == '':
-      await ctx.send('Ask me a question by typing ~8ball <question>')
+      await ctx.send('Ask me a question by typing m:8ball <question>')
+      return
 
-    else:
-      await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')
+    await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')
 
 
   @commands.command() 
   async def flip(self, ctx):
     sides = ['heads','tails',]
     await ctx.send(f'It\'s {random.choice(sides)}')
-
-
-  @commands.command()
-  async def say(self, ctx, *, message = ''):
-    if message is not '':
-      await ctx.send(message)
 
 
 def setup(bot):

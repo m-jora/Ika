@@ -4,17 +4,14 @@ import discord
 import json
 import asyncio, aiohttp
 
-from emoji import UNICODE_EMOJI
 from jikanpy import AioJikan
 from discord.ext import commands
 
 class manga(commands.Cog):
   
-
   def __init__(self, bot):
     self.client = bot
 
-  
   @commands.command()
   async def manga(self, ctx, *, message):
     aio_jikan = AioJikan()
@@ -23,198 +20,81 @@ class manga(commands.Cog):
       await ctx.send('`You need to enter a manga name`')
       return
 
-    if message in UNICODE_EMOJI:
-      await ctx.send('`Emjois are not allowed`')
-      return
-
     async with ctx.channel.typing():
 
       results = await aio_jikan.search('manga', message)
-      info = results.get('results')
+      info = results['results']
 
-      check = []
-      if info == check:
-        await ctx.send('`No results found`')
+      if info == []:
+        await ctx.send('No results found')
         return
 
-      info = info[0]
-      show = info.get('mal_id')
-      title = info.get('title').lower()
-  
+      show = info[0]['mal_id']
   
       url = 'https://api.jikan.moe/v3/manga/' + str(show)
       async with aiohttp.ClientSession() as session:
         data = await self.fetch(session, url)
 
+      info = {
+        'title': data['title'],
+        'show': show,
+        'img': data['image_url'],
+        'chapters': (data['chapters'] if (data['chapters'] is not None) else 'Currently Publishing'),
+        'status': data['status'],
+        'score': data['score'],
+        'rank': data['rank'],
+        'pop': data['popularity'],
+        'genres': 'update later',
+        'from': data['published']['prop']['from'],
+        'to': data['published']['prop']['to'],
+        'link': data['url'],
+        'author': data['title_english'] if data['title_english'] is not None else '',
+        'description': data['synopsis'] if data['synopsis'] is not None else 'No Synopsis Found',
+        'genres': data['genres']
+      }
 
-      img = data.get('image_url')
-      title = data.get('title')
-  
-      chapters = data.get('chapters')
-      if chapters == None:
-        chapters = 'Currently Publishing'
-
-      status = data.get('status')
-      score = data.get('score')
-      rank = data.get('rank')
-      pop = data.get('popularity')
-      genres = data.get('genres')
-  
+      info['start'] = f'{info["from"]["month"]}-{info["from"]["day"]}-{info["from"]["year"]}'
+      info['end'] = f'{info["to"]["month"]}-{info["to"]["day"]}-{info["to"]["year"]}'
+      
+      info['start'] = 'Not Yet Published' if 'None' in info['start'] else info['start']
+      info['end'] = '-' if info['start'] is 'Not Yet Published' and 'None' in info['end'] else (
+        'Currently Publishing' if 'Not Yet Published' != info['start'] and 'None' in info['end'] else info['end'])
 
       genre = ''
-      for x in genres:
-        if x.get('name') == 'Hentai':
-          await ctx.send('`That is not allowed in this channel`')
-          return
-
-        if x != genres[len(genres) - 1]:
-          genre += x.get('name') + ', '
+      for x in info['genres']:
+        if x != info['genres'][len(info['genres']) - 1]:
+          genre += f'{x["name"]}, '
 
         else:
-          genre += x.get('name')
-  
-      #handles dates of the show airing
-      aired = data.get('published')
-      start = aired.get('from')
-      end = aired.get('to')
+          genre += x['name']
 
-      if start == None:
-        start = 'Not Yet Published'
-        end = 'Not Yet Published'
-  
-      elif start != None:
-        start = start[:10]
- 
-
-      if end == None and start != None:
-        end = 'On Going'
-
-      elif end != 'Not Yet Published':
-        end = end[:10]
-
-
-      link = data.get('url')
-      author = data.get('title_english')
-      if author == title:
-        author = None
-  
-      #handles the synopsis for show
-      description = data.get('synopsis')
-      description = description[:252]
-      description += '...'
-
+      if 'Hentai' in genre and not ctx.channel.is_nsfw():
+        await ctx.send('Hentai is not allowed in this channel')
+        return
 
       embed = discord.Embed(
-        title = '**' + title +'**',
-        description = author,
+        title = f'**{info["title"]}**',
+        description = info['author'],
         colour = 0x000CFF,
-        url = link
+        url = info['link']
       )
 
-
-      embed.set_thumbnail(url = img)
-      embed.add_field(name = 'Status', value = status)
-      embed.add_field(name = 'Number of Chapters', value = str(chapters))
-      embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(pop) + ' / Rank: ' + str(rank), inline = False)
-      embed.add_field(name = 'Started Publishing', value = start)
-      embed.add_field(name = 'Finished Publishing', value = end)
-      embed.add_field(name = 'Synopsis', value = description, inline = False)
+      embed.set_thumbnail(url = info['img'])
+      embed.add_field(name = 'Status', value = info['status'])
+      embed.add_field(name = 'Number of Chapters', value = str(info['chapters']))
+      embed.add_field(name = 'Score / Popularity / Rank', value = f'Score: {str(info["score"])} / Popularity: {str(info["pop"])} / Rank: {str(info["rank"])}', inline = False)
+      embed.add_field(name = 'Started Publishing', value = info['start'])
+      embed.add_field(name = 'Finished Publishing', value = info['end'])
+      embed.add_field(name = 'Synopsis', value = f'{info["description"][:252]}...', inline = False)
       embed.add_field(name = 'Genres', value = genre, inline = False)
 
       await aio_jikan.close()
-
-      this = await ctx.send(embed = embed)
-      msg = await ctx.fetch_message(int(this.id))
-
-      await msg.add_reaction('⬅️')
-      await msg.add_reaction('❌')
-      await msg.add_reaction('➡️')
-
-
-
-  @commands.command()
-  async def mangasearch(self, ctx, *, message):
-    with open('json/prefix.json', 'r') as f:
-      prefixes = json.load(f)
-
-    prefix = prefixes[str(ctx.guild.id)]
-
-    aio_jikan = AioJikan()
-    
-    if message == '':
-      await ctx.send('`You need to enter a manga name`')
-      return
-
-
-    if message in UNICODE_EMOJI:
-      await ctx.send('`Emjois are not allowed`')
-      return 
-
-    async with ctx.channel.typing():
-
-      results = await aio_jikan.search('manga', message)
-      info = results.get('results')
-      ids = []
-
-      if info == ids:
-        await ctx.send('`No results found`')
-        return
-
-  
-      for x in range(5):
-        ids.append(info[x].get('mal_id'))
-  
-      desc =  ''
-
-      for x in range(5):
-        url = 'https://api.jikan.moe/v3/manga/' + str(ids[x])
-        async with aiohttp.ClientSession() as session:
-          data = await self.fetch(session, url)
-
-        if x == 4:
-          if data.get('title_english') == None:
-            desc += '**·** **' + data.get('title') + '**'
-
-          elif data.get('title_english').lower() != data.get('title').lower():
-            desc += '**·** **' + data.get('title') + '**\n' + '--' + data.get('title_english')
-
-          elif data.get('title_english').lower() == data.get('title').lower():
-            desc += '**·** **' + data.get('title') + '**'
-
-        else:
-          if data.get('title_english') == None:
-            desc += '**·** **' + data.get('title') + '**\n'
-
-          elif data.get('title_english').lower() != data.get('title').lower():
-            desc += '**·** **' + data.get('title') + '**\n' + '--' + data.get('title_english') + '\n'
-
-          elif data.get('title_english').lower() == data.get('title').lower():
-            desc += '**·** **' + data.get('title') + '**\n'
-
-  
-      embed = discord.Embed(
-        title = '**RESULTS**',
-        description = desc,
-        colour = 0x000CFF,
-      )
-
-      embed.set_footer(text = 'Use ' + prefix + 'manga <title> to get more information')
-
-      await aio_jikan.close()
-
-      this = await ctx.send(embed = embed)
-      msg = await ctx.fetch_message(int(this.id))
-
-      await msg.add_reaction('⬅️')
-      await msg.add_reaction('❌')
-      await msg.add_reaction('➡️')
-
+      await ctx.send(embed = embed)
 
 
   async def fetch(self, session, url):
     async with session.get(url) as response:
       return await response.json()
-
 
 def setup(bot):
   bot.add_cog(manga(bot))

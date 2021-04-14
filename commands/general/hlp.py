@@ -51,10 +51,9 @@ class hlp(commands.Cog):
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**m:8ball <questions for 8ball>**', value = 'Ask the Magic 8Ball questions', inline = False)
       embed.add_field(name = '**m:botstatus**', value = 'Sends status and info on bot.', inline = False)
-      embed.add_field(name = '**m:choose <item1> <item2>**', value = f'{name} chooses between two items given', inline = False)
       embed.add_field(name = '**m:flip**', value = 'Flips a coin')
       embed.add_field(name = '**m:help**', value = 'Shows help options')
-      embed.add_field(name = '**m:say <message to repeat>**', value = f'{name} repeats message given', inline = False)
+      embed.add_field(name = '**m:server**', value = 'Provids information on the current server', inline = False)
       embed.add_field(name = '**m:userinfo [user]**', value = 'Returns information on the given user', inline = False)
       await ctx.send(embed = embed)
 
@@ -72,6 +71,7 @@ class hlp(commands.Cog):
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**m:avatar [user]**', value = 'Sends users avatar as embed', inline = False)
       embed.add_field(name = '**m:cat**', value = 'Sends random cat pictures', inline = False)
+      embed.add_field(name = '**m:do <throw, ahh, wut, dance, idk>**', value = 'Tell Ika to do something', inline = False)
       embed.add_field(name = '**m:dog [breed]**', value = 'Sends random dog pictures', inline = False)
       embed.add_field(name = '**m:inspire**', value = name + ' sends an inspirational image', inline = False)
       await ctx.send(embed = embed)
@@ -88,19 +88,16 @@ class hlp(commands.Cog):
       embed.set_footer(text = f'Replying to: {str(ctx.author)}')
       embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
       embed.set_author(name = name, icon_url = pfp)
-      embed.add_field(name = '**m:account <mal username>**', value = 'Displays account information for given username', inline = False)
       embed.add_field(name = '**m:ani [mal or al] <anime title>**', value = 'Displays detailed information on the title given', inline = False)
-      embed.add_field(name = '**m:anisearch <anime title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
-      embed.add_field(name = '**m:aniseason <year> <season>**', value = 'Gives information on anime from given season', inline = False)
+      embed.add_field(name = '**m:anilist [anilist username]**', value = 'Displays account information for giver username', inline = False)
+      embed.add_field(name = '**m:alremove**', value = 'Remove anilist username connection', inline = False)
+      embed.add_field(name = '**m:alset <al username>**', value = 'Connect anilist username to your discord account', inline = False)
+      embed.add_field(name = '**m:mal [mal username]**', value = 'Displays account information for given username', inline = False)
+      embed.add_field(name = '**m:malset <mal username>**', value = 'Connect mal username to your discord account', inline = False)
+      embed.add_field(name = '**m:malremove**', value = 'Remove mal username connection', inline = False)      
       embed.add_field(name = '**m:manga <manga title>**', value = 'Displays detailed information on the title given', inline = False)
-      embed.add_field(name = '**m:mangasearch <manga title>**', value = 'Displays top 5 search results for given title on MAL', inline = False)
-      embed.add_field(name = '**m:schedule [m,t,w,r,f,s,su]**', value = 'Gives information on shows airing the given day or whole week if no day is given', inline = False)
-      embed.add_field(name = '**coming soon**', value = 'More commands that get information from anilist are currently under development', inline = False)
       await ctx.send(embed = embed)
 
 
 def setup(bot):
   bot.add_cog(hlp(bot))
-
-
-

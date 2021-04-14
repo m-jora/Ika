@@ -108,7 +108,7 @@ class alhelper(commands.Cog):
 
   '''pings the anilist api to check to see if the key is in the given users description'''
   async def ping(self, new_key, username):
-    t_end = time.time() + 20
+    t_end = time.time() + 60 * 4
 
     variables = {
       'search' : username,

@@ -4,8 +4,6 @@
 import discord
 import sqlite3
 import time
-#import asyncio
-#import aiohttp
 
 from jikanpy import AioJikan
 from discord.ext import commands
@@ -20,12 +18,15 @@ class malacc(commands.Cog):
   async def mal(self, ctx, message = ''):
     aio_jikan = AioJikan()
     
+
+    # if message does not contain username call db function to find user
+    # if user does not exist in db message will equal '' and return
     if message == '':
       message = await self.malaccount(ctx, ctx.author.id)
+      if message is '': return
 
-    if message == '':
-      return
 
+    # gives the appears of the bot typing for commands that take a minute
     async with ctx.channel.typing():
 
       try:
@@ -35,46 +36,45 @@ class malacc(commands.Cog):
         await ctx.send('`User not found`')
         return
 
-      url = user.get('url')
-      username = user.get('username')
+
+      # literally just grabbing all my needed data from mal
+      # big mess but items are self explanatory by key
       anime = user.get('anime_stats')
+      data = {
+        'url': user.get('url'),
+        'username': user.get('username'),
+        'img': ('https://i.imgur.com/9mnjji8.png' if (user.get('image_url') == None) else user.get('image_url')),
+        'days': anime.get('days_watched'),
+        'avg_score': anime.get('mean_score'),
+        'watching': anime.get('watching'),
+        'completed': anime.get('completed'),
+        'hold': anime.get('on_hold'),
+        'dropped': anime.get('dropped'),
+        'plan': anime.get('plan_to_watch'),
+        'total': anime.get('total_entries'),
+        'num_ep': anime.get('episodes_watched')
+      }
 
-      if user.get('image_url') == None:
-        img = 'https://i.imgur.com/9mnjji8.png'
-
-      else:
-        img = user.get('image_url')
-
-      days = anime.get('days_watched')
-      avg_score = anime.get('mean_score')
-      watching = anime.get('watching')
-      completed = anime.get('completed')
-      hold = anime.get('on_hold')
-      dropped = anime.get('dropped')
-      plan = anime.get('plan_to_watch')
-      total = anime.get('total_entries')
-      num_ep = anime.get('episodes_watched')
 
       embed = discord.Embed(
-        title = '**' + username + '**',
+        title = '**' + data['username'] + '**',
         colour = 0x000CFF,
-        url = url
+        url = data['url']
       )
 
 
-      embed.set_thumbnail(url = img)
-      embed.add_field(name = 'Days watched', value = days)
-      embed.add_field(name = 'Episodes Watched', value = num_ep)
-      embed.add_field(name = 'Avg Score', value = avg_score)
-      embed.add_field(name = 'Total number of shows', value = total)
-      embed.add_field(name = 'Watching', value = watching)
-      embed.add_field(name = 'Completed', value = completed)
-      embed.add_field(name = 'Plan to Watch', value = plan)
-      embed.add_field(name = 'Dropped', value = dropped)
-      embed.add_field(name = 'On hold', value = hold)
+      embed.set_thumbnail(url = data['img'])
+      embed.add_field(name = 'Days watched', value = data['days'])
+      embed.add_field(name = 'Episodes Watched', value = data['num_ep'])
+      embed.add_field(name = 'Avg Score', value = data['avg_score'])
+      embed.add_field(name = 'Total number of shows', value = data['total'])
+      embed.add_field(name = 'Watching', value = data['watching'])
+      embed.add_field(name = 'Completed', value = data['completed'])
+      embed.add_field(name = 'Plan to Watch', value = data['plan'])
+      embed.add_field(name = 'Dropped', value = data['dropped'])
+      embed.add_field(name = 'On hold', value = data['hold'])
 
       await aio_jikan.close()
-
       await ctx.send(embed = embed)
       return
 
@@ -83,26 +83,15 @@ class malacc(commands.Cog):
     conn = sqlite3.connect('db/aniac.sqlite')
     cur = conn.cursor()
 
-    cur.execute('SELECT EXISTS (SELECT username FROM mal WHERE userid = ?)', (str(id),))
+    cur.execute('SELECT username FROM mal WHERE userid = ?', (str(id),))
     data = cur.fetchall()
+    conn.close()
 
-
-    if [(1,)] == data:
-      cur.execute('SELECT username FROM mal WHERE userid = ?', (str(id),))
-      data = cur.fetchall()
-      cur.close()
-      conn.close()
+    if data != []:
       return data[0][0]
 
-    else:
-      embed = discord.Embed(
-        title = '**Run m:malset <mal username>**',
-        colour = 0x000CFF
-      )
-      await ctx.send(embed = embed)
-      cur.close()
-      conn.close()
-      return ''
+    await ctx.send('**Run m:malset <mal username>**')
+    return ''
 
 
   @commands.command()
@@ -115,26 +104,20 @@ class malacc(commands.Cog):
     cur = conn.cursor()
 
     valid = await self.isaccount(message)
-    if valid is False:
-      embed = discord.Embed(
-        title = '**User does not exist**',
-        colour = 0x000CFF
-      )
-
-      await ctx.send(embed = embed)
+    if not valid:
+      await ctx.send('**User does not exist**')
       return
 
     cur.execute('SELECT EXISTS (SELECT ? FROM mal)', (str(ctx.author.id),))
     data = cur.fetchall()
 
     if [(1,)] == data:
-      cur.execute('''UPDATE mal SET username = ? WHERE userid = ?''', (message, str(ctx.author.id)))
+      cur.execute('UPDATE mal SET username = ? WHERE userid = ?', (message, str(ctx.author.id)))
 
     else:
       cur.execute('INSERT INTO mal (userid, username) VALUES (?,?)', (str(ctx.author.id), message))
       
     conn.commit()
-    cur.close()
     conn.close()
 
     await ctx.message.add_reaction('✅')
@@ -147,7 +130,6 @@ class malacc(commands.Cog):
 
     cur.execute('DELETE FROM mal WHERE userid = ?', (str(ctx.author.id),))
     conn.commit()
-    cur.close()
     conn.close()
 
     await ctx.message.add_reaction('✅')

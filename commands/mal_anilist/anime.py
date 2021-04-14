@@ -36,116 +36,79 @@ class anime(commands.Cog):
       await ctx.send('`You need to enter a show name`')
       return
 
-    else:
-      message = message.lower()
-
-    if message in UNICODE_EMOJI:
-      await ctx.send('`Emjois are not allowed`')
-      return
-
     async with ctx.channel.typing():
 
       results = await aio_jikan.search('anime', message)
-      info = results.get('results')
+      info = results['results']
 
-      check = []
-      if info == check:
-        await ctx.send('`No results found`')
+      if info == []:
+        await ctx.send('No results found')
         return
 
-      info = info[0]
-      show = info.get('mal_id')
-      title = info.get('title').lower()
+      show = info[0]['mal_id']
  
       url = 'https://api.jikan.moe/v3/anime/' + str(show)
       async with aiohttp.ClientSession() as session:
         data = await self.fetch(session, url)
- 
-      img = data.get('image_url')
-      title = data.get('title')
-      num_ep = data.get('episodes')
-      status = data.get('status')
-      score = data.get('score')
-      rank = data.get('rank')
-      pop = data.get('popularity')
-      genres = data.get('genres')
-  
+
+      info = {
+        'title': data['title'],
+        'show': show,
+        'img': data['image_url'],
+        'num_ep': data['episodes'],
+        'status': data['status'],
+        'score': data['score'],
+        'rank': data['rank'],
+        'pop': data['popularity'],
+        'from': data['aired']['prop']['from'],
+        'to': data['aired']['prop']['to'],
+        'link': data['url'],
+        'author': data['title_english'] if data['title_english'] is not None else '',
+        'description': data['synopsis'] if data['synopsis'] is not None else 'No Synopsis Found',
+        'genres': data['genres']
+      }
+
+      info['start'] = f'{info["from"]["month"]}-{info["from"]["day"]}-{info["from"]["year"]}'
+      info['end'] = f'{info["to"]["month"]}-{info["to"]["day"]}-{info["to"]["year"]}'
+
+      info['start'] = 'Not Yet Aired' if 'None' in info['start'] else info['start']
+      info['end'] = '-' if info['start'] is 'Not Yet Aired' and 'None' in info['end'] else (
+        'Currently Airing' if 'Not Yet Aired' != info['start'] and 'None' in info['end'] else info['end'])
 
       genre = ''
-      for x in genres:
-        if x.get('name') == 'Hentai':
-          await ctx.send('`That is not allowed in this channel`')
-          return
-
-        if x != genres[len(genres) - 1]:
-          genre += x.get('name') + ', '
+      for x in info['genres']:
+        if x != info['genres'][len(info['genres']) - 1]:
+          genre += f'{x["name"]}, '
 
         else:
-          genre += x.get('name')
-  
-  
-  
-      #handles dates of the show airing
-      aired = data.get('aired')
-      start = aired.get('from')
-      end = aired.get('to')
+          genre += x['name']
 
-      if start == None:
-        start = 'Not Yet Aired'
-        num_ep = 'None'
-        end = 'Not Yet Aired'
-  
-      elif start != None:
-        start = start[:10]
- 
-      if num_ep == None and start != None:
-        num_ep = 'Currently Airing'
-
-
-      if end == None and start != None:
-        end = 'On Going'
-
-      elif end != 'Not Yet Aired':
-        end = end[:10]
-
-      link = data.get('url')
-      author = data.get('title_english')
-      if author == title:
-        author = None
-  
-      #handles the synopsis for show
-      description = data.get('synopsis')
-      description = description[:255]
-      description += '...'
+      if 'Hentai' in genre and not ctx.channel.is_nsfw():
+        await ctx.send('Hentai is not allowed in this channel')
+        return
 
 
       embed = discord.Embed(
-        title = '**' + title +'**',
-        description = author,
+        title = f'**{info["title"]}**',
+        description = info['author'],
         colour = 0x000CFF,
-        url = link
+        url = info['link']
       )
 
 
-      embed.set_thumbnail(url = img)
-      embed.add_field(name = 'Status', value = status)
-      embed.add_field(name = 'Number of episodes', value = num_ep)
-      embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(pop) + ' / Rank: ' + str(rank), inline = False)
-      embed.add_field(name = 'Started Airing', value = start)
-      embed.add_field(name = 'Finished Airing', value = end)
-      embed.add_field(name = 'Synopsis', value = description, inline = False)
+      embed.set_thumbnail(url = info['img'])
+      embed.add_field(name = 'Status', value = info['status'])
+      embed.add_field(name = 'Number of episodes', value = info['num_ep'])
+      embed.add_field(name = 'Score / Popularity / Rank', value = f'Score: {str(info["score"])} / Popularity: {str(info["pop"])} / Rank: {str(info["rank"])}', inline = False)
+      embed.add_field(name = 'Started Airing', value = info['start'])
+      embed.add_field(name = 'Finished Airing', value = info['end'])
+      embed.add_field(name = 'Synopsis', value = f'{info["description"][:252]}...', inline = False)
       embed.add_field(name = 'Genres', value = genre, inline = False)
-      embed.set_footer(text = 'Replying to: ' + str(ctx.author) + ' | ' + 'info from MAL')
+      embed.set_footer(text = f'Replying to: {str(ctx.author)} | info from MAL')
 
       await aio_jikan.close()
-
-      this = await ctx.send(embed = embed)
-      msg = await ctx.fetch_message(int(this.id))
-
-      await msg.add_reaction('⬅️')
-      await msg.add_reaction('❌')
-      await msg.add_reaction('➡️')
-
+      await ctx.send(embed = embed)
+      
 
   async def alani(self, ctx, message):
     async with ctx.channel.typing():

@@ -42,7 +42,7 @@ class img(commands.Cog):
       await ctx.send(file = discord.File(file))
 
 
-  @commands.command(aliases = ['<@275719364303519745> isabully'])
+  @commands.command()
   async def kendallisabully(self, ctx):
     embed = discord.Embed(
       title = 'KENDALL IS A BULLY'

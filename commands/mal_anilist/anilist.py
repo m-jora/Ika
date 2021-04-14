@@ -51,7 +51,7 @@ class alacc(commands.Cog):
 
     variables = {'id': message, 'page':1} if db else {'search': message, 'page':1}
     response = requests.post(self.url, json = {'query' : query, 'variables': variables}).json()
-    user = response.get('data').get('Page').get('users')
+    user = response['data']['Page']['users']
     # user is list of possible users
 
     if len(user) < 1:
@@ -59,13 +59,13 @@ class alacc(commands.Cog):
       return
 
     embed = discord.Embed(
-      title = f'**{user[0].get("name")}\'s Account**',
+      title = f'**{user[0]["name"]}\'s Account**',
       url = f'https://anilist.co/user/{str(message)}',
       colour = 0x000CFF
     )
 
     # append random into the url to force discord to not pull image from cache
-    embed.set_image(url = f'https://img.anili.st/user/{str(user[0].get("id"))}?{str(random.randint(0, 9999999))}')
+    embed.set_image(url = f'https://img.anili.st/user/{str(user[0]["id"])}?{str(random.randint(0, 9999999))}')
     await ctx.send(embed = embed)
 
 

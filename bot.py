@@ -37,10 +37,9 @@ async def unload(ctx, extension):
   if ctx.author.id != 275065846836101120:
     await ctx.message.add_reaction('👎')
     return
-  
-  else:
-    await ctx.message.add_reaction('👍')
-    bot.unload_extension(f'commands.{extension}')
+
+  await ctx.message.add_reaction('👍')
+  bot.unload_extension(f'commands.{extension}')
 
 # reloads the cogs 
 # ack
@@ -77,10 +76,6 @@ async def reload(ctx, extension = ''):
   else:
     await ctx.message.add_reaction('👍')
     bot.reload_extension(f'commands.{extension}')
-
-
-
-
 
 
 #Load all cogs when bot starts
