@@ -3,6 +3,7 @@
 import discord
 import json
 import requests
+import re
 import asyncio, aiohttp
 
 from emoji import UNICODE_EMOJI
@@ -171,38 +172,28 @@ class anime(commands.Cog):
 
 
       response = requests.post(self.url, json={'query': query, 'variables': variables})
-      #print(response.json())
       response = response.json()
 
-      stuff = response.get('data')
-      page = stuff.get('Page')
-      page = page.get('media')
+      page = response['data']['Page']['media']
       media = page[0]
-      img = media.get('coverImage')
-      img = img.get('large')
 
-      description = media.get('description')
-      description = description.replace('<br>\n', ' ')
-      description = description.replace('<br> ', ' ')
-      description = description[:255]
-      description += '...'
-
-
-      titles = media.get('title')
-      title = titles.get('romaji')
-      title_eng = titles.get('english')
-
-      score = float(media.get('averageScore')) / 10.0
+      info = {
+        'img': media['coverImage']['large'],
+        'description': await self.cleanhtml(media['description']),
+        'title': media['title']['romaji'],
+        'title_eng': media['title']['english'],
+        'score': float(media['averageScore']) / 10.0,
+        'status': 'Finished Airing' if media['status'] is 'FINISHED' else None,
+        'num_ep': media.get('episodes'),
+      }
 
       status = media.get('status')
       if status == 'FINISHED':
         status = 'Finished Airing'
 
-      num_ep = media.get('episodes')
 
       popularity = media.get('popularity')
       rank = media.get('rankings')
-      #print(rank)
 
       try:
         rank = rank[1]
@@ -253,21 +244,21 @@ class anime(commands.Cog):
 
 
       embed = discord.Embed(
-        title = '**' + title + '**',
-        description = title_eng,
+        title = f'**{info["title"]}**',
+        description = info['title_eng'],
         colour = 0x000CFF,
         url = link
       )
 
-      embed.set_thumbnail(url = img)
+      embed.set_thumbnail(url = info['img'])
       embed.add_field(name = 'Status', value = status)
-      embed.add_field(name = 'Number of episodes', value = num_ep)
-      embed.add_field(name = 'Score / Popularity / Rank', value = 'Score: ' + str(score) + ' / Popularity: ' + str(popularity) + ' / Rank: ' + str(rank), inline = False)
+      embed.add_field(name = 'Number of episodes', value = info['num_ep'])
+      embed.add_field(name = 'Score / Popularity / Rank', value = f'Score: {info["score"]} / Popularity: {str(popularity)} / Rank: {str(rank)}', inline = False)
       embed.add_field(name = 'Started Airing', value = start)
       embed.add_field(name = 'Finished Airing', value = end)
-      embed.add_field(name = 'Synopsis', value = description, inline = False)
+      embed.add_field(name = 'Synopsis', value = info['description'], inline = False)
       embed.add_field(name = 'Genres', value = genre, inline = False)
-      embed.set_footer(text = 'Replying to: ' + str(ctx.author) + ' | ' + 'info from Anilist')
+      embed.set_footer(text = f'Replying to: {str(ctx.author)} | info from Anilist')
 
       await ctx.send(embed = embed)
       return
@@ -277,6 +268,10 @@ class anime(commands.Cog):
     async with session.get(url) as response:
       return await response.json()
 
+  async def cleanhtml(self, text):
+    cleanr = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+    cleantext = re.sub(cleanr, '', text)
+    return cleantext
 
 
 
