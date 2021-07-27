@@ -3,11 +3,7 @@
 # is the brains of this whole operation
 
 import os
-import sys
-import random, json
 import discord
-import aiohttp
-import threading
 
 from discord.ext import commands
 
@@ -42,7 +38,6 @@ async def unload(ctx, extension):
   bot.unload_extension(f'commands.{extension}')
 
 # reloads the cogs 
-# ack
 @bot.command()
 async def reload(ctx, extension = ''):
   if ctx.author.id != 275065846836101120:

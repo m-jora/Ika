@@ -30,7 +30,7 @@ class animals(commands.Cog):
     await msg.add_reaction('🐶'); await msg.add_reaction('🐕') # reactions for re-dogging
 
     with open('json/dog.json', 'w+') as f:
-      dogs = {str(msg.id) : 0} # 0 is arbitrary value
+      dogs = {str(ctx.guild.id) : str(msg.id)} # 0 is arbitrary value
       json.dump(dogs, f, indent = 2)
   
     return #returns
@@ -71,7 +71,7 @@ class animals(commands.Cog):
     await msg.add_reaction('🐱') # reaction for re-catting
 
     with open('json/cat.json', 'w+') as f:
-      cats = {str(msg.id) : 0} # 0 is arbitrary value
+      cats = {str(ctx.guild.id) : str(msg.id)} # 0 is arbitrary value
       json.dump(cats, f, indent = 2)
   
     return

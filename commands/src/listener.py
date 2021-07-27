@@ -3,7 +3,7 @@
 
 import json
 import discord
-import asyncio, aiohttp
+import aiohttp
 
 from discord.ext import commands
 
@@ -18,6 +18,10 @@ class listener(commands.Cog):
     channel = reaction.message.channel
 
     #await channel.send(reaction.message.embeds)
+    ###########################################
+    ##### Need to add paging for searchs ######
+    ###########################################
+
     if str(reaction.emoji) == '❌' and reaction.message.author.id == 712416120535253034:
       if len(reaction.message.reactions) < 3:
         return
@@ -28,13 +32,16 @@ class listener(commands.Cog):
       else:
         return
 
+    ###########################################
+    ###### This ^ is for starting paging ######
+    ###########################################
 
-    elif (str(reaction.emoji) == '🐶' or str(reaction.emoji) == '🐕') and reaction.message.author.id == 712416120535253034:
+    elif (str(reaction.emoji) == '🐶' or str(reaction.emoji) == '🐕'):
       if user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '🐶' and reaction.count > 1 and str(reaction.message.reactions[1] == '🐕'):
         with open('json/dog.json', 'r') as f:
           ids = json.load(f)
 
-        id = list(ids.keys())[0]
+        id = ids[str(reaction.message.guild.id)]
 
         message = await channel.fetch_message(int(id))
 
@@ -57,12 +64,12 @@ class listener(commands.Cog):
         await reaction.remove(user)
 
 
-    elif str(reaction.emoji) == '🐱' and reaction.message.author.id == 712416120535253034:
-      if user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '🐱':
+    elif str(reaction.emoji) == '🐱':
+      if user.bot == False and str(reaction.message.reactions[0]) == '🐱':
         with open('json/cat.json', 'r') as f:
           ids = json.load(f)
 
-        id = list(ids.keys())[0]
+        id = ids[str(reaction.message.guild.id)]
 
         message = await channel.fetch_message(int(id))
 
@@ -92,7 +99,6 @@ class listener(commands.Cog):
     async with session.get(url) as response:
       return await response.json()
 
-      
 
 def setup(bot):
   bot.add_cog(listener(bot))
