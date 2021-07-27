@@ -1,12 +1,10 @@
 # anime.py
 # contains the ommands to search for anime in mal or anilist
 import discord
-import json
 import requests
 import re
-import asyncio, aiohttp
+import aiohttp
 
-from emoji import UNICODE_EMOJI
 from jikanpy import AioJikan
 from discord.ext import commands
 
@@ -171,76 +169,60 @@ class anime(commands.Cog):
       }
 
 
-      response = requests.post(self.url, json={'query': query, 'variables': variables})
-      response = response.json()
+      response = requests.post(self.url, json={'query': query, 'variables': variables}).json()
 
-      page = response['data']['Page']['media']
-      media = page[0]
+      media = response['data']['Page']['media'][0]
+
+      ################################################
+      ########## SCORE NEEDS ERROR CATCHING ##########
+      ################################################
 
       info = {
         'img': media['coverImage']['large'],
         'description': await self.cleanhtml(media['description']),
         'title': media['title']['romaji'],
         'title_eng': media['title']['english'],
-        'score': float(media['averageScore']) / 10.0,
-        'status': 'Finished Airing' if media['status'] is 'FINISHED' else None,
-        'num_ep': media.get('episodes'),
+        'score': float(media['averageScore']) / 10.0 if media['averageScore'] != None else '-',
+        'num_ep': media['episodes'] if media['episodes'] != None else '-',
+        'popularity': media['popularity'],
+        'rank': media['rankings'][0]['rank'] if (len(media['rankings']) > 0 and len(media['rankings'][0])) >=1 else 'N/A'
       }
 
-      status = media.get('status')
-      if status == 'FINISHED':
-        status = 'Finished Airing'
+      ###############################################
+      ##### NOT_YET_RELEASED FINISHED RELEASING #####
+      ###############################################
+
+      if media['status'] == 'FINISHED':
+        info['status'] = 'Finished Airing'
+
+      elif media['status'] == 'NOT_YET_RELEASED':
+        info['status'] = 'Not Yet Released'
+
+      elif media['status'] == 'RELEASING':
+        info['status'] = 'Currently Airing'
 
 
-      popularity = media.get('popularity')
-      rank = media.get('rankings')
+      info['start'] = f'{media["startDate"]["month"]}-{media["startDate"]["day"]}-{media["startDate"]["year"]}'
+      info['end'] = f'{media["endDate"]["month"]}-{media["endDate"]["day"]}-{media["endDate"]["year"]}'
 
-      try:
-        rank = rank[1]
-      
-      except IndexError:
-        if len(rank) < 1:
-          rank = 'N/A'
-        
-        else:
-          rank = rank[0]
-
-      if rank is not 'N/A':
-        rank = rank.get('rank')
-      genres = media.get('genres')
+      info['start'] = 'Not Yet Aired' if 'None' in info['start'] else info['start']
+      info['end'] = '-' if info['start'] is 'Not Yet Aired' else (
+        'Currently Airing' if 'Not Yet Aired' != info['start'] and 'None' in info['end'] else info['end'])
+     
 
       genre = ''
-      for x in genres:
-        if x == 'Hentai':
-          await ctx.send('That is not allowed in this channel')
-          return
-
-        if x != genres[-1]:
+      for x in media['genres']:
+        if x != media['genres'][-1]:
           genre += x + ', '
 
         else:
           genre += x
-      
-      date = media.get('startDate')
-      year = date.get('year')
-      month = date.get('month')
-      day = date.get('day')
 
-      start = str(month) + '-' + str(day) + '-' + str(year)
+      if 'Hentai' in genre and not ctx.channel.is_nsfw():
+        await ctx.send('Hentai is not allowed in this channel')
+        return
 
-
-      date = media.get('endDate')
-      year = date.get('year')
-      month = date.get('month')
-      day = date.get('day')
-
-      end = str(month) + '-' + str(day) + '-' + str(year)
-
-
-      id = media.get('id')
-      link = 'https://anilist.co/anime/' + str(id)
-
-
+      link = f'https://anilist.co/anime/{media["id"]}'
 
 
       embed = discord.Embed(
@@ -251,11 +233,11 @@ class anime(commands.Cog):
       )
 
       embed.set_thumbnail(url = info['img'])
-      embed.add_field(name = 'Status', value = status)
+      embed.add_field(name = 'Status', value = info['status'])
       embed.add_field(name = 'Number of episodes', value = info['num_ep'])
-      embed.add_field(name = 'Score / Popularity / Rank', value = f'Score: {info["score"]} / Popularity: {str(popularity)} / Rank: {str(rank)}', inline = False)
-      embed.add_field(name = 'Started Airing', value = start)
-      embed.add_field(name = 'Finished Airing', value = end)
+      embed.add_field(name = 'Score / Popularity / Rank', value = f'Score: {info["score"]} / Popularity: {str(info["popularity"])} / Rank: {str(info["rank"])}', inline = False)
+      embed.add_field(name = 'Started Airing', value = info['start'])
+      embed.add_field(name = 'Finished Airing', value = info['end'])
       embed.add_field(name = 'Synopsis', value = info['description'], inline = False)
       embed.add_field(name = 'Genres', value = genre, inline = False)
       embed.set_footer(text = f'Replying to: {str(ctx.author)} | info from Anilist')
