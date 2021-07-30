@@ -23,7 +23,7 @@ class animals(commands.Cog):
     url = ('https://dog.ceo/api/breeds/image/random' if (message is '') else f'https://dog.ceo/api/breed/{message}/images/random')
     
     async with aiohttp.ClientSession() as session:
-      img = (await self.fetch(session, url)).get('message')
+      img = (await self.fetch(session, url))['message']
 
     embed.set_image(url = img)
     msg = await ctx.fetch_message(int((await ctx.send(embed = embed)).id))
@@ -48,7 +48,7 @@ class animals(commands.Cog):
 
     url = 'https://dog.ceo/api/breed/borzoi/images/random'
     async with aiohttp.ClientSession() as session:
-      img = (await self.fetch(session, url)).get('message')
+      img = (await self.fetch(session, url))['message']
 
     embed.set_image(url = img)
     await ctx.send(embed = embed)
@@ -64,7 +64,7 @@ class animals(commands.Cog):
     url = 'https://api.thecatapi.com/v1/images/search'
  
     async with aiohttp.ClientSession(headers = headers) as session:
-      img = (await self.fetch(session, url))[0].get('url')
+      img = (await self.fetch(session, url))[0]['url']
 
     embed.set_image(url = img)
     msg = await ctx.fetch_message(int((await ctx.send(embed = embed)).id))

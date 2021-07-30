@@ -46,8 +46,6 @@ class listener(commands.Cog):
         message = await channel.fetch_message(int(id))
 
         embed = discord.Embed(
-          title = None,
-          description = None,
           colour = 0xFF00FF
         )
 
@@ -55,12 +53,11 @@ class listener(commands.Cog):
 
         async with aiohttp.ClientSession() as session:
           html = await self.fetch(session, url)
-          img = html.get('message')
+          img = html['message'] #.get('message')
 
         embed.set_image(url = img)
 
         await message.edit(embed = embed)
-
         await reaction.remove(user)
 
 
@@ -74,8 +71,6 @@ class listener(commands.Cog):
         message = await channel.fetch_message(int(id))
 
         embed = discord.Embed(
-          title = None,
-          description = None,
           colour = 0xFF00FF
         )
 
@@ -90,7 +85,6 @@ class listener(commands.Cog):
         embed.set_image(url = img)
 
         await message.edit(embed = embed)
-
         await reaction.remove(user)
 
 
