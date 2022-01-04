@@ -14,7 +14,7 @@ class hlp(commands.Cog):
 
   @commands.command()
   async def help(self, ctx, message = ''):
-    mem = ctx.guild.get_member(712416120535253034)
+    mem = ctx.guild.get_member(705683895055679521)
     name = mem.display_name
     pfp = mem.avatar_url
   
@@ -28,7 +28,7 @@ class hlp(commands.Cog):
 
 
       embed.set_footer(text = f'Replying to: {str(ctx.author)}')
-      embed.set_thumbnail(url = 'https://i.imgur.com/TXtizHw.png')
+      embed.set_thumbnail(url = 'https://i.imgur.com/mqrgVsu.gif')
       embed.set_author(name = name, icon_url = pfp)
       embed.add_field(name = '**ANIME/MANGA**', value = 'Type `m:help anime`', inline = False)
       embed.add_field(name = '**GENERAL**', value = 'Type `m:help general`', inline = False)

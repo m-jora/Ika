@@ -12,9 +12,9 @@ from dotenv import load_dotenv
 intents = discord.Intents(guilds = True, emojis = True, members = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
-TOKEN = os.getenv('BETA_TOKEN') #obtains bot token from .env file
+TOKEN = os.getenv('IKA_TOKEN') #obtains bot token from .env file
 
-bot = commands.Bot(command_prefix = ('m:', 'M:', '<@!712416120535253034> ', '<@!712416120535253034>'), intents = intents)
+bot = commands.Bot(command_prefix = ('m.', 'M.', '<@!705683895055679521> ', '<@!705683895055679521>'), intents = intents)
 bot.remove_command('help')
 
 # loads cogs

@@ -30,7 +30,7 @@ class info(commands.Cog):
     members = sum([len(server.members) for server in servers])
     channel = sum([len(server.channels) for server in servers])
 
-    mem = ctx.guild.get_member(712416120535253034)
+    mem = ctx.guild.get_member(705683895055679521)
 
     embed.set_thumbnail(url =  mem.avatar_url)
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#0002')
