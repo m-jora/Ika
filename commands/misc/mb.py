@@ -3,11 +3,11 @@
 # rip mr.bot
 
 import random
-import discord
+import nextcord
 import json
 
-from discord.ext import commands
-
+from nextcord.ext import commands
+from nextcord import Interaction
 
 class mb(commands.Cog):
 
@@ -51,10 +51,10 @@ class mb(commands.Cog):
     await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')
 
 
-  @commands.command() 
-  async def flip(self, ctx):
+  @nextcord.slash_command(guild_ids=[647960154079232041], force_global=True) 
+  async def flip(self, interaction : Interaction):
     sides = ['heads','tails',]
-    await ctx.send(f'It\'s {random.choice(sides)}')
+    await interaction.response.send_message(f'It\'s {random.choice(sides)}')
 
 
 def setup(bot):

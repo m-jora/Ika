@@ -1,9 +1,9 @@
 # info.py
 # commands that provide info on the user / bot
 
-import discord
+import nextcord
 
-from discord.ext import commands
+from nextcord.ext import commands
 
 class info(commands.Cog):
 
@@ -13,7 +13,7 @@ class info(commands.Cog):
   '''sends info for the bot including number of channels, members, and servers'''
   @commands.command()
   async def botstatus(self, ctx):
-    embed = discord.Embed(
+    embed = nextcord.Embed(
       title = '**Bot Status**',
       colour = 0x09D2FF
     )
@@ -32,7 +32,7 @@ class info(commands.Cog):
 
     mem = ctx.guild.get_member(705683895055679521)
 
-    embed.set_thumbnail(url =  mem.avatar_url)
+    embed.set_thumbnail(url =  mem.display_avatar)
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#0002')
     embed.add_field(name = f'**{mem.display_name} is in:**', value = f'{str(len(servers))} servers')
     embed.add_field(name = f'**{mem.display_name} is watching:**', value = f'{str(members)} users')
@@ -45,12 +45,12 @@ class info(commands.Cog):
   '''server info command'''
   @commands.command(aliases = ['Sherbert-status'])
   async def server(self, ctx):
-    embed = discord.Embed(
+    embed = nextcord.Embed(
       title = f'**{ctx.guild.name}**',
       colour = 0x09D2FF
     )
 
-    embed.set_thumbnail(url = ctx.guild.icon_url)
+    embed.set_thumbnail(url = ctx.guild.icon)
     embed.add_field(name = '**Server Created:**', value = str(ctx.guild.created_at)[:10])
     embed.add_field(name = '**Server Owner:**', value = f'<@{str(ctx.guild.owner_id)}>')
     embed.add_field(name = '**Number of Members:**', value = len(ctx.guild.members))
@@ -64,13 +64,13 @@ class info(commands.Cog):
   '''information about user'''
   @commands.command()
   async def userinfo(self, ctx, user = ''):
-    embed = discord.Embed(
+    embed = nextcord.Embed(
       title = '**User Info**',
       colour = 0x09D2FF
     )
 
     if user is '':
-      embed.set_thumbnail(url = ctx.author.avatar_url)
+      embed.set_thumbnail(url = ctx.author.display_avatar)
       embed.add_field(name = '**DETAILS**', value = f'```asciidoc\n• Username :: {ctx.author.name}#{str(ctx.author.discriminator)}\n• ID       :: {str(ctx.author.id)}\n• Created  :: {str(ctx.author.created_at)[:10]}\n• Joined   :: {str(ctx.author.joined_at)[:10]}```')
       typ = 'Beepboop, I\'m a bot.' if ctx.author.bot else 'I\'m a Human.'
       embed.add_field(name = '**STATUS**', value = f'```asciidoc\n• Type      :: {typ}\n• Presence  :: {str(ctx.author.status)}```', inline = False)
@@ -78,7 +78,7 @@ class info(commands.Cog):
     # if user is passed in
     else:
       mem = ctx.guild.get_member(int(user[3:-1]))
-      embed.set_thumbnail(url = mem.avatar_url)
+      embed.set_thumbnail(url = mem.display_avatar)
       embed.add_field(name = '**DETAILS**', value = f'```asciidoc\n• Username :: {mem.name}#{str(mem.discriminator)}\n• ID       :: {str(mem.id)}\n• Created  :: {str(mem.created_at)[:10]}\n• Joined   :: {str(mem.joined_at)[:10]}```')
       typ = 'Beepboop, I\'m a bot.' if mem.bot else 'I\'m a Human.'
       embed.add_field(name = '**STATUS**', value = f'```asciidoc\n• Type      :: {typ}\n• Presence  :: {str(mem.status)}```', inline = False)
@@ -92,13 +92,13 @@ class info(commands.Cog):
   async def avatar(self, ctx, user = ''):
     mem = ctx.author if (user is '') else ctx.guild.get_member(int(user[3:-1]))
 
-    embed = discord.Embed(
+    embed = nextcord.Embed(
       title = f'{mem.display_name}\'s Avatar',
       colour = 0x09D2FF,
-      url = str(mem.avatar_url)
+      url = str(mem.display_avatar)
     )
 
-    embed.set_image(url = mem.avatar_url)
+    embed.set_image(url = mem.display_avatar)
     await ctx.send(embed = embed)
 
 

@@ -1,6 +1,5 @@
 aiohttp==3.7.2
 dblpy==0.3.4
-discord.py==1.5.1
 emoji==0.6.0
 jikanpy==4.2.2
 python-dotenv==0.14.0

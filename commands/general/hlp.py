@@ -2,7 +2,7 @@
 # cotains custom help command
 
 import json
-import discord
+import nextcord
 
 from discord.ext import commands
 
@@ -16,10 +16,10 @@ class hlp(commands.Cog):
   async def help(self, ctx, message = ''):
     mem = ctx.guild.get_member(705683895055679521)
     name = mem.display_name
-    pfp = mem.avatar_url
+    pfp = mem.display_avatar
   
     if message == '':
-      embed = discord.Embed(
+      embed = nextcord.Embed(
         title = '**COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
@@ -33,13 +33,13 @@ class hlp(commands.Cog):
       embed.add_field(name = '**ANIME/MANGA**', value = 'Type `m:help anime`', inline = False)
       embed.add_field(name = '**GENERAL**', value = 'Type `m:help general`', inline = False)
       embed.add_field(name = '**IMAGES**', value = 'Type `m:help images`', inline = False)
-      embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
+      embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://nextcord.com/invite/xG7HEHu)')
       embed.add_field(name = 'If you like Ika please consider voting!', value = '[Vote](https://top.gg/bot/705683895055679521/vote)')
       await ctx.send(embed = embed)
 
 
     elif message == 'general' or message == 'General':
-      embed = discord.Embed(
+      embed = nextcord.Embed(
         title = '**GENERAL COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
@@ -59,7 +59,7 @@ class hlp(commands.Cog):
 
 
     elif message == 'images' or message == 'Images':
-      embed = discord.Embed(
+      embed = nextcord.Embed(
         title = '**IMAGE COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
@@ -78,7 +78,7 @@ class hlp(commands.Cog):
 
 
     elif message == 'anime':
-      embed = discord.Embed(
+      embed = nextcord.Embed(
         title = '**ANIME/MANGA COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',

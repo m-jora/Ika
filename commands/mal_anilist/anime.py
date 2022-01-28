@@ -1,12 +1,12 @@
 # anime.py
 # contains the ommands to search for anime in mal or anilist
-import discord
+import nextcord
 import requests
 import re
 import aiohttp
 
 from jikanpy import AioJikan
-from discord.ext import commands
+from nextcord.ext import commands
 
 class anime(commands.Cog):
 
@@ -87,7 +87,7 @@ class anime(commands.Cog):
         return
 
 
-      embed = discord.Embed(
+      embed = nextcord.Embed(
         title = f'**{info["title"]}**',
         description = info['author'],
         colour = 0x000CFF,
@@ -225,7 +225,7 @@ class anime(commands.Cog):
       link = f'https://anilist.co/anime/{media["id"]}'
 
 
-      embed = discord.Embed(
+      embed = nextcord.Embed(
         title = f'**{info["title"]}**',
         description = info['title_eng'],
         colour = 0x000CFF,
