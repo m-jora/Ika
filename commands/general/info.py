@@ -4,14 +4,17 @@
 import discord
 
 from discord.ext import commands
+from discord_slash import cog_ext, SlashContext
+from discord_slash.utils.manage_commands import create_choice, create_option
 
 class info(commands.Cog):
 
   def __init__(self, bot):
     self.client = bot
 
+  
   '''sends info for the bot including number of channels, members, and servers'''
-  @commands.command()
+  @cog_ext.cog_slash(name = 'botstatus', description = 'Bot Info', guild_ids = [840366699353866271])
   async def botstatus(self, ctx):
     embed = discord.Embed(
       title = '**Bot Status**',
@@ -43,14 +46,18 @@ class info(commands.Cog):
 
 
   '''server info command'''
-  @commands.command(aliases = ['Sherbert-status'])
+  @cog_ext.cog_slash(
+    name = "Server",
+    description = "Server Stats",
+    guild_ids = [840366699353866271]
+  )
   async def server(self, ctx):
     embed = discord.Embed(
       title = f'**{ctx.guild.name}**',
       colour = 0x09D2FF
     )
 
-    embed.set_thumbnail(url = ctx.guild.icon)
+    embed.set_thumbnail(url = ctx.guild.icon_url)
     embed.add_field(name = '**Server Created:**', value = str(ctx.guild.created_at)[:10])
     embed.add_field(name = '**Server Owner:**', value = f'<@{str(ctx.guild.owner_id)}>')
     embed.add_field(name = '**Number of Members:**', value = len(ctx.guild.members))
@@ -62,26 +69,30 @@ class info(commands.Cog):
 
 
   '''information about user'''
-  @commands.command()
-  async def userinfo(self, ctx, user = ''):
+  @cog_ext.cog_slash(
+    name = "userinfo",
+    description = "Info about selected User",
+    guild_ids = [840366699353866271],
+    options = [
+      create_option(
+        name = "user",
+        description = "pain",
+        required = True, 
+        option_type = 6
+      )
+    ]
+  )
+  async def userinfo(self, ctx, user):
     embed = discord.Embed(
       title = '**User Info**',
       colour = 0x09D2FF
     )
 
-    if user is '':
-      embed.set_thumbnail(url = ctx.author.display_avatar)
-      embed.add_field(name = '**DETAILS**', value = f'```asciidoc\n• Username :: {ctx.author.name}#{str(ctx.author.discriminator)}\n• ID       :: {str(ctx.author.id)}\n• Created  :: {str(ctx.author.created_at)[:10]}\n• Joined   :: {str(ctx.author.joined_at)[:10]}```')
-      typ = 'Beepboop, I\'m a bot.' if ctx.author.bot else 'I\'m a Human.'
-      embed.add_field(name = '**STATUS**', value = f'```asciidoc\n• Type      :: {typ}\n• Presence  :: {str(ctx.author.status)}```', inline = False)
-
-    # if user is passed in
-    else:
-      mem = ctx.guild.get_member(int(user[3:-1]))
-      embed.set_thumbnail(url = mem.display_avatar)
-      embed.add_field(name = '**DETAILS**', value = f'```asciidoc\n• Username :: {mem.name}#{str(mem.discriminator)}\n• ID       :: {str(mem.id)}\n• Created  :: {str(mem.created_at)[:10]}\n• Joined   :: {str(mem.joined_at)[:10]}```')
-      typ = 'Beepboop, I\'m a bot.' if mem.bot else 'I\'m a Human.'
-      embed.add_field(name = '**STATUS**', value = f'```asciidoc\n• Type      :: {typ}\n• Presence  :: {str(mem.status)}```', inline = False)
+    mem = ctx.guild.get_member(int(user.id))
+    embed.set_thumbnail(url = mem.avatar_url)
+    embed.add_field(name = '**DETAILS**', value = f'```asciidoc\n• Username :: {mem.name}#{str(mem.discriminator)}\n• ID       :: {str(mem.id)}\n• Created  :: {str(mem.created_at)[:10]}\n• Joined   :: {str(mem.joined_at)[:10]}```')
+    typ = 'Beepboop, I\'m a bot.' if mem.bot else 'I\'m a Human.'
+    embed.add_field(name = '**STATUS**', value = f'```asciidoc\n• Type      :: {typ}\n• Presence  :: {str(mem.status)}```', inline = False)
 
     embed.set_footer(text = f'Replying to: {str(ctx.author)}')
     await ctx.send(embed = embed)

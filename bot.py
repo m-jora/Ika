@@ -6,6 +6,7 @@ import os
 import discord
 
 from discord.ext import commands
+from discord_slash import SlashCommand, SlashContext
 
 from dotenv import load_dotenv
 
@@ -15,7 +16,12 @@ load_dotenv()
 TOKEN = os.getenv('BETA_TOKEN') #obtains bot token from .env file
 
 bot = commands.Bot(command_prefix = ('m:', 'M.', '<@!705683895055679521> ', '<@!705683895055679521>'), intents = intents)
+slash = SlashCommand(bot, sync_commands = True)
 bot.remove_command('help')
+
+@slash.slash(name = "Ping", description = "Pong")
+async def ping(ctx: SlashContext):
+  await ctx.send("Pong")
 
 # loads cogs
 @bot.command()
