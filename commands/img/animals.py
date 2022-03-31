@@ -1,12 +1,11 @@
 # animals.py
 # handles the animal commands that send random images
 
-import nextcord
+import discord
 import json
 import aiohttp
 
-from nextcord.ext import commands
-from nextcord import Interaction
+from discord.ext import commands
 
 class animals(commands.Cog):
 
@@ -16,9 +15,9 @@ class animals(commands.Cog):
 
   '''Sends random dog pictures by pinging the dog api
   sends them good bois'''
-  @nextcord.slash_command(guild_ids=[647960154079232041], force_global=True)
-  async def dog(self, interaction : Interaction, message = ''):
-    embed = nextcord.Embed(
+  @commands.command(aliases = ['puppy', 'doggo', 'pup', 'pupper', 'hound', 'mutt'])
+  async def dog(self, ctx, message = ''):
+    embed = discord.Embed(
       colour = 0xFF00FF
     )
     url = ('https://dog.ceo/api/breeds/image/random' if (message == '') else f'https://dog.ceo/api/breed/{message}/images/random')
@@ -27,33 +26,35 @@ class animals(commands.Cog):
       img = (await self.fetch(session, url))['message']
 
     embed.set_image(url = img)
-    await interaction.response.send_message(embed = embed)
+    msg = await ctx.fetch_message(int((await ctx.send(embed = embed)).id))
+    await msg.add_reaction('🐶'); await msg.add_reaction('🐕') # reactions for re-dogging
  
     return #returns
 
 
   '''spooky borzoi for kendall'''
-  @nextcord.slash_command(guild_ids=[647960154079232041], force_global=True)
-  async def borz(self, interaction : Interaction):
-    embed = nextcord.Embed(
+  @commands.command()
+  async def borz(self, ctx):
+    embed = discord.Embed(
       colour = 0xFF00FF
     )
+
+    if ctx.author.id == 275719364303519745:
+      await ctx.send('Hi Kendall :)') # Hi kendall
 
     url = 'https://dog.ceo/api/breed/borzoi/images/random'
     async with aiohttp.ClientSession() as session:
       img = (await self.fetch(session, url))['message']
 
-
     embed.set_image(url = img)
-    #await interaction.response.send_message(img)
-    await interaction.response.send_message(embed = embed)
+    await ctx.send(embed = embed)
 
 
 
   '''Sends random cat pictures pinging cat api'''
   @commands.command(aliases = ['kitty', 'kitten'])
   async def cat(self, ctx):
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       colour = 0xFF00FF
     )
     headers = {"Authorization": "api_key=8589f552-4b09-4ffc-8561-cc6ef4e59018"}

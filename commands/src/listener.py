@@ -2,10 +2,10 @@
 # handles all different reaction listeners
 
 import json
-import nextcord
+import discord
 import aiohttp
 
-from nextcord.ext import commands
+from discord.ext import commands
 
 class listener(commands.Cog):
 
@@ -45,7 +45,7 @@ class listener(commands.Cog):
 
         message = await channel.fetch_message(int(id))
 
-        embed = nextcord.Embed(
+        embed = discord.Embed(
           colour = 0xFF00FF
         )
 
@@ -70,7 +70,7 @@ class listener(commands.Cog):
 
         message = await channel.fetch_message(int(id))
 
-        embed = nextcord.Embed(
+        embed = discord.Embed(
           colour = 0xFF00FF
         )
 

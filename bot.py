@@ -3,13 +3,13 @@
 # is the brains of this whole operation
 
 import os
-import nextcord
+import discord
 
-from nextcord.ext import commands
+from discord.ext import commands
 
 from dotenv import load_dotenv
 
-intents = nextcord.Intents(guilds = True, emojis = True, members = True, messages = True, reactions = True, typing = True)
+intents = discord.Intents(guilds = True, emojis = True, members = True, messages = True, reactions = True, typing = True)
 
 load_dotenv()
 TOKEN = os.getenv('BETA_TOKEN') #obtains bot token from .env file

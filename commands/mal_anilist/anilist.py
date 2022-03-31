@@ -1,12 +1,12 @@
 # anilist.py
 # contains anilist  account  commands
 
-import nextcord
+import discord
 import requests
 import sqlite3
 import random
 
-from nextcord.ext import commands
+from discord.ext import commands
 
 class alacc(commands.Cog):
   
@@ -58,7 +58,7 @@ class alacc(commands.Cog):
       await ctx.send('User does not exist')
       return
 
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = f'**{user[0]["name"]}\'s Account**',
       url = f'https://anilist.co/user/{str(message)}',
       colour = 0x000CFF

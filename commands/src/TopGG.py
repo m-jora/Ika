@@ -2,8 +2,8 @@
 # handles updating server count on top.gg
 
 import dbl
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 class TopGG(commands.Cog):
 

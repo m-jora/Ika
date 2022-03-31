@@ -2,10 +2,10 @@
 # event handlers from main
 import random
 import json
-import nextcord
+import discord
 import asyncio
 
-from nextcord.ext import commands
+from discord.ext import commands
 
 class event(commands.Cog):
 
@@ -27,7 +27,7 @@ class event(commands.Cog):
       ]
 
     print(f'{self.client.user} connected')
-    await self.client.change_presence(status = nextcord.Status.online, activity = nextcord.Activity(type = nextcord.ActivityType.watching, name = f'{random.choice(anime)} // m:help'))
+    await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f'{random.choice(anime)} // m:help'))
 
   
 

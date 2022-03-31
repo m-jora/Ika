@@ -1,11 +1,11 @@
 # manga.py
 # contains the commands to search for manga and list manga
-import nextcord
+import discord
 import json
 import asyncio, aiohttp
 
 from jikanpy import AioJikan
-from nextcord.ext import commands
+from discord.ext import commands
 
 class manga(commands.Cog):
   
@@ -72,7 +72,7 @@ class manga(commands.Cog):
         await ctx.send('Hentai is not allowed in this channel')
         return
 
-      embed = nextcord.Embed(
+      embed = discord.Embed(
         title = f'**{info["title"]}**',
         description = info['author'],
         colour = 0x000CFF,

@@ -1,12 +1,12 @@
 # accounts.py
 # contains the account commands for mal and anilist
 
-import nextcord
+import discord
 import sqlite3
 import time
 
 from jikanpy import AioJikan
-from nextcord.ext import commands
+from discord.ext import commands
 
 class malacc(commands.Cog):
 
@@ -56,7 +56,7 @@ class malacc(commands.Cog):
       }
 
 
-      embed = nextcord.Embed(
+      embed = discord.Embed(
         title = '**' + data['username'] + '**',
         colour = 0x000CFF,
         url = data['url']

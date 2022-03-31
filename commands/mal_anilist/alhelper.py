@@ -2,12 +2,12 @@
 # helps with anilist commands
 # i need  help
 
-import nextcord
+import discord
 import sqlite3
 import uuid, requests
 import time, asyncio
 
-from nextcord.ext import commands
+from discord.ext import commands
 
 QUERY = '''
   query ($id: Int, $page: Int, $search: String) {
@@ -63,7 +63,7 @@ class alhelper(commands.Cog):
       await ctx.send(f'You have already verified the account {data}.\nUse m:alremove if you wish to remove this account.')
       return
 
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = '**Account Verification**',
       colour = 0x000CFF
     )
@@ -96,7 +96,7 @@ class alhelper(commands.Cog):
     url = 'https://i.imgur.com/DkuetBb.gif' if done[0] else 'https://i.imgur.com/qSCvqai.gif'
     ret_val = [True, done[1]] if done[0] else [False, '']
     
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = title,
       colour = 0x000CFF
     )

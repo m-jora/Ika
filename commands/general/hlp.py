@@ -2,7 +2,7 @@
 # cotains custom help command
 
 import json
-import nextcord
+import discord
 
 from discord.ext import commands
 
@@ -19,7 +19,7 @@ class hlp(commands.Cog):
     pfp = mem.display_avatar
   
     if message == '':
-      embed = nextcord.Embed(
+      embed = discord.Embed(
         title = '**COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
@@ -33,13 +33,13 @@ class hlp(commands.Cog):
       embed.add_field(name = '**ANIME/MANGA**', value = 'Type `m:help anime`', inline = False)
       embed.add_field(name = '**GENERAL**', value = 'Type `m:help general`', inline = False)
       embed.add_field(name = '**IMAGES**', value = 'Type `m:help images`', inline = False)
-      embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://nextcord.com/invite/xG7HEHu)')
+      embed.add_field(name = 'For any help with Ika join our support server', value = '[Join](https://discord.com/invite/xG7HEHu)')
       embed.add_field(name = 'If you like Ika please consider voting!', value = '[Vote](https://top.gg/bot/705683895055679521/vote)')
       await ctx.send(embed = embed)
 
 
     elif message == 'general' or message == 'General':
-      embed = nextcord.Embed(
+      embed = discord.Embed(
         title = '**GENERAL COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
@@ -59,7 +59,7 @@ class hlp(commands.Cog):
 
 
     elif message == 'images' or message == 'Images':
-      embed = nextcord.Embed(
+      embed = discord.Embed(
         title = '**IMAGE COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',
@@ -78,7 +78,7 @@ class hlp(commands.Cog):
 
 
     elif message == 'anime':
-      embed = nextcord.Embed(
+      embed = discord.Embed(
         title = '**ANIME/MANGA COMMANDS**',
         url = 'https://hheselbarth.gitbook.io/mr-bot/',
         description = ' <> = required arguments, [] = optional.',

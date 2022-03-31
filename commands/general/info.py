@@ -1,9 +1,9 @@
 # info.py
 # commands that provide info on the user / bot
 
-import nextcord
+import discord
 
-from nextcord.ext import commands
+from discord.ext import commands
 
 class info(commands.Cog):
 
@@ -13,7 +13,7 @@ class info(commands.Cog):
   '''sends info for the bot including number of channels, members, and servers'''
   @commands.command()
   async def botstatus(self, ctx):
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = '**Bot Status**',
       colour = 0x09D2FF
     )
@@ -32,7 +32,7 @@ class info(commands.Cog):
 
     mem = ctx.guild.get_member(705683895055679521)
 
-    embed.set_thumbnail(url =  mem.display_avatar)
+    embed.set_thumbnail(url =  mem.avatar_url)
     embed.add_field(name = '**Bot Developer:**', value = 'mJoRa#0002')
     embed.add_field(name = f'**{mem.display_name} is in:**', value = f'{str(len(servers))} servers')
     embed.add_field(name = f'**{mem.display_name} is watching:**', value = f'{str(members)} users')
@@ -45,7 +45,7 @@ class info(commands.Cog):
   '''server info command'''
   @commands.command(aliases = ['Sherbert-status'])
   async def server(self, ctx):
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = f'**{ctx.guild.name}**',
       colour = 0x09D2FF
     )
@@ -64,7 +64,7 @@ class info(commands.Cog):
   '''information about user'''
   @commands.command()
   async def userinfo(self, ctx, user = ''):
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = '**User Info**',
       colour = 0x09D2FF
     )
@@ -92,7 +92,7 @@ class info(commands.Cog):
   async def avatar(self, ctx, user = ''):
     mem = ctx.author if (user is '') else ctx.guild.get_member(int(user[3:-1]))
 
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = f'{mem.display_name}\'s Avatar',
       colour = 0x09D2FF,
       url = str(mem.display_avatar)

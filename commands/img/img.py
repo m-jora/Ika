@@ -3,8 +3,8 @@
 
 import random
 import aiohttp
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 class img(commands.Cog):
 
@@ -14,7 +14,7 @@ class img(commands.Cog):
 
   @commands.command()
   async def inspire(self, ctx):
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       colour = 0xFF00FF
     )  
 
@@ -39,12 +39,12 @@ class img(commands.Cog):
     file = switch.get(do, 'not valid')
 
     if file is not 'not valid':
-      await ctx.send(file = nextcord.File(file))
+      await ctx.send(file = discord.File(file))
 
 
   @commands.command()
   async def kendallisabully(self, ctx):
-    embed = nextcord.Embed(
+    embed = discord.Embed(
       title = 'KENDALL IS A BULLY'
     )
 

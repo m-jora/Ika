@@ -1,11 +1,10 @@
 # me.py
 # commands that were designed only for me or only work for me currently
 
-import nextcord
+import discord
 import random
 
-from nextcord import Interaction
-from nextcord.ext import commands
+from discord.ext import commands
 
 class me(commands.Cog):
 
@@ -13,9 +12,9 @@ class me(commands.Cog):
     self.client = bot
 
 
-  @nextcord.slash_command(guild_ids=[647960154079232041], force_global=True)
-  async def restatus(self, interaction : Interaction):
-    if interaction.user.id == 275065846836101120:
+  @commands.command()
+  async def restatus(self, ctx):
+    if ctx.author.id == 275065846836101120:
       anime = [
         'Steins;Gate','Mirai Nikki',
         'BEASTARS','Kiznaiver',
@@ -27,9 +26,9 @@ class me(commands.Cog):
         'Soul Eater','Danmachi'
       ]
 
-      await interaction.response.send_message('👍')
-      await self.client.change_presence(status = nextcord.Status.online, activity = nextcord.Activity(type = nextcord.ActivityType.watching, name = f'{random.choice(anime)} // m:help'))
-            
+      await ctx.message.add_reaction('👍')
+      await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f'{random.choice(anime)} // m.help'))
+       
 
   @commands.command()
   async def eval(self, ctx, *, msg,):
