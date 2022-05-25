@@ -10,95 +10,103 @@ from discord_slash import SlashCommand, SlashContext
 
 from dotenv import load_dotenv
 
-intents = discord.Intents(guilds = True, emojis = True, members = True, messages = True, reactions = True, typing = True)
+intents = discord.Intents(
+    guilds=True, emojis=True, members=True, messages=True, reactions=True, typing=True
+)
 
 load_dotenv()
-TOKEN = os.getenv('BETA_TOKEN') #obtains bot token from .env file
+TOKEN = os.getenv("BETA_TOKEN")  # obtains bot token from .env file
 
-bot = commands.Bot(command_prefix = ('m:', 'M.', '<@!705683895055679521> ', '<@!705683895055679521>'), intents = intents)
-slash = SlashCommand(bot, sync_commands = True)
-bot.remove_command('help')
+bot = commands.Bot(
+    command_prefix=("m:", "M.", "<@!705683895055679521> ", "<@!705683895055679521>"),
+    intents=intents,
+)
+slash = SlashCommand(bot, sync_commands=True)
+bot.remove_command("help")
 
-@slash.slash(name = "Ping", description = "Pong")
+
+@slash.slash(name="Ping", description="Pong")
 async def ping(ctx: SlashContext):
-  await ctx.send("Pong")
+    await ctx.send("Pong")
+
 
 # loads cogs
 @bot.command()
 async def load(ctx, extension):
-  if ctx.author.id != 275065846836101120:
-    await ctx.message.add_reaction('👎')
-    return
-  else:
-    await ctx.message.add_reaction('👍')
-    bot.load_extension(f'commands.{extension}')
+    if ctx.author.id != 275065846836101120:
+        await ctx.message.add_reaction("👎")
+        return
+    else:
+        await ctx.message.add_reaction("👍")
+        bot.load_extension(f"commands.{extension}")
+
 
 # unloads cogs
 @bot.command()
 async def unload(ctx, extension):
-  if ctx.author.id != 275065846836101120:
-    await ctx.message.add_reaction('👎')
-    return
+    if ctx.author.id != 275065846836101120:
+        await ctx.message.add_reaction("👎")
+        return
 
-  await ctx.message.add_reaction('👍')
-  bot.unload_extension(f'commands.{extension}')
+    await ctx.message.add_reaction("👍")
+    bot.unload_extension(f"commands.{extension}")
 
-# reloads the cogs 
+
+# reloads the cogs
 @bot.command()
-async def reload(ctx, extension = ''):
-  if ctx.author.id != 275065846836101120:
-    await ctx.message.add_reaction('👎')
-    return
-  
-  elif extension == '':
-    for filename in os.listdir('./commands/general'):
-      if filename.endswith('.py'):
-        bot.reload_extension(f'commands.general.{filename[:-3]}')
+async def reload(ctx, extension=""):
+    if ctx.author.id != 275065846836101120:
+        await ctx.message.add_reaction("👎")
+        return
 
-    for filename in os.listdir('./commands/img'):
-      if filename.endswith('.py'):
-        bot.reload_extension(f'commands.img.{filename[:-3]}')
+    elif extension == "":
+        for filename in os.listdir("./commands/general"):
+            if filename.endswith(".py"):
+                bot.reload_extension(f"commands.general.{filename[:-3]}")
 
-    for filename in os.listdir('./commands/mal_anilist'):
-      if filename.endswith('.py'):
-        bot.reload_extension(f'commands.mal_anilist.{filename[:-3]}')
+        for filename in os.listdir("./commands/img"):
+            if filename.endswith(".py"):
+                bot.reload_extension(f"commands.img.{filename[:-3]}")
 
-    for filename in os.listdir('./commands/misc'):
-      if filename.endswith('.py'):
-        bot.reload_extension(f'commands.misc.{filename[:-3]}')
+        for filename in os.listdir("./commands/mal_anilist"):
+            if filename.endswith(".py"):
+                bot.reload_extension(f"commands.mal_anilist.{filename[:-3]}")
 
-    for filename in os.listdir('./commands/src'):
-      if filename.endswith('.py'):
-        bot.reload_extension(f'commands.src.{filename[:-3]}')
+        for filename in os.listdir("./commands/misc"):
+            if filename.endswith(".py"):
+                bot.reload_extension(f"commands.misc.{filename[:-3]}")
 
-    await ctx.message.add_reaction('👍')
+        for filename in os.listdir("./commands/src"):
+            if filename.endswith(".py"):
+                bot.reload_extension(f"commands.src.{filename[:-3]}")
+
+        await ctx.message.add_reaction("👍")
+
+    else:
+        await ctx.message.add_reaction("👍")
+        bot.reload_extension(f"commands.{extension}")
 
 
-  else:
-    await ctx.message.add_reaction('👍')
-    bot.reload_extension(f'commands.{extension}')
+# Load all cogs when bot starts
+for filename in os.listdir("./commands/general"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"commands.general.{filename[:-3]}")
 
+for filename in os.listdir("./commands/img"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"commands.img.{filename[:-3]}")
 
-#Load all cogs when bot starts
-for filename in os.listdir('./commands/general'):
-  if filename.endswith('.py'):
-    bot.load_extension(f'commands.general.{filename[:-3]}')
+for filename in os.listdir("./commands/mal_anilist"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"commands.mal_anilist.{filename[:-3]}")
 
-for filename in os.listdir('./commands/img'):
-  if filename.endswith('.py'):
-    bot.load_extension(f'commands.img.{filename[:-3]}')
+for filename in os.listdir("./commands/misc"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"commands.misc.{filename[:-3]}")
 
-for filename in os.listdir('./commands/mal_anilist'):
-  if filename.endswith('.py'):
-    bot.load_extension(f'commands.mal_anilist.{filename[:-3]}')
-
-for filename in os.listdir('./commands/misc'):
-  if filename.endswith('.py'):
-    bot.load_extension(f'commands.misc.{filename[:-3]}')
-
-for filename in os.listdir('./commands/src'):
-  if filename.endswith('.py'):
-    bot.load_extension(f'commands.src.{filename[:-3]}')
+for filename in os.listdir("./commands/src"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"commands.src.{filename[:-3]}")
 
 
 bot.run(TOKEN)

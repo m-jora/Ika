@@ -7,94 +7,121 @@ import asyncio, aiohttp
 from jikanpy import AioJikan
 from discord.ext import commands
 
+
 class manga(commands.Cog):
-  
-  def __init__(self, bot):
-    self.client = bot
+    def __init__(self, bot):
+        self.client = bot
 
-  @commands.command()
-  async def manga(self, ctx, *, message):
-    aio_jikan = AioJikan()
-    
-    if message == '':
-      await ctx.send('`You need to enter a manga name`')
-      return
+    @commands.command()
+    async def manga(self, ctx, *, message):
+        aio_jikan = AioJikan()
 
-    async with ctx.channel.typing():
+        if message == "":
+            await ctx.send("`You need to enter a manga name`")
+            return
 
-      results = await aio_jikan.search('manga', message)
-      info = results['results']
+        async with ctx.channel.typing():
 
-      if info == []:
-        await ctx.send('No results found')
-        return
+            results = await aio_jikan.search("manga", message)
+            info = results["results"]
 
-      show = info[0]['mal_id']
-  
-      url = 'https://api.jikan.moe/v3/manga/' + str(show)
-      async with aiohttp.ClientSession() as session:
-        data = await self.fetch(session, url)
+            if info == []:
+                await ctx.send("No results found")
+                return
 
-      info = {
-        'title': data['title'],
-        'show': show,
-        'img': data['image_url'],
-        'chapters': (data['chapters'] if (data['chapters'] is not None) else 'Currently Publishing'),
-        'status': data['status'],
-        'score': data['score'],
-        'rank': data['rank'],
-        'pop': data['popularity'],
-        'genres': 'update later',
-        'from': data['published']['prop']['from'],
-        'to': data['published']['prop']['to'],
-        'link': data['url'],
-        'author': data['title_english'] if data['title_english'] is not None else '',
-        'description': data['synopsis'] if data['synopsis'] is not None else 'No Synopsis Found',
-        'genres': data['genres']
-      }
+            show = info[0]["mal_id"]
 
-      info['start'] = f'{info["from"]["month"]}-{info["from"]["day"]}-{info["from"]["year"]}'
-      info['end'] = f'{info["to"]["month"]}-{info["to"]["day"]}-{info["to"]["year"]}'
-      
-      info['start'] = 'Not Yet Published' if 'None' in info['start'] else info['start']
-      info['end'] = '-' if info['start'] is 'Not Yet Published' and 'None' in info['end'] else (
-        'Currently Publishing' if 'Not Yet Published' != info['start'] and 'None' in info['end'] else info['end'])
+            url = "https://api.jikan.moe/v3/manga/" + str(show)
+            async with aiohttp.ClientSession() as session:
+                data = await self.fetch(session, url)
 
-      genre = ''
-      for x in info['genres']:
-        if x != info['genres'][len(info['genres']) - 1]:
-          genre += f'{x["name"]}, '
+            info = {
+                "title": data["title"],
+                "show": show,
+                "img": data["image_url"],
+                "chapters": (
+                    data["chapters"]
+                    if (data["chapters"] is not None)
+                    else "Currently Publishing"
+                ),
+                "status": data["status"],
+                "score": data["score"],
+                "rank": data["rank"],
+                "pop": data["popularity"],
+                "genres": "update later",
+                "from": data["published"]["prop"]["from"],
+                "to": data["published"]["prop"]["to"],
+                "link": data["url"],
+                "author": data["title_english"]
+                if data["title_english"] is not None
+                else "",
+                "description": data["synopsis"]
+                if data["synopsis"] is not None
+                else "No Synopsis Found",
+                "genres": data["genres"],
+            }
 
-        else:
-          genre += x['name']
+            info[
+                "start"
+            ] = f'{info["from"]["month"]}-{info["from"]["day"]}-{info["from"]["year"]}'
+            info[
+                "end"
+            ] = f'{info["to"]["month"]}-{info["to"]["day"]}-{info["to"]["year"]}'
 
-      if 'Hentai' in genre and not ctx.channel.is_nsfw():
-        await ctx.send('Hentai is not allowed in this channel')
-        return
+            info["start"] = (
+                "Not Yet Published" if "None" in info["start"] else info["start"]
+            )
+            info["end"] = (
+                "-"
+                if info["start"] is "Not Yet Published" and "None" in info["end"]
+                else (
+                    "Currently Publishing"
+                    if "Not Yet Published" != info["start"] and "None" in info["end"]
+                    else info["end"]
+                )
+            )
 
-      embed = discord.Embed(
-        title = f'**{info["title"]}**',
-        description = info['author'],
-        colour = 0x000CFF,
-        url = info['link']
-      )
+            genre = ""
+            for x in info["genres"]:
+                if x != info["genres"][len(info["genres"]) - 1]:
+                    genre += f'{x["name"]}, '
 
-      embed.set_thumbnail(url = info['img'])
-      embed.add_field(name = 'Status', value = info['status'])
-      embed.add_field(name = 'Number of Chapters', value = str(info['chapters']))
-      embed.add_field(name = 'Score / Popularity / Rank', value = f'Score: {str(info["score"])} / Popularity: {str(info["pop"])} / Rank: {str(info["rank"])}', inline = False)
-      embed.add_field(name = 'Started Publishing', value = info['start'])
-      embed.add_field(name = 'Finished Publishing', value = info['end'])
-      embed.add_field(name = 'Synopsis', value = f'{info["description"][:252]}...', inline = False)
-      embed.add_field(name = 'Genres', value = genre, inline = False)
+                else:
+                    genre += x["name"]
 
-      await aio_jikan.close()
-      await ctx.send(embed = embed)
+            if "Hentai" in genre and not ctx.channel.is_nsfw():
+                await ctx.send("Hentai is not allowed in this channel")
+                return
 
+            embed = discord.Embed(
+                title=f'**{info["title"]}**',
+                description=info["author"],
+                colour=0x000CFF,
+                url=info["link"],
+            )
 
-  async def fetch(self, session, url):
-    async with session.get(url) as response:
-      return await response.json()
+            embed.set_thumbnail(url=info["img"])
+            embed.add_field(name="Status", value=info["status"])
+            embed.add_field(name="Number of Chapters", value=str(info["chapters"]))
+            embed.add_field(
+                name="Score / Popularity / Rank",
+                value=f'Score: {str(info["score"])} / Popularity: {str(info["pop"])} / Rank: {str(info["rank"])}',
+                inline=False,
+            )
+            embed.add_field(name="Started Publishing", value=info["start"])
+            embed.add_field(name="Finished Publishing", value=info["end"])
+            embed.add_field(
+                name="Synopsis", value=f'{info["description"][:252]}...', inline=False
+            )
+            embed.add_field(name="Genres", value=genre, inline=False)
+
+            await aio_jikan.close()
+            await ctx.send(embed=embed)
+
+    async def fetch(self, session, url):
+        async with session.get(url) as response:
+            return await response.json()
+
 
 def setup(bot):
-  bot.add_cog(manga(bot))
+    bot.add_cog(manga(bot))

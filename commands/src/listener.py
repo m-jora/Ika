@@ -7,92 +7,100 @@ import aiohttp
 
 from discord.ext import commands
 
+
 class listener(commands.Cog):
+    def __init__(self, bot):
+        self.client = bot
 
-  def __init__(self, bot):
-    self.client = bot
+    # reaction for removing embed
+    @commands.Cog.listener()
+    async def on_reaction_add(self, reaction, user):
+        channel = reaction.message.channel
 
-  #reaction for removing embed
-  @commands.Cog.listener()
-  async def on_reaction_add(self, reaction, user):
-    channel = reaction.message.channel
+        # await channel.send(reaction.message.embeds)
+        ###########################################
+        ##### Need to add paging for searchs ######
+        ###########################################
 
-    #await channel.send(reaction.message.embeds)
-    ###########################################
-    ##### Need to add paging for searchs ######
-    ###########################################
+        if (
+            str(reaction.emoji) == "❌"
+            and reaction.message.author.id == 712416120535253034
+        ):
+            if len(reaction.message.reactions) < 3:
+                return
 
-    if str(reaction.emoji) == '❌' and reaction.message.author.id == 712416120535253034:
-      if len(reaction.message.reactions) < 3:
-        return
+            elif (
+                user.id != 712416120535253034
+                and str(reaction.message.reactions[0]) == "⬅️"
+                and str(reaction.message.reactions[1]) == "❌"
+                and str(reaction.message.reactions[2]) == "➡️"
+            ):
+                # await reaction.message.edit(delete_after = 0)
+                await reaction.remove(user)
+            else:
+                return
 
-      elif user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '⬅️' and str(reaction.message.reactions[1]) == '❌' and str(reaction.message.reactions[2]) == '➡️':
-        #await reaction.message.edit(delete_after = 0)
-        await reaction.remove(user)
-      else:
-        return
+        ###########################################
+        ###### This ^ is for starting paging ######
+        ###########################################
 
-    ###########################################
-    ###### This ^ is for starting paging ######
-    ###########################################
+        elif str(reaction.emoji) == "🐶" or str(reaction.emoji) == "🐕":
+            if (
+                user.id != 712416120535253034
+                and str(reaction.message.reactions[0]) == "🐶"
+                and reaction.count > 1
+                and str(reaction.message.reactions[1] == "🐕")
+            ):
+                with open("json/dog.json", "r") as f:
+                    ids = json.load(f)
 
-    elif (str(reaction.emoji) == '🐶' or str(reaction.emoji) == '🐕'):
-      if user.id != 712416120535253034 and str(reaction.message.reactions[0]) == '🐶' and reaction.count > 1 and str(reaction.message.reactions[1] == '🐕'):
-        with open('json/dog.json', 'r') as f:
-          ids = json.load(f)
+                id = ids[str(reaction.message.guild.id)]
 
-        id = ids[str(reaction.message.guild.id)]
+                message = await channel.fetch_message(int(id))
 
-        message = await channel.fetch_message(int(id))
+                embed = discord.Embed(colour=0xFF00FF)
 
-        embed = discord.Embed(
-          colour = 0xFF00FF
-        )
+                url = "https://dog.ceo/api/breeds/image/random"
 
-        url = 'https://dog.ceo/api/breeds/image/random'
+                async with aiohttp.ClientSession() as session:
+                    html = await self.fetch(session, url)
+                    img = html["message"]  # .get('message')
 
-        async with aiohttp.ClientSession() as session:
-          html = await self.fetch(session, url)
-          img = html['message'] #.get('message')
+                embed.set_image(url=img)
 
-        embed.set_image(url = img)
+                await message.edit(embed=embed)
+                await reaction.remove(user)
 
-        await message.edit(embed = embed)
-        await reaction.remove(user)
+        elif str(reaction.emoji) == "🐱":
+            if user.bot == False and str(reaction.message.reactions[0]) == "🐱":
+                with open("json/cat.json", "r") as f:
+                    ids = json.load(f)
 
+                id = ids[str(reaction.message.guild.id)]
 
-    elif str(reaction.emoji) == '🐱':
-      if user.bot == False and str(reaction.message.reactions[0]) == '🐱':
-        with open('json/cat.json', 'r') as f:
-          ids = json.load(f)
+                message = await channel.fetch_message(int(id))
 
-        id = ids[str(reaction.message.guild.id)]
+                embed = discord.Embed(colour=0xFF00FF)
 
-        message = await channel.fetch_message(int(id))
+                headers = {
+                    "Authorization": "api_key=8589f552-4b09-4ffc-8561-cc6ef4e59018"
+                }
 
-        embed = discord.Embed(
-          colour = 0xFF00FF
-        )
+                url = "https://api.thecatapi.com/v1/images/search"
 
-        headers = {"Authorization": "api_key=8589f552-4b09-4ffc-8561-cc6ef4e59018"}
+                async with aiohttp.ClientSession(headers=headers) as session:
+                    html = await self.fetch(session, url)
+                    img = (html[0]).get("url")
 
-        url = 'https://api.thecatapi.com/v1/images/search'
+                embed.set_image(url=img)
 
-        async with aiohttp.ClientSession(headers = headers) as session:
-          html = await self.fetch(session, url)
-          img = (html[0]).get('url')
+                await message.edit(embed=embed)
+                await reaction.remove(user)
 
-        embed.set_image(url = img)
-
-        await message.edit(embed = embed)
-        await reaction.remove(user)
-
-
-
-  async def fetch(self, session, url):
-    async with session.get(url) as response:
-      return await response.json()
+    async def fetch(self, session, url):
+        async with session.get(url) as response:
+            return await response.json()
 
 
 def setup(bot):
-  bot.add_cog(listener(bot))
+    bot.add_cog(listener(bot))
