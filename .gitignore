@@ -1,5 +1,6 @@
 .vscode
 .env
+config.json
 __pycache__
 node_modules/
 package-lock.json

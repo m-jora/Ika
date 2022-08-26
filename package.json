@@ -2,7 +2,7 @@
   "name": "ika",
   "version": "1.0.0",
   "description": "<h1 align = \"center\">   <br>   <a href = \"https://github.com/m-jora/Ika\"><img src = \"https://i.imgur.com/oF1Yd7Am.jpg\" alt = \"Ika Discord Bot\"></a>   <br>   Ika Discord Bot </h1>",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/m-jora/Ika#readme",
   "dependencies": {
-    "discord.js": "^14.3.0"
+    "@discordjs/rest": "^1.1.0",
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.1"
   },
   "devDependencies": {
     "eslint": "^8.22.0"
