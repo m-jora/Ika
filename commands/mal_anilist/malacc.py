@@ -90,7 +90,7 @@ class malacc(commands.Cog):
     if data != []:
       return data[0][0]
 
-    await ctx.send('**Run m:malset <mal username>**')
+    await ctx.send('**Run m.malset <mal username>**')
     return ''
 
 

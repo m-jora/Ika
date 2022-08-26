@@ -28,7 +28,7 @@ class alacc(commands.Cog):
       db = (True if (message is not '') else False)
       
       if message is '':
-        await ctx.send('Run m:alset <anilist username> to link anilist account')
+        await ctx.send('Run m.alset <anilist username> to link anilist account')
         return
 
     if message[:2] == '<@' and message[-1] == '>':

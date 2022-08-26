@@ -60,7 +60,7 @@ class alhelper(commands.Cog):
       data = cur.fetchall()[0][0]
       conn.close()
 
-      await ctx.send(f'You have already verified the account {data}.\nUse m:alremove if you wish to remove this account.')
+      await ctx.send(f'You have already verified the account {data}.\nUse m.alremove if you wish to remove this account.')
       return
 
     embed = discord.Embed(
