@@ -27,7 +27,7 @@ class event(commands.Cog):
       ]
 
     print(f'{self.client.user} connected')
-    await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f'{random.choice(anime)} // m:help'))
+    await self.client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f'{random.choice(anime)} // m.help'))
 
   
 

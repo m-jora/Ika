@@ -45,7 +45,7 @@ class mb(commands.Cog):
     ]
 
     if question == '':
-      await ctx.send('Ask me a question by typing m:8ball <question>')
+      await ctx.send('Ask me a question by typing m.8ball <question>')
       return
 
     await ctx.send(f'Question: {question} \nAnswer: {random.choice(responses)}')

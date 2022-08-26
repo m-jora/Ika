@@ -72,9 +72,7 @@ class alhelper(commands.Cog):
     instructions = '''Within 4 minutes complete the following instructions.
                       • Navigate to [Anilist](https://anilist.co).
                       • Click on settings in the drop down menu in the upper right corner.
-                      • Paste the given key into the about box then hit the save button.
-                      • If the save button does not appear try getting rid of the blank line under it.
-                      • Wait until you see Ika has informed you that the verification was successful, you are free to remove the key at this point.'''
+                      • Paste the given key into the about box then hit the save button. If the save button does not appear try getting rid of the blank line under it.'''
           
     embed.set_thumbnail(url = 'https://i.imgur.com/0CibkbN.gif')
     embed.add_field(name = 'Key', value = new_key, inline = False)
@@ -103,6 +101,8 @@ class alhelper(commands.Cog):
 
     embed.set_image(url = url)
     await msg.edit(embed = embed)
+
+    await channel.send("After completeing these steps you are free to remove the key from your account.")
     return ret_val
 
 
